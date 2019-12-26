@@ -1,0 +1,45 @@
+﻿<Window x:Class="BLM.Views.MainView"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Ferver Ledesma Corporation" Width="1280" Height="720" Background="#FFEEEEEE" WindowState="Maximized" FontSize="16" FontFamily="Roboto" Foreground="White">
+    <Window.Resources>
+        <SolidColorBrush x:Key="buttonColor" Color="#FF29506D" />
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Background="#FF00171F" Margin="0">
+            <Grid Height="115">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="/BLM;component/Resources/logo.jpg" />
+            </Grid>
+            <StackPanel>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="28">Fervar-Ledesma</TextBlock>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="28">Corporation</TextBlock>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="12" x:Name="display" Text="{Binding displayName}"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <Button  Foreground="White" x:Name="InventoryButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0">Inventory</Button>
+                <Button  Foreground="White" x:Name="EncodingButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0,0,0,0">Encoding</Button>
+                <Button  Foreground="White" x:Name="CreateReceivingOrderButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="25,0,0,0">Create Receiving Order</Button>
+                <Button  Foreground="White" x:Name="CreateDepartingOrderButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="25,0,0,0">Create Departing Order</Button>
+                <Button  Foreground="White" x:Name="LoggingButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0">Logging</Button>
+                <Button  Foreground="White" x:Name="ReceivingButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Content="Receiving" Click="ReceivingButton_Click" Margin="25,0,0,0" />
+                <Button  Foreground="White" x:Name="DepartureButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Content="Departure" Margin="25,0,0,0" />
+                <Button  Foreground="White" x:Name="Production" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0">Production</Button>
+                <Button  Foreground="White" x:Name="RawMatButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Content="Raw Materials" Click="RawMatButton_Click" Margin="25,0,0,0" />
+                <Button  Foreground="White" x:Name="FinishProductButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Content="Finish Product" Margin="25,0,0,0" />
+                <Button  Foreground="White" x:Name="ReturnsButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0">Returns</Button>
+                <Button  Foreground="White" x:Name="HistoryButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Content="History" Click="HistoryButton_Click" Margin="0" />
+                <Button  Foreground="White" x:Name="LogoutButton" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Left" Padding="5" FontSize="20" Margin="0">Logout</Button>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <ContentControl x:Name="ActiveItem" Foreground="{x:Null}" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</Window>

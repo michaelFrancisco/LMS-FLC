@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="BLM.Views.Logging.SelectDepartingOrderView"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BLM.Views.Logging"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        d:DesignHeight="720" d:DesignWidth="1020"  FontSize="16" FontFamily="Roboto">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid Background="#FF003459" Grid.Column="0"/>
+        <Grid Background="#FF003459" Grid.Column="1">
+            <Label Content="Select Receiving Order" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" FontSize="32" VerticalContentAlignment="Center" Foreground="White" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+            <Label>Please select which RECEIVING ORDER you wish to PROCESS by double clicking on the specific item on the table below.</Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="550" Margin="5"/>
+                <ComboBox Width="250" Margin="5"/>
+                <Button Width="100" Margin="5" Background="#FF00A8E8" Foreground="White">Search</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Background="#FF003459" Grid.Column="2"/>
+        <DataGrid x:Name="ordersGrid" Grid.Column="1" Grid.Row="3" Margin="10" ColumnWidth="Auto" ItemsSource="{Binding ordersGridSource}" cal:Message.Attach="[Event MouseDoubleClick] = [Action showReceivingView]" IsReadOnly="True" SelectedItem="{Binding ordersGridSelectedItem}"/>
+    </Grid>
+    </UserControl>

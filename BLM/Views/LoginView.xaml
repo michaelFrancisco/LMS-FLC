@@ -1,0 +1,31 @@
+﻿<Window x:Class="BLM.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Login" Width="1280" Height="720" WindowState="Maximized" FontSize="16" Background="#FF071E3D" FontFamily="Roboto">
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Password" HorizontalAlignment="Right" Margin="1" VerticalAlignment="Center" Foreground="White" RenderTransformOrigin="0.577,0.115" Grid.Row="3"/>
+            <Label Content="Username" HorizontalAlignment="Right" Margin="1" VerticalAlignment="Center" Foreground="White" Grid.Row="2"/>
+            <TextBox x:Name="username" HorizontalAlignment="Left" Height="30" Margin="1" TextWrapping="Wrap" Width="200" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" BorderBrush="#FF1F4287"/>
+            <TextBox x:Name="password" HorizontalAlignment="Left" Margin="1" Width="200" Height="30" Grid.Column="1" Grid.Row="3" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" BorderBrush="#FF1F4287"/>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                <Button x:Name="login" Content="Login" Background="{x:Null}" Foreground="White" BorderBrush="#FF1F4287" Height="23" IsDefault="True"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
