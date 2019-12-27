@@ -73,48 +73,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Connection.cs" />
-    <Compile Include="ViewModels\CreateOrder\CreateDepartingOrderViewModel.cs" />
-    <Compile Include="ViewModels\CreateOrder\CreateReceivingOrderViewModel.cs" />
-    <Compile Include="ViewModels\Inventory\InventoryViewModel.cs" />
-    <Compile Include="ViewModels\Logging\DepartureViewModel.cs" />
-    <Compile Include="ViewModels\Logging\SelectDepartingOrderViewModel.cs" />
-    <Compile Include="ViewModels\Logging\SelectReceivingOrderViewModel.cs" />
-    <Compile Include="ViewModels\Production\FinishproductViewModel.cs" />
-    <Compile Include="ViewModels\Logging\HistoryViewModel.cs" />
-    <Compile Include="ViewModels\Production\RawmaterialsViewModel.cs" />
-    <Compile Include="ViewModels\Logging\ReceivingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\CreateOrder\CreateDepartingOrderView.xaml.cs">
-      <DependentUpon>CreateDepartingOrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateOrder\CreateReceivingOrderView.xaml.cs">
-      <DependentUpon>CreateReceivingOrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Inventory\InventoryView.xaml.cs">
-      <DependentUpon>InventoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logging\DepartureView.xaml.cs">
-      <DependentUpon>DepartureView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logging\SelectDepartingOrderView.xaml.cs">
-      <DependentUpon>SelectDepartingOrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logging\SelectReceivingOrderView.xaml.cs">
-      <DependentUpon>SelectReceivingOrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Production\FinishproductView.xaml.cs">
-      <DependentUpon>FinishproductView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logging\HistoryView.xaml.cs">
-      <DependentUpon>HistoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Production\RawmaterialsView.xaml.cs">
-      <DependentUpon>RawmaterialsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Logging\ReceivingView.xaml.cs">
-      <DependentUpon>ReceivingView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -151,49 +111,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\logo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\CreateOrder\CreateDepartingOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CreateOrder\CreateReceivingOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Inventory\InventoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Logging\DepartureView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Logging\SelectDepartingOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Logging\SelectReceivingOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Production\FinishproductView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Logging\HistoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Production\RawmaterialsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Logging\ReceivingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,20 +121,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\k6ofa6ec.bmp" />
+    <Folder Include="Resources\" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\9ca97s71.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\k2x9f56c.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\70wvx060.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-warehouse-64%281%29.png" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

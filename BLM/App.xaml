@@ -9,6 +9,9 @@
                     <local:Bootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="3">#FF003459</Color>
+            <Color x:Key="2">#FF00171F</Color>
+            <Color x:Key="1">#FF007EA7</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

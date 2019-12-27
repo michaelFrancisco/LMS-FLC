@@ -1,14 +1,9 @@
 ﻿using BLM.Models;
 using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLM.ViewModels
 {
-    class LoginViewModel : Screen
+    internal class LoginViewModel : Screen
     {
         private string _username;
         private string _password;
