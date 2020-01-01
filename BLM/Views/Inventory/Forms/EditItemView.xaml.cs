@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BLM.Views
+namespace BLM.Views.Inventory.Forms
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for EditItemView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class EditItemView : Window
     {
-        public MainView()
+        public EditItemView()
         {
             InitializeComponent();
         }

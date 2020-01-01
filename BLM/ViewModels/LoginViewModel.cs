@@ -1,5 +1,6 @@
 ﻿using BLM.Models;
 using Caliburn.Micro;
+using System.Data;
 
 namespace BLM.ViewModels
 {
@@ -7,7 +8,7 @@ namespace BLM.ViewModels
     {
         private string _username;
         private string _password;
-        private IWindowManager windowManager = new WindowManager();
+        private readonly IWindowManager windowManager = new WindowManager();
 
         public string username
         {
@@ -25,9 +26,17 @@ namespace BLM.ViewModels
         {
             if (Connection.verifyLogin(_username, _password))
             {
+                getUserCredentials();
                 windowManager.ShowWindow(new MainViewModel(), null, null);
                 TryClose();
             }
+        }
+
+        public void getUserCredentials()
+        {
+            DataTable dt = Connection.dbTable("select Name, User_Level from users where Username = '" + _username + "' AND Password = '" + _password + "';");
+            CurrentUser.name = dt.Rows[0][0].ToString();
+            CurrentUser.user_level = dt.Rows[0][1].ToString();
         }
     }
 }

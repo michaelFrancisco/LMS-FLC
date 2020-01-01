@@ -1,8 +1,116 @@
-﻿using Caliburn.Micro;
+﻿using BLM.ViewModels.Inventory;
+using Caliburn.Micro;
+using System.Windows.Media;
 
 namespace BLM.ViewModels
 {
     internal class MainViewModel : Conductor<Screen>
     {
+        private Brush _brushDashboard;
+        private Brush _brushInventory;
+        private Brush _brushLogs;
+        private Brush _brushOrders;
+        private Brush _brushProduction;
+        private Brush _brushScale;
+        private Brush _brushShipments;
+        private Brush _brushTracking;
+
+        public Brush brushDashboard
+        {
+            get { return _brushDashboard; }
+            set { _brushDashboard = value; }
+        }
+
+        public Brush brushInventory
+        {
+            get { return _brushInventory; }
+            set { _brushInventory = value; }
+        }
+
+        public Brush brushLogs
+        {
+            get { return _brushLogs; }
+            set { _brushLogs = value; }
+        }
+
+        public Brush brushOrders
+        {
+            get { return _brushOrders; }
+            set { _brushOrders = value; }
+        }
+
+        public Brush brushProduction
+        {
+            get { return _brushProduction; }
+            set { _brushProduction = value; }
+        }
+
+        public Brush brushScale
+        {
+            get { return _brushScale; }
+            set { _brushScale = value; }
+        }
+
+        public Brush brushShipments
+        {
+            get { return _brushShipments; }
+            set { _brushShipments = value; }
+        }
+
+        public Brush brushTracking
+        {
+            get { return _brushTracking; }
+            set { _brushTracking = value; }
+        }
+
+        public void btnDashboard()
+        {
+        }
+
+        public void btnInventory()
+        {
+            ActivateItem(new InventoryViewModel());
+        }
+
+        public void btnLogout()
+        {
+        }
+
+        public void btnLogs()
+        {
+        }
+
+        public void btnOrders()
+        {
+        }
+
+        public void btnProduction()
+        {
+        }
+
+        public void btnScale()
+        {
+        }
+
+        public void btnShipments()
+        {
+        }
+
+        public void btnTracking()
+        {
+        }
+
+        public void clearColors()
+        {
+            _brushDashboard = null;
+            _brushInventory = null;
+            _brushLogs = null;
+            _brushOrders = null;
+            _brushProduction = null;
+            _brushScale = null;
+            _brushShipments = null;
+            _brushTracking = null;
+            NotifyOfPropertyChange(null);
+        }
     }
 }

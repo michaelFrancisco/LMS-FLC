@@ -1,5 +1,4 @@
 ﻿using BLM.ViewModels;
-using BLM.ViewModels.Logging;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace BLM
         
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<MainViewModel>();
+            DisplayRootViewFor<LoginViewModel>();
         }
     }
 

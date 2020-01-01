@@ -73,8 +73,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\CurrentUser.cs" />
+    <Compile Include="ViewModels\Inventory\Forms\EditItemViewModel.cs" />
+    <Compile Include="ViewModels\Inventory\Forms\NewItemViewModel.cs" />
+    <Compile Include="ViewModels\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\Inventory\Forms\EditItemView.xaml.cs">
+      <DependentUpon>EditItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventory\Forms\NewItemView.xaml.cs">
+      <DependentUpon>NewItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventory\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -111,6 +124,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Inventory\Forms\EditItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventory\Forms\NewItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventory\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,7 +146,65 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Resource Include="Resources\Icons\icons8-dashboard-64.png" />
+    <Resource Include="Resources\Icons\icons8-empty-box-64.png" />
+    <Resource Include="Resources\Icons\icons8-factory-100.png" />
+    <Resource Include="Resources\Icons\icons8-in-inventory-64.png" />
+    <Resource Include="Resources\Icons\icons8-in-transit-100.png" />
+    <Resource Include="Resources\Icons\icons8-purchase-order-100.png" />
+    <Resource Include="Resources\Icons\icons8-scale-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-notification-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-logout-rounded-left-100%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-chat-messages-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-user-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-login-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-log-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-commodity-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-packaging-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-checked-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-edit-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-save-400.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-cancel-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-show-property-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-create-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-export-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-refresh-104.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Shipments\" />
+    <Folder Include="Views\Shipments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
