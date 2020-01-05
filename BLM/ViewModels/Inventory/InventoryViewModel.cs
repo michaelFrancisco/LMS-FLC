@@ -2,6 +2,7 @@
 using BLM.ViewModels.Inventory.Forms;
 using Caliburn.Micro;
 using System;
+using System.ComponentModel;
 using System.Data;
 
 namespace BLM.ViewModels.Inventory
@@ -14,6 +15,22 @@ namespace BLM.ViewModels.Inventory
         private DataTable _inventoryGridSource;
 
         private string _selectedCategory;
+
+        private string _txtSearch;
+
+        public string txtSearch
+        {
+            get { return _txtSearch; }
+            set 
+            {
+                _txtSearch = value;
+                DataView dv = new DataView(_inventoryGridSource);
+                dv.RowFilter = "Name LIKE '%" + _txtSearch + "%'";
+                _inventoryGridSource = dv.ToTable();
+                NotifyOfPropertyChange(null);
+            }
+        }
+
 
         public object inventoryGridSelectedItem
         {
@@ -88,6 +105,8 @@ namespace BLM.ViewModels.Inventory
                     NotifyOfPropertyChange(null);
                     break;
             }
+            _txtSearch = string.Empty;
+            NotifyOfPropertyChange(null);
         }
 
         public void showItem()

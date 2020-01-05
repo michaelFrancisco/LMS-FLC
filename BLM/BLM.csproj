@@ -79,6 +79,9 @@
     <Compile Include="ViewModels\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
+    <Compile Include="ViewModels\Shipments\Forms\NewShipmentViewModel.cs" />
+    <Compile Include="ViewModels\Shipments\ShipmentsViewModel.cs" />
     <Compile Include="Views\Inventory\Forms\EditItemView.xaml.cs">
       <DependentUpon>EditItemView.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,15 @@
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shipments\Forms\EditShipmentView.xaml.cs">
+      <DependentUpon>EditShipmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shipments\Forms\NewShipmentView.xaml.cs">
+      <DependentUpon>NewShipmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shipments\ShipmentsView.xaml.cs">
+      <DependentUpon>ShipmentsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +153,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shipments\Forms\EditShipmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shipments\Forms\NewShipmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shipments\ShipmentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,8 +227,10 @@
     <Resource Include="Resources\Icons\icons8-refresh-104.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\Shipments\" />
-    <Folder Include="Views\Shipments\" />
+    <Resource Include="Resources\Icons\icons8-down-arrow-64%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-up-64%281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using BLM.ViewModels.Inventory;
+using BLM.ViewModels.Shipments;
 using Caliburn.Micro;
 using System.Windows.Media;
 
@@ -94,6 +95,7 @@ namespace BLM.ViewModels
 
         public void btnShipments()
         {
+            ActivateItem(new ShipmentsViewModel());
         }
 
         public void btnTracking()
