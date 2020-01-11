@@ -10,17 +10,30 @@ namespace BLM.ViewModels.Shipments.Forms
 {
     internal class NewShipmentViewModel : Screen
     {
+        private DataTable _baseitemGridSource;
+        private bool _btnOKisEnabled;
+        private bool _isAdding;
         private object _itemGridSelectedItem;
         private DataTable _itemGridSource;
+        private int _maxQuantity;
+        private int _quantity;
+        private Visibility _QuantityBoxVisibility;
+        private string _quantityToolTipText;
         private string _selectedCategory;
         private string _selectedOrigin;
         private object _shipmentGridSelectedItem;
         private DataTable _shipmentGridSource;
         private List<String> _txtCategory;
         private List<String> _txtOrigin;
-        private DataTable _baseitemGridSource;
-
+        private int _txtQuantity;
+        private string _txtQuantityLabel;
         private string _txtSearch;
+
+        public bool btnOKisEnabled
+        {
+            get { return _btnOKisEnabled; }
+            set { _btnOKisEnabled = value; }
+        }
 
         public object itemGridSelectedItem
         {
@@ -34,6 +47,18 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _itemGridSource = value; }
         }
 
+        public Visibility QuantityBoxVisibility
+        {
+            get { return _QuantityBoxVisibility; }
+            set { _QuantityBoxVisibility = value; }
+        }
+
+        public string quantityToolTipText
+        {
+            get { return _quantityToolTipText; }
+            set { _quantityToolTipText = value; }
+        }
+
         public string selectedCategory
         {
             get { return _selectedCategory; }
@@ -43,7 +68,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 if (selectedCategory == "Inbound")
                 {
                     _itemGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID`;");
-                    _shipmentGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where null;");
+                    _shipmentGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where null;");
                     _baseitemGridSource = itemGridSource;
                     NotifyOfPropertyChange(() => itemGridSource);
                     NotifyOfPropertyChange(() => shipmentGridSource);
@@ -94,6 +119,36 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _txtOrigin = value; }
         }
 
+        public int txtQuantity
+        {
+            get { return _txtQuantity; }
+            set
+            {
+                _txtQuantity = value;
+
+                if ((_txtQuantity > _maxQuantity && _selectedCategory == "Outbound") || _txtQuantity <= 0)
+                {
+                    _quantityToolTipText = "Please input valid quantity";
+                    _btnOKisEnabled = false;
+                    NotifyOfPropertyChange(() => btnOKisEnabled);
+                    NotifyOfPropertyChange(() => quantityToolTipText);
+                }
+                else
+                {
+                    _quantityToolTipText = string.Empty;
+                    _btnOKisEnabled = true;
+                    NotifyOfPropertyChange(() => btnOKisEnabled);
+                    NotifyOfPropertyChange(() => quantityToolTipText);
+                }
+            }
+        }
+
+        public string txtQuantityLabel
+        {
+            get { return _txtQuantityLabel; }
+            set { _txtQuantityLabel = value; }
+        }
+
         public string txtSearch
         {
             get { return _txtSearch; }
@@ -117,14 +172,22 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public void addItem()
         {
-            if (_selectedCategory == "Outbound")
+            try
             {
-                DataRowView dataRowView = (DataRowView)_itemGridSelectedItem;
-                _shipmentGridSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], dataRowView.Row[3], dataRowView.Row[4], dataRowView.Row[5]);
-                _itemGridSource.Rows.Remove(dataRowView.Row);
-                NotifyOfPropertyChange(null);
+                if (_selectedCategory == "Outbound")
+                {
+                    DataRowView dataRowView = (DataRowView)_itemGridSelectedItem;
+                    _txtQuantity = (int)dataRowView.Row[3];
+                    _maxQuantity = (int)dataRowView.Row[3];
+                    NotifyOfPropertyChange(() => txtQuantity);
+                }
+                _txtQuantityLabel = "Enter amount to be added";
+                NotifyOfPropertyChange(() => txtQuantityLabel);
+                _QuantityBoxVisibility = System.Windows.Visibility.Visible;
+                NotifyOfPropertyChange(() => QuantityBoxVisibility);
+                _isAdding = true;
             }
-            else if (_selectedCategory == "Inbound")
+            catch
             {
             }
         }
@@ -137,8 +200,137 @@ namespace BLM.ViewModels.Shipments.Forms
                 TryClose();
             }
         }
+
+        public void btnOK()
+        {
+            try
+            {
+                _quantity = _txtQuantity;
+                if (_selectedCategory == "Outbound" && _isAdding)
+                {
+                    moveOutboundItems(_itemGridSource, _shipmentGridSource, _itemGridSelectedItem);
+                }
+                else if (_selectedCategory == "Outbound" & !_isAdding)
+                {
+                    moveOutboundItems(_shipmentGridSource, _itemGridSource, _shipmentGridSelectedItem);
+                }
+                else if (_selectedCategory == "Inbound" && _isAdding)
+                {
+                    moveInboundItems(_itemGridSource, _shipmentGridSource, _itemGridSelectedItem);
+                }
+                else if (_selectedCategory == "Inbound" && !_isAdding)
+                {
+                    moveInboundItems(_shipmentGridSource, _itemGridSource, _shipmentGridSelectedItem);
+                }
+                _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
+                NotifyOfPropertyChange(() => QuantityBoxVisibility);
+                _txtQuantity = 1;
+                NotifyOfPropertyChange(() => txtQuantity);
+            }
+            catch (Exception)
+            {
+                _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
+                NotifyOfPropertyChange(() => QuantityBoxVisibility);
+                _txtQuantity = 1;
+                NotifyOfPropertyChange(() => txtQuantity);
+            }
+        }
+
+        public void editItem()
+        {
+            try
+            {
+                if (_selectedCategory == "Outbound")
+                {
+                    DataRowView dataRowView = (DataRowView)_shipmentGridSelectedItem;
+                    _txtQuantity = (int)dataRowView.Row[3];
+                    _maxQuantity = (int)dataRowView.Row[3];
+                    NotifyOfPropertyChange(() => txtQuantity);
+                }
+                _txtQuantityLabel = "Enter amount to be reduced";
+                NotifyOfPropertyChange(() => txtQuantityLabel);
+                _QuantityBoxVisibility = System.Windows.Visibility.Visible;
+                NotifyOfPropertyChange(() => QuantityBoxVisibility);
+                _isAdding = false;
+            }
+            catch
+            {
+            }
+        }
+
+        public int existingIDRow(int ID, DataView Grid)
+        {
+            int count = 0;
+            foreach (DataRowView dataRowView in Grid)
+            {
+                if (Convert.ToInt32(dataRowView.Row[0]) == ID)
+                {
+                    return count;
+                }
+                count++;
+            }
+            return -1;
+        }
+
+        public void moveOutboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
+        {
+            DataRowView dataRowView = (DataRowView)fromSourceSelectedItem;
+            if (existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView()) > -1)
+            {
+                int row = existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView());
+                toSource.Rows[row][3] = (int)toSource.Rows[row][3] + _quantity;
+            }
+            else
+            {
+                toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity.ToString(), dataRowView.Row[4], dataRowView.Row[5]);
+            }
+            if (_quantity == (int)dataRowView.Row[3])
+            {
+                fromSource.Rows.Remove(dataRowView.Row);
+            }
+            else
+            {
+                dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
+            }
+            NotifyOfPropertyChange(null);
+        }
+
+        public void moveInboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
+        {
+            DataRowView dataRowView = (DataRowView)fromSourceSelectedItem;
+            if (_isAdding)
+            {
+                if (existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView()) > -1)
+                {
+                    int row = existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView());
+                    toSource.Rows[row][3] = (int)toSource.Rows[row][3] + _quantity;
+                }
+                else
+                {
+                    toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity, dataRowView.Row[3], dataRowView.Row[4], dataRowView.Row[5]);
+                }
+            }
+            else if (!_isAdding)
+            {
+                if (_quantity == (int)dataRowView.Row[3])
+                {
+                    fromSource.Rows.Remove(dataRowView.Row);
+                }
+                else
+                {
+                    dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
+                }
+            }
+            NotifyOfPropertyChange(null);
+        }
+
         protected override void OnActivate()
         {
+            _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
+            _btnOKisEnabled = true;
+            _txtQuantity = 1;
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
         }
     }
 }

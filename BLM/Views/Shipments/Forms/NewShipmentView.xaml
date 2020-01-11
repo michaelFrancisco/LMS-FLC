@@ -168,7 +168,10 @@
                     </TextBox.Style>
                 </TextBox>
             </Grid>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+            <Label
+                Margin="5,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 Shipment
             </Label>
         </StackPanel>
@@ -210,7 +213,7 @@
                 Grid.Column="3"
                 Margin="5,0"
                 HorizontalAlignment="Stretch"
-                cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
+                cal:Message.Attach="[Event MouseDoubleClick] = [Action editItem]"
                 AlternatingRowBackground="LightGray"
                 AlternationCount="2"
                 Background="White"
@@ -273,5 +276,48 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+        <Grid
+            x:Name="Quantity"
+            Grid.RowSpan="10"
+            Grid.ColumnSpan="10"
+            Visibility="{Binding QuantityBoxVisibility}">
+            <Grid Background="Black" Opacity="0.5" />
+            <Border
+                MinWidth="350"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="0,55,0,55">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource 1}" />
+                </Border.Background>
+                <StackPanel>
+                    <TextBlock Margin="5" Text="{Binding txtQuantityLabel}" />
+                    <TextBox
+                        x:Name="txtQuantity"
+                        Width="250"
+                        Height="30"
+                        MinWidth="150"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                    <Label
+                        HorizontalAlignment="Center"
+                        Content="{Binding quantityToolTipText}"
+                        FontSize="16" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            x:Name="btnOK"
+                            Width="100"
+                            Margin="5"
+                            Background="{x:Null}"
+                            BorderBrush="Black"
+                            Content="OK"
+                            IsDefault="True"
+                            IsEnabled="{Binding btnOKisEnabled}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

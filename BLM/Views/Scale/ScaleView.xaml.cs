@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Forms;
 
-namespace BLM.Views.Shipments.Forms
+namespace BLM.Views.Scale
 {
     /// <summary>
-    /// Interaction logic for NewShipmentView.xaml
+    /// Interaction logic for ScaleView.xaml
     /// </summary>
-    public partial class NewShipmentView : Window
+    public partial class ScaleView : UserControl
     {
-        public NewShipmentView()
+        public ScaleView()
         {
             InitializeComponent();
         }

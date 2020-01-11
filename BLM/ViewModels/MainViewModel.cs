@@ -1,5 +1,7 @@
 ﻿using BLM.ViewModels.Inventory;
+using BLM.ViewModels.Scale;
 using BLM.ViewModels.Shipments;
+using BLM.ViewModels.Tracking;
 using Caliburn.Micro;
 using System.Windows.Media;
 
@@ -91,6 +93,7 @@ namespace BLM.ViewModels
 
         public void btnScale()
         {
+            ActivateItem(new ScaleViewModel());
         }
 
         public void btnShipments()
@@ -100,6 +103,7 @@ namespace BLM.ViewModels
 
         public void btnTracking()
         {
+            ActivateItem(new TrackingViewModel());
         }
 
         public void clearColors()

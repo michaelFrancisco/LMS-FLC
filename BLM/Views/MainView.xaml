@@ -79,10 +79,12 @@
             <StackPanel Margin="0,20,0,0" Orientation="Vertical">
                 <Button
                     x:Name="btnDashboard"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushDashboard}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -94,10 +96,12 @@
                 </Button>
                 <Button
                     x:Name="btnInventory"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushInventory}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -109,10 +113,12 @@
                 </Button>
                 <Button
                     x:Name="btnProduction"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushProduction}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -124,10 +130,12 @@
                 </Button>
                 <Button
                     x:Name="btnOrders"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushOrders}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -139,10 +147,12 @@
                 </Button>
                 <Button
                     x:Name="btnShipments"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushShipments}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -154,10 +164,12 @@
                 </Button>
                 <Button
                     x:Name="btnTracking"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushTracking}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -169,10 +181,12 @@
                 </Button>
                 <Button
                     x:Name="btnScale"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushScale}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -184,10 +198,12 @@
                 </Button>
                 <Button
                     x:Name="btnLogs"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{Binding brushLogs}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -199,10 +215,12 @@
                 </Button>
                 <Button
                     x:Name="btnLogout"
+                    Margin="0,5"
                     Padding="1"
+                    HorizontalContentAlignment="Left"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" HorizontalContentAlignment="Left" Margin="0,5">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
