@@ -1,67 +1,118 @@
-﻿using Caliburn.Micro;
+﻿using BLM.Models;
+using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Threading;
 
 namespace BLM.ViewModels.Scale
 {
-    class ScaleViewModel : Screen
+    internal class ScaleViewModel : Screen
     {
-        private int _inputtextbox;
-        private int _secondtextbox;
-        private int _totaltextbox;
-        private List<string> _unitofmeasurement;
+        private int _txtInputWeight;
+        private int _txtItemWeight;
+        private int _txtTotal;
 
-        public int inputTextbox
+        private DispatcherTimer dt = new DispatcherTimer();
+
+        private SerialPort port = new SerialPort();
+
+        public int txtInputWeight
         {
-            get { return _inputtextbox; }
-            set 
+            get { return _txtInputWeight; }
+            set { _txtInputWeight = value; }
+        }
+
+        public int txtItemWeight
+        {
+            get { return _txtItemWeight; }
+            set { _txtItemWeight = value; }
+        }
+
+        public int txtTotal
+        {
+            get { return _txtTotal; }
+            set { _txtTotal = value; }
+        }
+
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            try
             {
-                _inputtextbox = value;
+                Int32.TryParse(port.ReadLine(), out int result);
+                if (result > -1)
+                {
+                    _txtInputWeight = result;
+                    NotifyOfPropertyChange(() => txtInputWeight);
+                }
+            }
+            catch
+            { }
+
+            try
+            {
+                if (_txtItemWeight > -1)
+                {
+                    _txtTotal = _txtInputWeight / _txtItemWeight;
+                    NotifyOfPropertyChange(() => txtTotal);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private List<string> _cbItems;
+
+        private string _cbSelectedItem;
+
+        public string cbSelectedItem
+        {
+            get { return _cbSelectedItem; }
+            set { 
+                _cbSelectedItem = value;
                 try
                 {
-                    if (_secondtextbox > -1)
-                    {
-                        _totaltextbox = _inputtextbox / _secondtextbox;
-                        NotifyOfPropertyChange(() => totalTextbox);
-                    }
+                    DataTable dt = Connection.dbTable("Select Weight from inventory where Name ='" + _cbSelectedItem + "'");
+                    _txtItemWeight = (int)dt.Rows[0][0];
+                    NotifyOfPropertyChange(() => txtItemWeight);
                 }
-                catch
+                catch 
                 {
                 }
             }
         }
 
-        public int secondTextbox
+        public List<string> cbItems
         {
-            get { return _secondtextbox; }
-            set { _secondtextbox = value; }
-        }
-
-        public int totalTextbox
-        {
-            get { return _totaltextbox; }
-            set { _totaltextbox = value; }
-        }
-
-        public List<string> type
-        {
-            get { return new List<string> { "grams","litters","kilograms" }; }
-            set
+            get
             {
-                _unitofmeasurement = value;
-                
-
-                NotifyOfPropertyChange(() => secondTextbox);
-                //_type = value;
-                //DataView dv = new DataView(_baseVehicleGridItemSource);
-                //dv.RowFilter = query();
-                //_vehicleGridSource = dv.ToTable();
-                //NotifyOfPropertyChange(() => vehicleGridSource);
+                DataTable dt = Connection.dbTable("select Name from inventory");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
+                return list;
             }
+            set { _cbItems = value; }
+        }
+
+        protected override void OnActivate()
+        {
+            port.BaudRate = 9600;
+            port.PortName = "COM4";
+            port.Open();
+
+            dt.Tick += new EventHandler(timer_Tick);
+            dt.Interval = new TimeSpan(0, 0, 1);
+            dt.Start();
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            dt.Stop();
+            base.OnDeactivate(close);
         }
     }
 }
