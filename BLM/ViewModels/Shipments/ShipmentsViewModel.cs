@@ -16,6 +16,7 @@ namespace BLM.ViewModels.Shipments
         private string _selectedCategory;
 
         private string _txtSearch;
+        private DataTable _baseshipmentGridSource;
 
         public string txtSearch
         {
@@ -23,10 +24,18 @@ namespace BLM.ViewModels.Shipments
             set
             {
                 _txtSearch = value;
-                DataView dv = new DataView(_shipmentsGridSource);
-                dv.RowFilter = "Origin LIKE '%" + _txtSearch + "%' OR Destination LIKE '%" + _txtSearch + "%'";
-                _shipmentsGridSource = dv.ToTable();
-                NotifyOfPropertyChange(null);
+                if (!string.IsNullOrEmpty(_txtSearch))
+                {
+                    DataView dv = new DataView(_shipmentsGridSource);
+                    dv.RowFilter = "Origin LIKE '%" + _txtSearch + "%' OR Destination LIKE '%" + _txtSearch + "%' OR Truck LIKE '%" + _txtSearch + "%' OR 'Delivery Agent' LIKE '%" + _txtSearch + "%'";
+                    _shipmentsGridSource = dv.ToTable();
+                    NotifyOfPropertyChange(null);
+                }
+                else
+                {
+                    _shipmentsGridSource = _baseshipmentGridSource;
+                    NotifyOfPropertyChange(null);
+                }
             }
         }
 
@@ -44,7 +53,7 @@ namespace BLM.ViewModels.Shipments
 
         public void btnAll()
         {
-            _shipmentsGridSource = Connection.dbTable("SELECT * from shipments");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
             NotifyOfPropertyChange(null);
             _selectedCategory = "All";
         }
@@ -60,14 +69,14 @@ namespace BLM.ViewModels.Shipments
 
         public void btnInbound()
         {
-            _shipmentsGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Inbound'");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Inbound'");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Inbound";
         }
 
         public void btnOutbound()
         {
-            _shipmentsGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Outbound'");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Outbound'");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Outbound";
         }
@@ -77,15 +86,18 @@ namespace BLM.ViewModels.Shipments
             switch (_selectedCategory)
             {
                 case "Inbound":
-                    _shipmentsGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Inbound'");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Inbound'");
+                    _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
                 case "Outbound":
-                    _shipmentsGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Outbound'");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Outbound'");
+                    _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
                 case "All":
-                    _shipmentsGridSource = Connection.dbTable("SELECT * from shipments");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
+                    _baseshipmentGridSource = _shipmentsGridSource;
                     break;
             }
             _txtSearch = string.Empty;
@@ -106,7 +118,8 @@ namespace BLM.ViewModels.Shipments
 
         protected override void OnActivate()
         {
-            _shipmentsGridSource = Connection.dbTable("SELECT * from shipments");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
+            _baseshipmentGridSource = _shipmentsGridSource;
             _selectedCategory = "All";
             NotifyOfPropertyChange(null);
             base.OnActivate();

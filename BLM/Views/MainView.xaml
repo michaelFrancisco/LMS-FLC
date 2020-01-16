@@ -128,7 +128,7 @@
                         <Label VerticalAlignment="Center" Foreground="White">Production</Label>
                     </StackPanel>
                 </Button>
-                <Button
+                <!--<Button
                     x:Name="btnOrders"
                     Margin="0,5"
                     Padding="1"
@@ -144,7 +144,7 @@
                             Source="/BLM;component/Resources/Icons/icons8-purchase-order-100.png" />
                         <Label VerticalAlignment="Center" Foreground="White">Orders</Label>
                     </StackPanel>
-                </Button>
+                </Button>-->
                 <Button
                     x:Name="btnShipments"
                     Margin="0,5"

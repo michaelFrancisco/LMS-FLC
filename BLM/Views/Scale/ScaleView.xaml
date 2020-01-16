@@ -80,7 +80,7 @@
                     VerticalAlignment="Center"
                     BorderBrush="#FF1F4287"
                     TextWrapping="Wrap" />
-                <ComboBox Width="52"/>
+                <ComboBox x:Name="measurement" Width="52" SelectedItem="{Binding selectedmeasure}" />
             </StackPanel>
             <TextBox
                 x:Name="totalTextbox"
@@ -93,10 +93,16 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 BorderBrush="#FF1F4287"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap" TextChanged="totalTextbox_TextChanged" />
             <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal">
-                <!--<ComboBox x:Name="" VerticalAlignment="Center" Margin="0,0,0,-0.2" Width="241" ></ComboBox>-->
+                <ComboBox x:Name="type" VerticalAlignment="Center" Margin="0,0,0,-0.2" Width="241" SelectedItem="{Binding selecteditem}" SelectionChanged="type_SelectionChanged" ></ComboBox>
             </StackPanel>
         </Grid>
+        <TextBox x:Name="actualYield" Height="40" Width="200" Margin="176,53,654.4,551.8"></TextBox>
+        <Label Content="Actual Yield" Height="40" Width="200" Margin="29,53,801.4,551.8" Background="{x:Null}" Foreground="White"></Label>
+        <TextBox x:Name="theoreticalYield" Height="40" Width="200" Margin="595,53,235.4,551.8"></TextBox>
+        <Label Content="Theoretical Yield" Height="40" Width="200" Margin="406,53,424.4,551.8" Background="{x:Null}" Foreground="White"></Label>
+        <TextBox x:Name="percentageYield" Height="40" Width="200" Margin="406,134,424.4,470.8"></TextBox>
+        <Label Content="Percentage Yield" Height="40" Width="200" Margin="201,134,629.4,470.8" Background="{x:Null}" Foreground="White"></Label>
     </Grid>
 </UserControl>

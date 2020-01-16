@@ -23,5 +23,15 @@ namespace BLM.Views.Scale
         {
             InitializeComponent();
         }
+
+        private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void totalTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

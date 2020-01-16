@@ -114,7 +114,6 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-                    <ComboBox Width="200" Margin="5,0" />
                     <Button
                         x:Name="btnRefresh"
                         Margin="5,0"

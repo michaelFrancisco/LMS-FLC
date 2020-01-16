@@ -20,14 +20,21 @@ namespace BLM.ViewModels.Shipments.Forms
         private Visibility _QuantityBoxVisibility;
         private string _quantityToolTipText;
         private string _selectedCategory;
+        private DateTime _selectedDate;
+        private string _selectedDeliveryAgent;
+        private string _selectedDestination;
         private string _selectedOrigin;
+        private string _selectedTruck;
         private object _shipmentGridSelectedItem;
         private DataTable _shipmentGridSource;
         private List<String> _txtCategory;
+        private List<string> _txtDeliveryAgent;
+        private List<string> _txtDestination;
         private List<String> _txtOrigin;
         private int _txtQuantity;
         private string _txtQuantityLabel;
         private string _txtSearch;
+        private List<string> _txtTruck;
 
         public bool btnOKisEnabled
         {
@@ -67,7 +74,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 _selectedCategory = value;
                 if (selectedCategory == "Inbound")
                 {
-                    _itemGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID`;");
+                    _itemGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where `inventory`.`Category` = 'Raw Material' OR `inventory`.`Category` = 'Packaging';");
                     _shipmentGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where null;");
                     _baseitemGridSource = itemGridSource;
                     NotifyOfPropertyChange(() => itemGridSource);
@@ -75,7 +82,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 }
                 else if (selectedCategory == "Outbound")
                 {
-                    _itemGridSource = Connection.dbTable("SELECT Item_ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where Quantity > 0;");
+                    _itemGridSource = Connection.dbTable("SELECT Item_ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where Quantity > 0 and `Category` = 'Finished Product';");
                     _shipmentGridSource = Connection.dbTable("SELECT Item_ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where null;");
                     _baseitemGridSource = itemGridSource;
                     NotifyOfPropertyChange(() => itemGridSource);
@@ -84,10 +91,34 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public DateTime selectedDate
+        {
+            get { return _selectedDate; }
+            set { _selectedDate = value; }
+        }
+
+        public string selectedDeliveryAgent
+        {
+            get { return _selectedDeliveryAgent; }
+            set { _selectedDeliveryAgent = value; }
+        }
+
+        public string selectedDestination
+        {
+            get { return _selectedDestination; }
+            set { _selectedDestination = value; }
+        }
+
         public string selectedOrigin
         {
             get { return _selectedOrigin; }
             set { _selectedOrigin = value; }
+        }
+
+        public string selectedTruck
+        {
+            get { return _selectedTruck; }
+            set { _selectedTruck = value; }
         }
 
         public object shipmentGridSelectedItem
@@ -106,6 +137,28 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return new List<string> { "Inbound", "Outbound" }; }
             set { _txtCategory = value; }
+        }
+
+        public List<string> txtDeliveryAgent
+        {
+            get
+            {
+                DataTable dt = Connection.dbTable("select Name from users where User_Level = 'Delivery Agent'");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
+                return list;
+            }
+            set { _txtDeliveryAgent = value; }
+        }
+
+        public List<string> txtDestination
+        {
+            get
+            {
+                DataTable dt = Connection.dbTable("select Destination from shipments");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Destination")).ToList();
+                return list;
+            }
+            set { _txtDestination = value; }
         }
 
         public List<String> txtOrigin
@@ -168,6 +221,17 @@ namespace BLM.ViewModels.Shipments.Forms
                     NotifyOfPropertyChange(null);
                 }
             }
+        }
+
+        public List<string> txtTruck
+        {
+            get
+            {
+                DataTable dt = Connection.dbTable("select Name from trucks");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
+                return list;
+            }
+            set { _txtTruck = value; }
         }
 
         public void addItem()
@@ -236,6 +300,32 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public void btnSave()
+        {
+            if (fieldsareComplete())
+            {
+                DataTable _deliveryagentID = Connection.dbTable("select User_ID from users where Name = '" + _selectedDeliveryAgent + "'");
+                DataTable _truckID = Connection.dbTable("select Truck_ID from trucks where Name = '" + _selectedTruck + "'");
+                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Origin`, `Destination`, `Truck_ID`, `Delivery_Agent_ID`, `Date_Due`) VALUES ('" + _selectedCategory + "', 'Pending', '" + _selectedOrigin + "', '" + _selectedDestination + "', '" + _truckID.Rows[0][0].ToString() + "', '" + _deliveryagentID.Rows[0][0].ToString() + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "');");
+            }
+            else
+            {
+                MessageBox.Show("Please fill out all fields");
+            }
+        }
+
+        public bool fieldsareComplete()
+        {
+            if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void editItem()
         {
             try
@@ -272,29 +362,6 @@ namespace BLM.ViewModels.Shipments.Forms
             return -1;
         }
 
-        public void moveOutboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
-        {
-            DataRowView dataRowView = (DataRowView)fromSourceSelectedItem;
-            if (existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView()) > -1)
-            {
-                int row = existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView());
-                toSource.Rows[row][3] = (int)toSource.Rows[row][3] + _quantity;
-            }
-            else
-            {
-                toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity.ToString(), dataRowView.Row[4], dataRowView.Row[5]);
-            }
-            if (_quantity == (int)dataRowView.Row[3])
-            {
-                fromSource.Rows.Remove(dataRowView.Row);
-            }
-            else
-            {
-                dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
-            }
-            NotifyOfPropertyChange(null);
-        }
-
         public void moveInboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
         {
             DataRowView dataRowView = (DataRowView)fromSourceSelectedItem;
@@ -324,11 +391,35 @@ namespace BLM.ViewModels.Shipments.Forms
             NotifyOfPropertyChange(null);
         }
 
+        public void moveOutboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
+        {
+            DataRowView dataRowView = (DataRowView)fromSourceSelectedItem;
+            if (existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView()) > -1)
+            {
+                int row = existingIDRow(Convert.ToInt32(dataRowView.Row[0]), toSource.AsDataView());
+                toSource.Rows[row][3] = (int)toSource.Rows[row][3] + _quantity;
+            }
+            else
+            {
+                toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity.ToString(), dataRowView.Row[4], dataRowView.Row[5]);
+            }
+            if (_quantity == (int)dataRowView.Row[3])
+            {
+                fromSource.Rows.Remove(dataRowView.Row);
+            }
+            else
+            {
+                dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
+            }
+            NotifyOfPropertyChange(null);
+        }
+
         protected override void OnActivate()
         {
             _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
             _btnOKisEnabled = true;
             _txtQuantity = 1;
+            _selectedDate = DateTime.Now;
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

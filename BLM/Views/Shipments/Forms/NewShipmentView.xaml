@@ -73,36 +73,39 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Destination" />
-        <TextBox
+        <ComboBox
             x:Name="txtDestination"
             Grid.Row="3"
             Grid.Column="1"
             Margin="5"
-            TextWrapping="Wrap" />
+            IsEditable="True"
+            SelectedItem="{Binding selectedDestination}" />
         <Label
             Grid.Row="4"
             Margin="5"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Truck" />
-        <TextBox
+        <ComboBox
             x:Name="txtTruck"
             Grid.Row="4"
             Grid.Column="1"
             Margin="5"
-            TextWrapping="Wrap" />
+            IsEditable="True"
+            SelectedItem="{Binding selectedTruck}" />
         <Label
             Grid.Row="5"
             Margin="5"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Delivery Agent" />
-        <TextBox
+        <ComboBox
             x:Name="txtDeliveryAgent"
             Grid.Row="5"
             Grid.Column="1"
             Margin="5"
-            TextWrapping="Wrap" />
+            IsEditable="True"
+            SelectedItem="{Binding selectedDeliveryAgent}" />
         <Label
             Grid.Row="6"
             Margin="5"
@@ -115,7 +118,8 @@
             Grid.Column="1"
             Margin="5"
             Background="White"
-            BorderBrush="White" />
+            BorderBrush="White"
+            SelectedDate="{Binding selectedDate}" />
         <Label
             Grid.Row="7"
             Margin="5"

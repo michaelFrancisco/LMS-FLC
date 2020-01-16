@@ -68,7 +68,6 @@
                 VerticalAlignment="Center"
                 BorderBrush="#FF1F4287"
                 FontFamily="Segoe MDL2 Assets" />
-            <Grid Grid.Row="4" Grid.ColumnSpan="2">
                 <Button
                     x:Name="login"
                     Margin="0"
@@ -76,8 +75,16 @@
                     BorderBrush="White"
                     Content="Login"
                     Foreground="White"
-                    IsDefault="True" />
-            </Grid>
+                    IsDefault="True" Grid.Row="4" Grid.ColumnSpan="2" />
+            <Button
+                    x:Name="loginasadmin"
+                    Margin="0"
+                    Background="{x:Null}"
+                    BorderBrush="White"
+                    Content="Admin"
+                    Foreground="White"
+                    IsDefault="True" Grid.Row="5" Grid.ColumnSpan="2" />
+
         </Grid>
     </Grid>
 </Window>

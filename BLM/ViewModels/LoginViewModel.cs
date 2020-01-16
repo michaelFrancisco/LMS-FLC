@@ -32,6 +32,15 @@ namespace BLM.ViewModels
             }
         }
 
+        public void loginasadmin()
+        {
+            DataTable dt = Connection.dbTable("select Name, User_Level from users where Username = 'admin' AND Password = 'admin';");
+            CurrentUser.name = dt.Rows[0][0].ToString();
+            CurrentUser.user_level = dt.Rows[0][1].ToString();
+            windowManager.ShowWindow(new MainViewModel(), null, null);
+            TryClose();
+        }
+
         public void getUserCredentials()
         {
             DataTable dt = Connection.dbTable("select Name, User_Level from users where Username = '" + _username + "' AND Password = '" + _password + "';");
