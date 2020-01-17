@@ -48,7 +48,7 @@ namespace BLM.ViewModels.Production
 
         public void btnAll()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from shipments");
+            _productionGridSource = Connection.dbTable("SELECT * from production");
             NotifyOfPropertyChange(null);
             _selectedCategory = "All";
         }
@@ -89,7 +89,7 @@ namespace BLM.ViewModels.Production
                     break;
 
                 case "All":
-                    _productionGridSource = Connection.dbTable("SELECT * from shipments");
+                    _productionGridSource = Connection.dbTable("SELECT * from production");
                     break;
             }
             _txtSearch = string.Empty;
@@ -110,7 +110,7 @@ namespace BLM.ViewModels.Production
 
         protected override void OnActivate()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from shipments");
+            _productionGridSource = Connection.dbTable("SELECT * from flc.production");
             _selectedCategory = "All";
             NotifyOfPropertyChange(null);
             base.OnActivate();
