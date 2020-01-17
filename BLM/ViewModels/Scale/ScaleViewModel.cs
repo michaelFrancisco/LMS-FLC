@@ -63,24 +63,6 @@ namespace BLM.ViewModels.Scale
             {
             }
         }
-        public List<string> measurement
-        {
-            get { return new List<string> { "grams", "litters", "kilograms" }; }
-            set
-            {
-                _unitofmeasurement = value;
-            }
-        }
-
-        public int percentageYield
-        {
-            get { return _percentageYield; }
-            set
-            {
-                _percentageYield = value;
-                
-            }
-        }
 
         private List<string> _cbItems;
 
