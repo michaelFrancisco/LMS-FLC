@@ -302,27 +302,21 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public void btnSave()
         {
-            if (fieldsareComplete())
+            if (fieldsareComplete() && gridhasItems())
             {
                 DataTable _deliveryagentID = Connection.dbTable("select User_ID from users where Name = '" + _selectedDeliveryAgent + "'");
                 DataTable _truckID = Connection.dbTable("select Truck_ID from trucks where Name = '" + _selectedTruck + "'");
                 Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Origin`, `Destination`, `Truck_ID`, `Delivery_Agent_ID`, `Date_Due`) VALUES ('" + _selectedCategory + "', 'Pending', '" + _selectedOrigin + "', '" + _selectedDestination + "', '" + _truckID.Rows[0][0].ToString() + "', '" + _deliveryagentID.Rows[0][0].ToString() + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "');");
+                int shipmentID = getShipmentID();
+                foreach (DataRow row in _shipmentGridSource.Rows)
+                {
+                    Connection.dbCommand(@"INSERT INTO `flc`.`shipment_items` (`Item_ID`, `Shipment_ID`, `Quantity`) VALUES ('" + row[0].ToString() + "', '" + shipmentID + "', '" + row[3].ToString() + "');");
+                }
+                TryClose();
             }
             else
             {
                 MessageBox.Show("Please fill out all fields");
-            }
-        }
-
-        public bool fieldsareComplete()
-        {
-            if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
             }
         }
 
@@ -360,6 +354,18 @@ namespace BLM.ViewModels.Shipments.Forms
                 count++;
             }
             return -1;
+        }
+
+        public bool fieldsareComplete()
+        {
+            if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void moveInboundItems(DataTable fromSource, DataTable toSource, object fromSourceSelectedItem)
@@ -422,6 +428,24 @@ namespace BLM.ViewModels.Shipments.Forms
             _selectedDate = DateTime.Now;
             NotifyOfPropertyChange(null);
             base.OnActivate();
+        }
+
+        private int getShipmentID()
+        {
+            DataTable dt = Connection.dbTable("SELECT max(Shipment_ID) FROM flc.shipments;;");
+            return Convert.ToInt32(dt.Rows[0][0].ToString());
+        }
+
+        private bool gridhasItems()
+        {
+            if (_shipmentGridSource.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
