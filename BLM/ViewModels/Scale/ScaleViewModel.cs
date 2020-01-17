@@ -11,6 +11,8 @@ namespace BLM.ViewModels.Scale
 {
     internal class ScaleViewModel : Screen
     {
+        private List<string> _cbItems;
+        private string _cbSelectedItem;
         private int _txtInputWeight;
         private int _txtItemWeight;
         private int _txtTotal;
@@ -18,6 +20,35 @@ namespace BLM.ViewModels.Scale
         private DispatcherTimer dt = new DispatcherTimer();
 
         private SerialPort port = new SerialPort();
+
+        public List<string> cbItems
+        {
+            get
+            {
+                DataTable dt = Connection.dbTable("select Name from inventory");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
+                return list;
+            }
+            set { _cbItems = value; }
+        }
+
+        public string cbSelectedItem
+        {
+            get { return _cbSelectedItem; }
+            set
+            {
+                _cbSelectedItem = value;
+                try
+                {
+                    DataTable dt = Connection.dbTable("Select Weight from inventory where Name ='" + _cbSelectedItem + "'");
+                    _txtItemWeight = (int)dt.Rows[0][0];
+                    NotifyOfPropertyChange(() => txtItemWeight);
+                }
+                catch
+                {
+                }
+            }
+        }
 
         public int txtInputWeight
         {
@@ -62,38 +93,6 @@ namespace BLM.ViewModels.Scale
             catch
             {
             }
-        }
-
-        private List<string> _cbItems;
-
-        private string _cbSelectedItem;
-
-        public string cbSelectedItem
-        {
-            get { return _cbSelectedItem; }
-            set { 
-                _cbSelectedItem = value;
-                try
-                {
-                    DataTable dt = Connection.dbTable("Select Weight from inventory where Name ='" + _cbSelectedItem + "'");
-                    _txtItemWeight = (int)dt.Rows[0][0];
-                    NotifyOfPropertyChange(() => txtItemWeight);
-                }
-                catch 
-                {
-                }
-            }
-        }
-
-        public List<string> cbItems
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("select Name from inventory");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
-                return list;
-            }
-            set { _cbItems = value; }
         }
 
         protected override void OnActivate()
