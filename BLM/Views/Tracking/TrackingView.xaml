@@ -17,13 +17,13 @@
             <ColumnDefinition Width="800" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <gmaps:GMapControl
+        <!--   <gmaps:GMapControl
             x:Name="map"
             MapProvider="{Binding mapProvider}"
             MaxZoom="18"
             MinZoom="5"
             Position="{Binding mapPosition}"
-            Zoom="15" />
+            Zoom="15" />-->
         <Grid Grid.Column="1">
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource 1}" />
