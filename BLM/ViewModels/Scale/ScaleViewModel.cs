@@ -1,66 +1,66 @@
-﻿using Caliburn.Micro;
+﻿using BLM.Models;
+using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Threading;
 
 namespace BLM.ViewModels.Scale
 {
-    class ScaleViewModel : Screen
+    internal class ScaleViewModel : Screen
     {
-        private int _actualYield;
-        private int _inputtextbox;
-        private int _percentageYield;
-        private int _secondtextbox;
-        private string _selecteditem;
-        private string _selectedmeasure;
-        private int _theoreticalYield;
-        private int _totaltextbox;
-        private List<string> _type;
-        private List<string> _unitofmeasurement;
+        private int _txtInputWeight;
+        private int _txtItemWeight;
+        private int _txtTotal;
 
+        private DispatcherTimer dt = new DispatcherTimer();
 
-        public int actualYield
+        private SerialPort port = new SerialPort();
+
+        public int txtInputWeight
         {
-            get { return _actualYield; }
-            set
-            {
-                _actualYield = value;
-
-                try
-                {
-                    if (_theoreticalYield > -1)
-                    {
-                        _percentageYield = 100 * (_actualYield / _theoreticalYield);
-                        NotifyOfPropertyChange(() => percentageYield);
-                    }
-                }
-                catch
-                {
-
-                }
-            }
+            get { return _txtInputWeight; }
+            set { _txtInputWeight = value; }
         }
 
-        public int inputTextbox
+        public int txtItemWeight
         {
-            get { return _inputtextbox; }
-            set 
+            get { return _txtItemWeight; }
+            set { _txtItemWeight = value; }
+        }
+
+        public int txtTotal
+        {
+            get { return _txtTotal; }
+            set { _txtTotal = value; }
+        }
+
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            try
             {
-                _inputtextbox = value;
-                try
+                Int32.TryParse(port.ReadLine(), out int result);
+                if (result > -1)
                 {
-                    if (_secondtextbox > -1)
-                    {
-                        _totaltextbox = _inputtextbox / _secondtextbox;
-                        NotifyOfPropertyChange(() => totalTextbox);
-                    }
+                    _txtInputWeight = result;
+                    NotifyOfPropertyChange(() => txtInputWeight);
                 }
-                catch
+            }
+            catch
+            { }
+
+            try
+            {
+                if (_txtItemWeight > -1)
                 {
+                    _txtTotal = _txtInputWeight / _txtItemWeight;
+                    NotifyOfPropertyChange(() => txtTotal);
                 }
+            }
+            catch
+            {
             }
         }
         public List<string> measurement
@@ -82,82 +82,55 @@ namespace BLM.ViewModels.Scale
             }
         }
 
-        public int secondTextbox
-        {
-            get { return _secondtextbox; }
-            set { _secondtextbox = value; }
-        }
+        private List<string> _cbItems;
 
-        public string selecteditem
-        {
-            get { return _selecteditem; }
-            set 
-            {
-                _selecteditem = value;
-                if (_selecteditem == "bottles")
-                {
-                    _secondtextbox = 2;
-                    NotifyOfPropertyChange(() => secondTextbox);
-                    _selectedmeasure = "kilograms";
-                    NotifyOfPropertyChange(() => selectedmeasure);
-                    _theoreticalYield = 25;
-                    NotifyOfPropertyChange(() => theoreticalYield);
-                    
-                }
-                else if (_selecteditem == "cans")
-                {
-                    _secondtextbox = 3;
-                    NotifyOfPropertyChange(() => secondTextbox);
-                    _selectedmeasure = "grams";
-                    NotifyOfPropertyChange(() => selectedmeasure);
-                    _theoreticalYield = 30;
-                    NotifyOfPropertyChange(() => theoreticalYield);
-                }
-            }
-        }
-        public string selectedmeasure
-        {
-            get { return _selectedmeasure; }
-            set { _selectedmeasure = value; }
-        }
-        public int theoreticalYield
-        {
-            get { return _theoreticalYield; }
-            set
-            {
-                _theoreticalYield = value;
+        private string _cbSelectedItem;
 
+        public string cbSelectedItem
+        {
+            get { return _cbSelectedItem; }
+            set { 
+                _cbSelectedItem = value;
                 try
                 {
-                    if (_actualYield > -1)
-                    {
-                        _percentageYield = 100 * (_actualYield / _theoreticalYield);
-                        NotifyOfPropertyChange(() => percentageYield);
-                    }
+                    DataTable dt = Connection.dbTable("Select Weight from inventory where Name ='" + _cbSelectedItem + "'");
+                    _txtItemWeight = (int)dt.Rows[0][0];
+                    NotifyOfPropertyChange(() => txtItemWeight);
                 }
-                catch
+                catch 
                 {
-
                 }
             }
         }
 
-        public int totalTextbox
+        public List<string> cbItems
         {
-            get { return _totaltextbox; }
-            set { _totaltextbox = value; }
+            get
+            {
+                DataTable dt = Connection.dbTable("select Name from inventory");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
+                return list;
+            }
+            set { _cbItems = value; }
         }
-        
-        public List<string> type
+
+        protected override void OnActivate()
         {
-            get 
-            {
-                return new List<string> { "bottles", "cans" };
-            }
-            set 
-            {
-                _type = value;
-            }
+            port.BaudRate = 9600;
+            port.PortName = "COM4";
+            port.Open();
+
+            dt.Tick += new EventHandler(timer_Tick);
+            dt.Interval = new TimeSpan(0, 0, 1);
+            dt.Start();
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            dt.Stop();
+            base.OnDeactivate(close);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BLM.ViewModels.Inventory;
+using BLM.ViewModels.Production;
 using BLM.ViewModels.Scale;
 using BLM.ViewModels.Shipments;
 using BLM.ViewModels.Tracking;
@@ -89,6 +90,7 @@ namespace BLM.ViewModels
 
         public void btnProduction()
         {
+            ActivateItem(new ProductionViewModel());
         }
 
         public void btnScale()
