@@ -21,6 +21,29 @@ namespace BLM.ViewModels.Scale
 
         private SerialPort port = new SerialPort();
 
+        private decimal _txtTheoreticalYield;
+
+        public decimal txtTheoreticalYield
+        {
+            get { return _txtTheoreticalYield; }
+            set { _txtTheoreticalYield = value; }
+        }
+        private decimal _txtActualYield;
+
+        public decimal txtActualYield
+        {
+            get { return _txtActualYield; }
+            set { _txtActualYield = value; }
+        }
+
+        private decimal _txtPercentYield;
+
+        public decimal txtPercentYield
+        {
+            get { return _txtPercentYield; }
+            set { _txtPercentYield = value; }
+        }
+
         public List<string> cbItems
         {
             get

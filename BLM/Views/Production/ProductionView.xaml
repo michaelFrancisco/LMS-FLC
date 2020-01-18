@@ -36,7 +36,7 @@
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait-64 (1).png" />
+                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
                             Pending
                         </Label>
@@ -64,7 +64,7 @@
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-product-64.png" />
+                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-product.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
                             Finished
                         </Label>
@@ -175,10 +175,10 @@
                     Grid.Row="1"
                     Margin="5"
                     HorizontalAlignment="Stretch"
+                    cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
                     Background="White"
-                    cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     BorderBrush="Black"
                     BorderThickness="1"
                     CanUserAddRows="False"
@@ -200,5 +200,5 @@
         </Grid>
     </Grid>
 </UserControl>
-<!--cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"-->
-                   
+<!--  cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"  -->
+
