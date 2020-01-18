@@ -46,7 +46,12 @@
                 Edit Shipment
             </Label>
         </Grid>
-        <Grid Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="0" Background="#FF003459">
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="5"
+            Grid.ColumnSpan="3"
+            Margin="0"
+            Background="#FF003459">
             <Label />
         </Grid>
         <Label
@@ -85,19 +90,26 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Date Due" />
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Margin="5">
-            <Label
+        <StackPanel
             Grid.Row="1"
-            Margin="5,0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Items" Grid.Column="2" Foreground="White" />
-            <Grid
+            Grid.Column="2"
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                Grid.Row="1"
+                Grid.Column="2"
                 Margin="5,0"
-                Background="White" Grid.Row="1" Grid.Column="2" Width="300">
-                <TextBox
-                    x:Name="txtSearch"
-                    VerticalContentAlignment="Center">
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Content="Items"
+                Foreground="White" />
+            <Grid
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="300"
+                Margin="5,0"
+                Background="White">
+                <TextBox x:Name="txtSearch" VerticalContentAlignment="Center">
                     <TextBox.Style>
                         <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
                             <Style.Resources>
@@ -132,24 +144,27 @@
             </Grid>
         </StackPanel>
         <DataGrid
-                x:Name="itemGrid"
-                Margin="10"
-                HorizontalAlignment="Stretch"
-                cal:Message.Attach="[Event SelectionChanged] = [Action itemGridSelectionChanged]"
-                AlternatingRowBackground="LightGray"
-                AlternationCount="2"
-                Background="White"
-                BorderBrush="Black"
-                BorderThickness="1"
-                CanUserAddRows="False"
-                ColumnWidth="*"
-                FontSize="16"
-                Foreground="Black"
-                IsReadOnly="True"
-                ItemsSource="{Binding itemGridSource}"
-                RowBackground="White"
-                SelectedItem="{Binding itemGridSelectedItem}"
-                SelectionMode="Single" Grid.Row="2" Grid.Column="2" Grid.RowSpan="10">
+            x:Name="itemGrid"
+            Grid.Row="2"
+            Grid.RowSpan="10"
+            Grid.Column="2"
+            Margin="10"
+            HorizontalAlignment="Stretch"
+            cal:Message.Attach="[Event SelectionChanged] = [Action itemGridSelectionChanged]"
+            AlternatingRowBackground="LightGray"
+            AlternationCount="2"
+            Background="White"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CanUserAddRows="False"
+            ColumnWidth="*"
+            FontSize="16"
+            Foreground="Black"
+            IsReadOnly="True"
+            ItemsSource="{Binding itemGridSource}"
+            RowBackground="White"
+            SelectedItem="{Binding itemGridSelectedItem}"
+            SelectionMode="Single">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="White" />
@@ -158,8 +173,11 @@
         </DataGrid>
         <StackPanel
             Grid.Row="12"
+            Grid.Column="2"
             Margin="5"
-            Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
             <Button
                 x:Name="btnCancel"
                 Width="200"
@@ -187,29 +205,102 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
                     <Label
+                        Width="58"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Foreground="White" Width="58">
+                        Foreground="White">
                         Save
                     </Label>
                 </StackPanel>
             </Button>
         </StackPanel>
-        <Label x:Name="lblCategory" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="6" VerticalAlignment="Top" />
-        <Label x:Name="lblOrigin" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="7" VerticalAlignment="Top" />
-        <Label x:Name="lblDestination" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="8" VerticalAlignment="Top" />
-        <Label x:Name="lblTruck" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="9" VerticalAlignment="Top" />
-        <Label x:Name="lblDeliveryAgent" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="10" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" />
-        <Label x:Name="lblDateDue" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Grid.Row="11" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" />
-        <Label HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="Item Name" Foreground="White" />
-        <Label HorizontalAlignment="Left" Margin="5" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="Category" Foreground="White" />
-        <Label HorizontalAlignment="Left" Margin="5" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="Size" Foreground="White" />
-        <Label HorizontalAlignment="Left" Margin="5" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="Quantity" Foreground="White" />
-        <StackPanel Margin="0,5" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <Label
+            x:Name="lblCategory"
+            Grid.Row="6"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lblOrigin"
+            Grid.Row="7"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lblDestination"
+            Grid.Row="8"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lblTruck"
+            Grid.Row="9"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lblDeliveryAgent"
+            Grid.Row="10"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            x:Name="lblDateDue"
+            Grid.Row="11"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            Grid.Row="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Item Name"
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            Grid.Row="2"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Category"
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            Grid.Row="3"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Size"
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            Grid.Row="4"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Quantity"
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <StackPanel
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Margin="0,5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
             <Button
                 x:Name="btnReturn"
                 Width="150"
-                HorizontalAlignment="Right" Margin="5,0">
+                Margin="5,0"
+                HorizontalAlignment="Right">
                 <Button.Background>
                     <SolidColorBrush Color="#FFA70000" />
                 </Button.Background>
@@ -218,13 +309,16 @@
                     <Label
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Foreground="White" Content="Return" FontSize="18"/>
+                        Content="Return"
+                        FontSize="18"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
             <Button
                 x:Name="btnIncomplete"
                 Width="150"
-                HorizontalAlignment="Right" Margin="5,0">
+                Margin="5,0"
+                HorizontalAlignment="Right">
                 <Button.Background>
                     <SolidColorBrush Color="#FFBAC302" />
                 </Button.Background>
@@ -233,13 +327,16 @@
                     <Label
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Foreground="White" Content="Incomplete" FontSize="18"/>
+                        Content="Incomplete"
+                        FontSize="18"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
             <Button
                 x:Name="btnComplete"
                 Width="150"
-                HorizontalAlignment="Right" Margin="5,0">
+                Margin="5,0"
+                HorizontalAlignment="Right">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0FA700" />
                 </Button.Background>
@@ -248,13 +345,51 @@
                     <Label
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Foreground="White" Content="Complete" FontSize="18"/>
+                        Content="Complete"
+                        FontSize="18"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
         </StackPanel>
-        <Label x:Name="lblItemCategory" HorizontalAlignment="Left" Margin="5" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="" Foreground="White" Grid.Column="1" />
-        <Label x:Name="lblItemSize" HorizontalAlignment="Left" Margin="5" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="" Foreground="White" Grid.Column="1" />
-        <Label x:Name="lblItemQuantity" HorizontalAlignment="Left" Margin="5" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="" Foreground="White" Grid.Column="1" />
-        <Label x:Name="lblItemName" HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.391,1.444" Content="" Foreground="White" Grid.Column="1" />
+        <Label
+            x:Name="lblItemCategory"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content=""
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            x:Name="lblItemSize"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content=""
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            x:Name="lblItemQuantity"
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content=""
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
+        <Label
+            x:Name="lblItemName"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content=""
+            Foreground="White"
+            RenderTransformOrigin="0.391,1.444" />
     </Grid>
 </Window>

@@ -14,72 +14,103 @@
     mc:Ignorable="d">
     <Grid Width="Auto" Height="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="800" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <!--   <gmaps:GMapControl
+        <gmaps:GMapControl
             x:Name="map"
             MapProvider="{Binding mapProvider}"
             MaxZoom="18"
             MinZoom="5"
             Position="{Binding mapPosition}"
-            Zoom="15" />-->
+            Zoom="15" />
         <Grid Grid.Column="1">
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource 1}" />
             </Grid.Background>
-            <StackPanel Margin="10,10,10,10" Orientation="Vertical">
+            <StackPanel Margin="5" Orientation="Vertical">
                 <Button
                     x:Name="btnTruck1"
+                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top"
                     Background="{Binding brushTracking}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="50"
-                            Height="50"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                        <Label VerticalAlignment="Center" Foreground="White">Truck #1</Label>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="50"
+                                Height="50"
+                                Margin="5,0"
+                                Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                            <Label VerticalAlignment="Center" Foreground="White">Truck #1</Label>
+                        </StackPanel>
+                        <TextBlock
+                            x:Name="txtLocation1"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="White"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button
                     x:Name="btnTruck2"
+                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top"
                     Background="{Binding brushTracking}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="50"
-                            Height="50"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                        <Label VerticalAlignment="Center" Foreground="White">Truck #1</Label>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="50"
+                                Height="50"
+                                Margin="5,0"
+                                Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                            <Label VerticalAlignment="Center" Foreground="White">Truck #2</Label>
+                        </StackPanel>
+                        <TextBlock
+                            x:Name="txtLocation2"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="White"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button
                     x:Name="btnTruck3"
+                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top"
                     Background="{Binding brushTracking}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="50"
-                            Height="50"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                        <Label VerticalAlignment="Center" Foreground="White">Truck #1</Label>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="50"
+                                Height="50"
+                                Margin="5,0"
+                                Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                            <Label VerticalAlignment="Center" Foreground="White">Truck #3</Label>
+                        </StackPanel>
+                        <TextBlock
+                            x:Name="txtLocation3"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="White"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
+
             </StackPanel>
         </Grid>
     </Grid>

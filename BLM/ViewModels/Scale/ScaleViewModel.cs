@@ -102,7 +102,7 @@ namespace BLM.ViewModels.Scale
             port.Open();
 
             dt.Tick += new EventHandler(timer_Tick);
-            dt.Interval = new TimeSpan(0, 0, 1);
+            dt.Interval = new TimeSpan(0, 0, 0);
             dt.Start();
             NotifyOfPropertyChange(null);
             base.OnActivate();
