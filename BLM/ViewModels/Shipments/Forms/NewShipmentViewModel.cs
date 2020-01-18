@@ -143,7 +143,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("select Name from users where User_Level = 'Delivery Agent'");
+                DataTable dt = Connection.dbTable("select Distinct Name from users where User_Level = 'Delivery Agent'");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
                 return list;
             }
@@ -154,7 +154,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("select Destination from shipments");
+                DataTable dt = Connection.dbTable("select Distinct Destination from shipments");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Destination")).ToList();
                 return list;
             }
@@ -165,7 +165,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("select Origin from shipments");
+                DataTable dt = Connection.dbTable("select DISTINCT Origin from shipments");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Origin")).ToList();
                 return list;
             }
@@ -227,7 +227,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("select Name from trucks");
+                DataTable dt = Connection.dbTable("select DISTINCT Name from trucks");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
                 return list;
             }
