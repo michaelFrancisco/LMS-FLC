@@ -1,23 +1,20 @@
 ﻿using BLM.Models;
+using BLM.ViewModels.Production.Forms;
+using BLM.ViewModels.Shipments.Forms;
 using Caliburn.Micro;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLM.ViewModels.Production
 {
     internal class ProductionViewModel : Screen
     {
-        
         private readonly IWindowManager windowManager = new WindowManager();
-        private object _shipmentsGridSelectedItem;
+        private object _productionGridSelectedItem;
 
         private DataTable _productionGridSource;
 
-        private string _selectedCategory;
+        private string _selectedStatus;
 
         private string _txtSearch;
 
@@ -34,10 +31,10 @@ namespace BLM.ViewModels.Production
             }
         }
 
-        public object shipmentsGridSelectedItem
+        public object productionGridSelectedItem
         {
-            get { return _shipmentsGridSelectedItem; }
-            set { _shipmentsGridSelectedItem = value; }
+            get { return _productionGridSelectedItem; }
+            set { _productionGridSelectedItem = value; }
         }
 
         public DataTable productionGridSource
@@ -46,50 +43,104 @@ namespace BLM.ViewModels.Production
             set { _productionGridSource = value; }
         }
 
-        public void btnAll()
+        public void btnFinished()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from production");
+            _productionGridSource = Connection.dbTable(
+                "SELECT prod_id as 'ID'," +
+                "prod_name as 'NAME'," +
+                "prod_category as 'CATEGORY'," +
+                "prod_status as 'STATUS'," +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W'" +
+                "from flc.production WHERE prod_status = 'Finished'");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "All";
+            _selectedStatus = "Finished";
         }
 
         public void btnCreate()
         {
-           // windowManager.ShowWindow(new NewShipmentViewModel(), null, null);
+             windowManager.ShowWindow(new NewProductionViewModel(), null, null);
         }
 
         public void btnExport()
         {
         }
 
-        public void btnInbound()
+        public void btnPending()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Inbound'");
+           // _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID', prod_name as 'NAME', prod_category as 'CATEGORY', prod_status as 'STATUS', prod_theoretical_yield as 'THEORETICAL Y', prod_actual_yield as 'ACTUAL Y', prod_percent_yield as '% YIELD', prod_received_weight as 'RECEIVED W' from flc.production WHERE prod_status = 'Pending'");
+            _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
+                "prod_name as 'NAME'," +
+                "prod_category as 'CATEGORY'," +
+                "prod_status as 'STATUS'," +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W'" +
+                "from flc.production WHERE prod_status = 'Pending'");
+       
             NotifyOfPropertyChange(null);
-            _selectedCategory = "Inbound";
+            _selectedStatus = "Pending";
         }
 
-        public void btnOutbound()
+        public void btnProcessing()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Outbound'");
+            _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
+                "prod_name as 'NAME'," +
+                "prod_category as 'CATEGORY'," +
+                "prod_status as 'STATUS', " +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W'" +
+                "from flc.production WHERE prod_status = 'Processing'");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "Outbound";
+            _selectedStatus = "Processing";
         }
 
         public void btnRefresh()
         {
-            switch (_selectedCategory)
+            switch (_selectedStatus)
             {
-                case "Inbound":
-                    _productionGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Inbound'");
+                case "Pending":
+                    _productionGridSource = Connection.dbTable(
+                         "SELECT prod_id as 'ID', " +
+                "prod_name as 'NAME', " +
+                "prod_category as 'CATEGORY', " +
+                "prod_status as 'STATUS', " +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W' " +
+                "from flc.production WHERE prod_status = 'Pending'");
                     break;
 
-                case "Outbound":
-                    _productionGridSource = Connection.dbTable("SELECT * from shipments where Category = 'Outbound'");
+                case "Processing":
+                    _productionGridSource = Connection.dbTable(
+                "SELECT prod_id as 'ID', " +
+                "prod_name as 'NAME', " +
+                "prod_category as 'CATEGORY', " +
+                "prod_status as 'STATUS', " +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W' " +
+                "from flc.production WHERE prod_status = 'Processing'");
                     break;
 
-                case "All":
-                    _productionGridSource = Connection.dbTable("SELECT * from production");
+                case "Finished":
+                    _productionGridSource = Connection.dbTable(
+                "SELECT prod_id as 'ID', " +
+                "prod_name as 'NAME', " +
+                "prod_category as 'CATEGORY', " +
+                "prod_status as 'STATUS', " +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W' " +
+                "from flc.production");
                     break;
             }
             _txtSearch = string.Empty;
@@ -100,8 +151,8 @@ namespace BLM.ViewModels.Production
         {
             try
             {
-                DataRowView dataRowView = (DataRowView)_shipmentsGridSelectedItem;
-               // windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+                // windowManager.ShowWindow(new EditProductionViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
             }
             catch
             {
@@ -110,11 +161,19 @@ namespace BLM.ViewModels.Production
 
         protected override void OnActivate()
         {
-            _productionGridSource = Connection.dbTable("SELECT * from flc.production");
-            _selectedCategory = "All";
+            _productionGridSource = Connection.dbTable(
+                "SELECT prod_id as 'ID', " +
+                "prod_name as 'NAME', " +
+                "prod_category as 'CATEGORY', " +
+                "prod_status as 'STATUS', " +
+                "prod_theoretical_yield as 'THEORETICAL Y'," +
+                "prod_actual_yield as 'ACTUAL Y'," +
+                "prod_percent_yield as '% YIELD'," +
+                "prod_received_weight as 'RECEIVED W' " +
+                "from flc.production");
+           // _selectedStatus = "All";
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
     }
 }
-

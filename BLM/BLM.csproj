@@ -177,6 +177,8 @@
     <Compile Include="ViewModels\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Production\Forms\EditProductionViewModel.cs" />
+    <Compile Include="ViewModels\Production\Forms\NewProductionViewModel.cs" />
     <Compile Include="ViewModels\Production\ProductionViewModel.cs" />
     <Compile Include="ViewModels\Scale\ScaleViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
@@ -197,6 +199,12 @@
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Production\Forms\EditProductionView.xaml.cs">
+      <DependentUpon>EditProductionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Production\Forms\NewProductionView.xaml.cs">
+      <DependentUpon>NewProductionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Production\ProductionView.xaml.cs">
       <DependentUpon>ProductionView.xaml</DependentUpon>
@@ -274,6 +282,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Production\Forms\EditProductionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Production\Forms\NewProductionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -368,7 +384,13 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\icons8-truck-64.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-copy-production-order-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-product.png" />
+    <Resource Include="Resources\Icons\icons8-wait.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
