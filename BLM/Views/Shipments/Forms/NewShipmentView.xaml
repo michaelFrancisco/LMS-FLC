@@ -53,7 +53,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
-            SelectedItem="{Binding selectedCategory}" />
+            Text="{Binding selectedCategory}" />
         <Label
             Grid.Row="2"
             Margin="5"
@@ -66,7 +66,7 @@
             Grid.Column="1"
             Margin="5"
             IsEditable="True"
-            SelectedItem="{Binding selectedOrigin}" />
+            Text="{Binding selectedOrigin}" />
         <Label
             Grid.Row="3"
             Margin="5"
@@ -79,7 +79,7 @@
             Grid.Column="1"
             Margin="5"
             IsEditable="True"
-            SelectedItem="{Binding selectedDestination}" />
+            Text="{Binding selectedDestination}" />
         <Label
             Grid.Row="4"
             Margin="5"
@@ -92,7 +92,7 @@
             Grid.Column="1"
             Margin="5"
             IsEditable="True"
-            SelectedItem="{Binding selectedTruck}" />
+            Text="{Binding selectedTruck}" />
         <Label
             Grid.Row="5"
             Margin="5"
@@ -105,7 +105,7 @@
             Grid.Column="1"
             Margin="5"
             IsEditable="True"
-            SelectedItem="{Binding selectedDeliveryAgent}" />
+            Text="{Binding selectedDeliveryAgent}" />
         <Label
             Grid.Row="6"
             Margin="5"
