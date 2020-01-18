@@ -70,8 +70,7 @@ namespace BLM.ViewModels.Production
 
         public void btnPending()
         {
-           // _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID', prod_name as 'NAME', prod_category as 'CATEGORY', prod_status as 'STATUS', prod_theoretical_yield as 'THEORETICAL Y', prod_actual_yield as 'ACTUAL Y', prod_percent_yield as '% YIELD', prod_received_weight as 'RECEIVED W' from flc.production WHERE prod_status = 'Pending'");
-            _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
+             _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
                 "prod_name as 'NAME'," +
                 "prod_category as 'CATEGORY'," +
                 "prod_status as 'STATUS'," +
@@ -171,7 +170,6 @@ namespace BLM.ViewModels.Production
                 "prod_percent_yield as '% YIELD'," +
                 "prod_received_weight as 'RECEIVED W' " +
                 "from flc.production");
-           // _selectedStatus = "All";
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

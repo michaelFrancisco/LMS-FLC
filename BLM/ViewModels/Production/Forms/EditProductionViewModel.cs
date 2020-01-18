@@ -8,5 +8,6 @@ namespace BLM.ViewModels.Production.Forms
 {
     class EditProductionViewModel
     {
+
     }
 }

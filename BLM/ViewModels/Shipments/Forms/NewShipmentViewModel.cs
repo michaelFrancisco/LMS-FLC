@@ -355,7 +355,7 @@ namespace BLM.ViewModels.Shipments.Forms
             }
             return -1;
         }
-
+        
         public bool fieldsareComplete()
         {
             if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))

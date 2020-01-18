@@ -22,11 +22,14 @@ namespace BLM.Views.Production.Forms
         public NewProductionView()
         {
             InitializeComponent();
+          
         }
 
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+
+      
     }
 }
