@@ -18,8 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="465*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -49,16 +48,21 @@
             Margin="5,4.6,5,4.8"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Content="Product Name" />
+            Content="ID" />
         <Label
             Grid.Row="2"
+            Margin="5,4.6,5,4.8"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Content="Product Name" />
+        <Label
+            Grid.Row="3"
             Margin="5,5.2"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Theoretical Yield" />
-
         <TextBox
-            x:Name="txtProductName"
+            x:Name="txtID"
             Grid.Row="1"
             Grid.Column="1"
             Width="Auto"
@@ -69,7 +73,7 @@
             Text=""
             TextWrapping="Wrap" />
         <TextBox
-            x:Name="textBox1"
+            x:Name="txtProductName"
             Grid.Row="2"
             Grid.Column="1"
             Width="Auto"
@@ -79,6 +83,18 @@
             VerticalContentAlignment="Stretch"
             Text=""
             TextWrapping="Wrap" />
+        <TextBox
+            x:Name="txtTheoreticalYield"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="Auto"
+            Height="Auto"
+            Margin="5,4.6,5,4.8"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Text=""
+            TextWrapping="Wrap" />
+
         <StackPanel
             Grid.Row="6"
             Grid.RowSpan="3"
@@ -121,7 +137,7 @@
                 </DataGrid.Resources>
             </DataGrid>
             <DataGrid
-                x:Name="shipmentGrid"
+                x:Name="receivedGrid"
                 Grid.Column="3"
                 Margin="5,0"
                 HorizontalAlignment="Stretch"
@@ -136,7 +152,7 @@
                 FontSize="16"
                 Foreground="Black"
                 IsReadOnly="True"
-                ItemsSource="{Binding shipmentGridSource}"
+                ItemsSource="{Binding receivedGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding shipmentGridSelectedItem}"
                 SelectionMode="Single">
@@ -150,10 +166,10 @@
         <StackPanel
             Grid.Row="9"
             Grid.Column="3"
-            Width="660"
+            Width="auto"
             Margin="0,5.2,-0.4,5.4"
             HorizontalAlignment="Right"
-            Orientation="Horizontal">
+            Orientation="Horizontal" Grid.ColumnSpan="2">
             <Button
                 x:Name="btnCancel"
                 Width="200"
@@ -212,7 +228,7 @@
             Grid.ColumnSpan="4"
             Margin="0,0,-0.4,0.4"
             Visibility="{Binding QuantityBoxVisibility}">
-              <Grid Background="Black" Opacity="0.5" />
+            <Grid Background="Black" Opacity="0.5" />
             <Border
                 MinWidth="350"
                 HorizontalAlignment="Center"
@@ -223,7 +239,10 @@
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource 1}" />
                 </Border.Background>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.IsRowHeader="True">
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.IsRowHeader="True">
                     <TextBlock Margin="5" Text="Enter ID" />
                     <TextBox
                         x:Name="txtRFID"
@@ -231,7 +250,8 @@
                         Height="30"
                         MinWidth="150"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        TabIndex="0" />
                     <Label
                         HorizontalAlignment="Center"
                         Content="{Binding quantityToolTipText}"
@@ -239,7 +259,7 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button
                             x:Name="btnOK"
-                       Width="100"
+                            Width="100"
                             Margin="5"
                             Background="{x:Null}"
                             BorderBrush="Black"

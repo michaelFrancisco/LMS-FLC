@@ -18,6 +18,18 @@ namespace BLM.ViewModels.Production
 
         private string _txtSearch;
 
+        public object productionGridSelectedItem
+        {
+            get { return _productionGridSelectedItem; }
+            set { _productionGridSelectedItem = value; }
+        }
+
+        public DataTable productionGridSource
+        {
+            get { return _productionGridSource; }
+            set { _productionGridSource = value; }
+        }
+
         public string txtSearch
         {
             get { return _txtSearch; }
@@ -30,17 +42,13 @@ namespace BLM.ViewModels.Production
                 NotifyOfPropertyChange(null);
             }
         }
-
-        public object productionGridSelectedItem
+        public void btnCreate()
         {
-            get { return _productionGridSelectedItem; }
-            set { _productionGridSelectedItem = value; }
+            windowManager.ShowWindow(new NewProductionViewModel(), null, null);
         }
 
-        public DataTable productionGridSource
+        public void btnExport()
         {
-            get { return _productionGridSource; }
-            set { _productionGridSource = value; }
         }
 
         public void btnFinished()
@@ -58,16 +66,6 @@ namespace BLM.ViewModels.Production
             NotifyOfPropertyChange(null);
             _selectedStatus = "Finished";
         }
-
-        public void btnCreate()
-        {
-             windowManager.ShowWindow(new NewProductionViewModel(), null, null);
-        }
-
-        public void btnExport()
-        {
-        }
-
         public void btnPending()
         {
              _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
