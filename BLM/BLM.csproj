@@ -169,7 +169,10 @@
     <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\NewShipmentViewModel.cs" />
     <Compile Include="ViewModels\Shipments\ShipmentsViewModel.cs" />
+    <Compile Include="ViewModels\Tracking\SchedulingViewModel.cs" />
+    <Compile Include="ViewModels\Tracking\TrackingMenuViewModel.cs" />
     <Compile Include="ViewModels\Tracking\TrackingViewModel.cs" />
+    <Compile Include="ViewModels\Tracking\TruckInfoViewModel.cs" />
     <Compile Include="Views\Inventory\Forms\EditItemView.xaml.cs">
       <DependentUpon>EditItemView.xaml</DependentUpon>
     </Compile>
@@ -194,14 +197,26 @@
     <Compile Include="Views\Shipments\Forms\EditShipmentView.xaml.cs">
       <DependentUpon>EditShipmentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shipments\Forms\LocationSelectorView.xaml.cs">
+      <DependentUpon>LocationSelectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shipments\Forms\NewShipmentView.xaml.cs">
       <DependentUpon>NewShipmentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shipments\ShipmentsView.xaml.cs">
       <DependentUpon>ShipmentsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Tracking\SchedulingView.xaml.cs">
+      <DependentUpon>SchedulingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tracking\TrackingMenuView.xaml.cs">
+      <DependentUpon>TrackingMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tracking\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tracking\TruckInfoView.xaml.cs">
+      <DependentUpon>TruckInfoView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +280,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Shipments\Forms\LocationSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Shipments\Forms\NewShipmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,7 +292,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Tracking\SchedulingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tracking\TrackingMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Tracking\TrackingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tracking\TruckInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,6 +380,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\icons8-return-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Lich_minimap_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Lone_Druid_minimap_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Bounty_Hunter_minimap_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-truck-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-truck-96%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-truck-96%282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-map-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-schedule-100.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

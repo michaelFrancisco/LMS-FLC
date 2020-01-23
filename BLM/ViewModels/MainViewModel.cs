@@ -105,7 +105,7 @@ namespace BLM.ViewModels
 
         public void btnTracking()
         {
-            ActivateItem(new TrackingViewModel());
+            ActivateItem(new TrackingMenuViewModel());
         }
 
         public void clearColors()

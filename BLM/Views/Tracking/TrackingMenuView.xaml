@@ -1,0 +1,73 @@
+﻿<UserControl
+    x:Class="BLM.Views.Tracking.TrackingMenuView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+    xmlns:local="clr-namespace:BLM.Views.Inventory"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="645"
+    d:DesignWidth="1030"
+    FontFamily="Roboto"
+    FontSize="22"
+    mc:Ignorable="d">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource 3}" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="btnLiveMap"
+                Margin="10,0"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
+                Foreground="White">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-map-64.png" />
+                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Live Map"/>
+                </StackPanel>
+            </Button>
+            <Button
+                x:Name="btnScheduling"
+                Margin="10,0"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
+                Foreground="White" Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-schedule-100.png" />
+                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Scheduling"/>
+                </StackPanel>
+            </Button>
+            <Button
+                x:Name="btnTruckInfo"
+                Margin="10,0"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
+                Foreground="White" Grid.Column="2">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Truck Info"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ContentControl
+                x:Name="ActiveItem"
+                Margin="0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Background="White"
+                Foreground="{x:Null}" />
+        </Grid>
+    </Grid>
+</UserControl>
