@@ -23,5 +23,15 @@ namespace BLM.Views.Production
         {
             InitializeComponent();
         }
+
+        private void productionGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "THEORETICAL":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
     }
 }

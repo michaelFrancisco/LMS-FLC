@@ -29,6 +29,13 @@ namespace BLM.ViewModels.Production
             get { return _productionGridSource; }
             set { _productionGridSource = value; }
         }
+        private string _txtProductName;
+
+        public string txtProductName
+        {
+            get { return _txtProductName; }
+            set { _txtProductName = value; }
+        }
 
         public string txtSearch
         {
@@ -54,94 +61,77 @@ namespace BLM.ViewModels.Production
         public void btnFinished()
         {
             _productionGridSource = Connection.dbTable(
-                "SELECT prod_id as 'ID'," +
-                "prod_name as 'NAME'," +
-                "prod_category as 'CATEGORY'," +
-                "prod_status as 'STATUS'," +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W'" +
-                "from flc.production WHERE prod_status = 'Finished'");
+                 "SELECT prod_id as 'ID'," +
+                 "prod_name as 'NAME'," +
+                 "prod_theoretical_yield as 'THEORETICAL'," +
+    //             "prod_item_name as 'ITEM'," +
+    //             "prod_category as 'CATEGORY'," +
+    //             "prod_qty as 'QUANTITY'," +
+    //              "prod_received_weight as 'WEIGHT'," +
+    //              "prod_size as 'SIZE'," +
+    //              "prod_unit as 'UNIT'," +
+                 "prod_status as 'STATUS'," +
+                 "prod_rfid as 'RFID' " +
+                 "from flc.production where prod_status = 'Finished' group by prod_rfid");
             NotifyOfPropertyChange(null);
             _selectedStatus = "Finished";
         }
         public void btnPending()
         {
-             _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
-                "prod_name as 'NAME'," +
-                "prod_category as 'CATEGORY'," +
-                "prod_status as 'STATUS'," +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W'" +
-                "from flc.production WHERE prod_status = 'Pending'");
-       
+             _productionGridSource = Connection.dbTable(
+                 "SELECT prod_id as 'ID'," +
+                 "prod_name as 'NAME'," +
+                 "prod_theoretical_yield as 'THEORETICAL'," +
+    //             "prod_item_name as 'ITEM'," +
+    //             "prod_category as 'CATEGORY'," +
+    //             "prod_qty as 'QUANTITY'," +
+    //              "prod_received_weight as 'WEIGHT'," +
+    //              "prod_size as 'SIZE'," +
+    //              "prod_unit as 'UNIT'," +
+                 "prod_status as 'STATUS'," +
+                 "prod_rfid as 'RFID' " +
+                 "from flc.production where prod_status = 'Pending' group by prod_rfid");
+
             NotifyOfPropertyChange(null);
             _selectedStatus = "Pending";
         }
 
         public void btnProcessing()
         {
-            _productionGridSource = Connection.dbTable("SELECT prod_id as 'ID'," +
-                "prod_name as 'NAME'," +
-                "prod_category as 'CATEGORY'," +
-                "prod_status as 'STATUS', " +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W'" +
-                "from flc.production WHERE prod_status = 'Processing'");
+            _productionGridSource = Connection.dbTable(
+                 "SELECT prod_id as 'ID'," +
+                 "prod_name as 'NAME'," +
+                 "prod_theoretical_yield as 'THEORETICAL'," +
+     //            "prod_item_name as 'ITEM'," +
+     //            "prod_category as 'CATEGORY'," +
+     //            "prod_qty as 'QUANTITY'," +
+     //             "prod_received_weight as 'WEIGHT'," +
+     //             "prod_size as 'SIZE'," +
+     //             "prod_unit as 'UNIT'," +
+                 "prod_status as 'STATUS'," +
+                 "prod_rfid as 'RFID' " +
+                 "from flc.production where prod_status = 'Processing' group by prod_rfid");
             NotifyOfPropertyChange(null);
             _selectedStatus = "Processing";
         }
 
         public void btnRefresh()
         {
-            switch (_selectedStatus)
-            {
-                case "Pending":
-                    _productionGridSource = Connection.dbTable(
-                         "SELECT prod_id as 'ID', " +
-                "prod_name as 'NAME', " +
-                "prod_category as 'CATEGORY', " +
-                "prod_status as 'STATUS', " +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W' " +
-                "from flc.production WHERE prod_status = 'Pending'");
-                    break;
-
-                case "Processing":
-                    _productionGridSource = Connection.dbTable(
-                "SELECT prod_id as 'ID', " +
-                "prod_name as 'NAME', " +
-                "prod_category as 'CATEGORY', " +
-                "prod_status as 'STATUS', " +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W' " +
-                "from flc.production WHERE prod_status = 'Processing'");
-                    break;
-
-                case "Finished":
-                    _productionGridSource = Connection.dbTable(
-                "SELECT prod_id as 'ID', " +
-                "prod_name as 'NAME', " +
-                "prod_category as 'CATEGORY', " +
-                "prod_status as 'STATUS', " +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W' " +
-                "from flc.production");
-                    break;
-            }
+            _productionGridSource = Connection.dbTable(
+                 "SELECT prod_id as 'ID'," +
+                 "prod_name as 'NAME'," +
+                 "prod_theoretical_yield as 'THEORETICAL'," +
+                 "prod_item_name as 'ITEM'," +
+                 "prod_category as 'CATEGORY'," +
+                 "prod_qty as 'QUANTITY'," +
+                  "prod_received_weight as 'WEIGHT'," +
+                  "prod_size as 'SIZE'," +
+                  "prod_unit as 'UNIT'," +
+                 "prod_status as 'STATUS'," +
+                 "prod_rfid as 'RFID' " +
+                 "from flc.production");
+            NotifyOfPropertyChange(() => productionGridSource);
             _txtSearch = string.Empty;
-            NotifyOfPropertyChange(null);
         }
 
         public void showItem()
@@ -156,19 +146,66 @@ namespace BLM.ViewModels.Production
             }
         }
 
+
+        private string _txtTheoreticalYield;
+
+        public string txtTheoreticalYield
+        {
+            get { return _txtTheoreticalYield; }
+            set { _txtTheoreticalYield = value; }
+        }
+        private string _txtStatus;
+
+        public string txtStatus
+        {
+            get { return _txtStatus; }
+            set { _txtStatus = value; }
+        }
+            
+        private string _txtRFID;
+
+        public string txtRFID
+        {
+            get { return _txtRFID; }
+            set { _txtRFID = value; }
+        }
+
+
+        public void print()
+        {
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+                _txtProductName = dataRowView.Row[1].ToString();
+         //       NotifyOfPropertyChange(() => txtProductName);
+             _txtTheoreticalYield = dataRowView.Row[2].ToString();
+        //        NotifyOfPropertyChange(() => txtTheoreticalYield);
+                _txtStatus = dataRowView.Row[9].ToString();
+         //       NotifyOfPropertyChange(() => txtStatus);
+                _txtRFID = dataRowView.Row[10].ToString();
+                NotifyOfPropertyChange(null);
+            }
+            catch
+            {
+
+            }
+        }
         protected override void OnActivate()
         {
             _productionGridSource = Connection.dbTable(
-                "SELECT prod_id as 'ID', " +
-                "prod_name as 'NAME', " +
-                "prod_category as 'CATEGORY', " +
+                "SELECT prod_id as 'ID'," +
+                "prod_name as 'NAME'," +
+                "prod_theoretical_yield as 'THEORETICAL'," +
+                "prod_item_name as 'ITEM'," +
+                "prod_category as 'CATEGORY'," +
+                "prod_qty as 'QUANTITY'," +
+                 "prod_received_weight as 'WEIGHT'," +
+                 "prod_size as 'SIZE'," +
+                 "prod_unit as 'UNIT'," +
                 "prod_status as 'STATUS', " +
-                "prod_theoretical_yield as 'THEORETICAL Y'," +
-                "prod_actual_yield as 'ACTUAL Y'," +
-                "prod_percent_yield as '% YIELD'," +
-                "prod_received_weight as 'RECEIVED W' " +
+                "prod_rfid as 'RFID' " +
                 "from flc.production");
-            NotifyOfPropertyChange(null);
+            NotifyOfPropertyChange(()=>productionGridSource);
             base.OnActivate();
         }
     }

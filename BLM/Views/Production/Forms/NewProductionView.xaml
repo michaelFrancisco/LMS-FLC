@@ -18,7 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="465*" />
-             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -122,14 +122,14 @@
                 BorderBrush="Black"
                 BorderThickness="1"
                 CanUserAddRows="False"
-                ColumnWidth="Auto"
+                ColumnWidth="*"
                 FontSize="16"
                 Foreground="Black"
                 IsReadOnly="True"
                 ItemsSource="{Binding itemGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding itemGridSelectedItem}"
-                SelectionMode="Single">
+                SelectionMode="Single" AutoGeneratingColumn="itemsGrid_AutoGeneratingColumn">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -148,14 +148,14 @@
                 BorderBrush="Black"
                 BorderThickness="1"
                 CanUserAddRows="False"
-                ColumnWidth="Auto"
+                ColumnWidth="*"
                 FontSize="16"
                 Foreground="Black"
                 IsReadOnly="True"
                 ItemsSource="{Binding receivedGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding shipmentGridSelectedItem}"
-                SelectionMode="Single">
+                SelectionMode="Single" AutoGeneratingColumn="receivedGrid_AutoGeneratingColumn">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -222,7 +222,7 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-        <Grid
+     <!--   <Grid
             x:Name="Quantity"
             Grid.RowSpan="10"
             Grid.ColumnSpan="4"
@@ -269,6 +269,6 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-        </Grid>
+        </Grid> -->
     </Grid>
 </Window>

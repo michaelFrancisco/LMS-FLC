@@ -14,12 +14,13 @@ namespace BLM.ViewModels.Production.Forms
         private Visibility _QuantityBoxVisibility;
 
         private DataTable _receivedGridSource;
+        private DataTable _tempoTable;
         private string _txtID;
         private string _txtProductName;
 
         private string _txtRFID;
 
-        private int _txtTheoreticalYield;
+        private string _txtTheoreticalYield;
 
         public bool btnOkIsClicked
         {
@@ -45,6 +46,12 @@ namespace BLM.ViewModels.Production.Forms
             set { _receivedGridSource = value; }
         }
 
+        public DataTable templTable
+        {
+            get { return _tempoTable; }
+            set { _tempoTable = value; }
+        }
+
         public string txtID
         {
             get { return _txtID; }
@@ -63,57 +70,120 @@ namespace BLM.ViewModels.Production.Forms
             set
             {
                 _txtRFID = value;
-           
             }
         }
 
-        public int txtTheoreticalYield
+        public string txtTheoreticalYield
         {
             get { return _txtTheoreticalYield; }
             set { _txtTheoreticalYield = value; }
         }
-
-        private DataTable _tempoTable;
-
-        public DataTable templTable
-        {
-            get { return _tempoTable; }
-            set { _tempoTable = value; }
-        }
-
-
         public void btnConfirm()
         {
             foreach (DataRow row in _receivedGridSource.Rows)
             {
-                Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_name`, `prod_category`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`,`prod_size`,`prod_size`)" +
-                    "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "','" + row[5] + "','" + _txtProductName + "','" + _txtTheoreticalYield + "');");
+                Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_item_name`, `prod_category`, `prod_theoretical_yield`, `prod_actual_yield`, `prod_percent_yield`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`, `prod_status`, `prod_rfid`, `prod_name`)" +
+                    "VALUES('"+row[0]+ "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
             }
-            _receivedGridSource = Connection.dbTable("Select item_name as 'ITEM', category as 'CATEGORY', quantity as 'QUANTITY', weight as 'WEIGHT', size as 'SIZE', unit as 'UNIT' from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
-
+            _receivedGridSource = Connection.dbTable(
+                "SELECT item_name as 'NAME'," +
+                "category as 'CATEGORY'," +
+                "theoretical_yield as 'THEORETICAL'," +
+                "actual_yield as 'ACTUAL'," +
+                "percent_yield as 'PERCENT'," +
+                "quantity as 'QUANTITY'," +
+                "weight as 'WEIGHT'," +
+                "size as 'SIZE'," +
+                "unit as 'UNIT'," +
+                "status as 'STATUS'," +
+                "rfid as 'RFID'," +
+                "product_name " +
+                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => receivedGridSource);
+
+            _txtID = string.Empty;
+            _txtRFID = string.Empty;
+            _txtProductName = string.Empty;
+            _txtTheoreticalYield = string.Empty;
+
+            NotifyOfPropertyChange(() =>txtID);
+            NotifyOfPropertyChange(() =>txtRFID);
+            NotifyOfPropertyChange(() =>txtProductName);
+            NotifyOfPropertyChange(() =>txtTheoreticalYield);
         }
+
         public void btnOK()
         {
-            _itemGridSource = Connection.dbTable("Select * from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
-            _txtID = _txtRFID;
-       _tempoTable = Connection.dbTable("Select product_name from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
-            _txtProductName = _tempoTable;
-            NotifyOfPropertyChange(() => txtID);
+            _itemGridSource = Connection.dbTable(
+                "SELECT item_name as 'NAME'," +
+                "category as 'CATEGORY'," +
+                "theoretical_yield as 'THEORETICAL'," +
+                "actual_yield as 'ACTUAL'," +
+                "percent_yield as 'PERCENT'," +
+                "quantity as 'QUANTITY'," +
+                "weight as 'WEIGHT'," +
+                "size as 'SIZE'," +
+                "unit as 'UNIT'," +
+                "status as 'STATUS'," +
+                "rfid as 'RFID'," +
+                "product_name " +
+                "FROM inventory_production WHERE status = 'pending' and rfid = " +_txtRFID+"");
             NotifyOfPropertyChange(() => itemGridSource);
+
+            _txtID = _txtRFID;
+            NotifyOfPropertyChange(() => txtID);
             NotifyOfPropertyChange(() => txtRFID);
+
+            //putting Product Name in textbox
+            _txtProductName = _itemGridSource.Rows[0][11].ToString();
+            NotifyOfPropertyChange(() => txtProductName);
+
+            _txtTheoreticalYield = itemGridSource.Rows[0][2].ToString();
+            NotifyOfPropertyChange(() => txtTheoreticalYield);
+
             _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
             NotifyOfPropertyChange(() => QuantityBoxVisibility);
         }
 
         public void btnReceive()
         {
-            _receivedGridSource = Connection.dbTable("Select item_name as 'ITEM', category as 'CATEGORY', quantity as 'QUANTITY', weight as 'WEIGHT', size as 'SIZE', unit as 'UNIT' from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
-            Connection.dbCommand("UPDATE `flc`.`inventory_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
-            _itemGridSource = Connection.dbTable("Select * from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
-            NotifyOfPropertyChange(() => itemGridSource);
+            _receivedGridSource = Connection.dbTable(
+                "SELECT item_name as 'NAME'," +
+                "category as 'CATEGORY'," +
+                "theoretical_yield as 'THEORETICAL'," +
+                "actual_yield as 'ACTUAL'," +
+                "percent_yield as 'PERCENT'," +
+                "quantity as 'QUANTITY'," +
+                "weight as 'WEIGHT'," +
+                "size as 'SIZE'," +
+                "unit as 'UNIT'," +
+                "status as 'STATUS'," +
+                "rfid as 'RFID'," +
+                "product_name " +
+                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => receivedGridSource);
+
+
+            Connection.dbCommand("UPDATE `flc`.`inventory_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
+
+            
+            _itemGridSource = Connection.dbTable(
+                "SELECT item_name as 'NAME'," +
+                "category as 'CATEGORY'," +
+                "theoretical_yield as 'THEORETICAL'," +
+                "actual_yield as 'ACTUAL'," +
+                "percent_yield as 'PERCENT'," +
+                "quantity as 'QUANTITY'," +
+                "weight as 'WEIGHT'," +
+                "size as 'SIZE'," +
+                "unit as 'UNIT'," +
+                "status as 'STATUS'," +
+                "rfid as 'RFID'," +
+                "product_name " +
+                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+            NotifyOfPropertyChange(() => itemGridSource);
         }
+
         protected override void OnActivate()
         {
             NotifyOfPropertyChange(null);
