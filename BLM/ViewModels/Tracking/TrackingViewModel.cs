@@ -154,7 +154,6 @@ namespace BLM.ViewModels.Tracking
                     }
                 }
             }
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
