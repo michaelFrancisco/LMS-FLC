@@ -14,10 +14,10 @@ namespace BLM.ViewModels.Production.Forms
         private Visibility _QuantityBoxVisibility;
 
         private DataTable _receivedGridSource;
-        private int _txtID;
+        private string _txtID;
         private string _txtProductName;
 
-        private int _txtRFID;
+        private string _txtRFID;
 
         private int _txtTheoreticalYield;
 
@@ -45,7 +45,7 @@ namespace BLM.ViewModels.Production.Forms
             set { _receivedGridSource = value; }
         }
 
-        public int txtID
+        public string txtID
         {
             get { return _txtID; }
             set { _txtID = value; }
@@ -57,7 +57,7 @@ namespace BLM.ViewModels.Production.Forms
             set { _txtProductName = value; }
         }
 
-        public int txtRFID
+        public string txtRFID
         {
             get { return _txtRFID; }
             set
@@ -73,11 +73,21 @@ namespace BLM.ViewModels.Production.Forms
             set { _txtTheoreticalYield = value; }
         }
 
+        private DataTable _tempoTable;
+
+        public DataTable templTable
+        {
+            get { return _tempoTable; }
+            set { _tempoTable = value; }
+        }
+
+
         public void btnConfirm()
         {
             foreach (DataRow row in _receivedGridSource.Rows)
             {
-                Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_name`, `prod_category`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`) VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "','" + row[5] + "','" + _txtProductName + "','" + _txtTheoreticalYield + "');");
+                Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_name`, `prod_category`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`,`prod_size`,`prod_size`)" +
+                    "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "','" + row[5] + "','" + _txtProductName + "','" + _txtTheoreticalYield + "');");
             }
             _receivedGridSource = Connection.dbTable("Select item_name as 'ITEM', category as 'CATEGORY', quantity as 'QUANTITY', weight as 'WEIGHT', size as 'SIZE', unit as 'UNIT' from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
 
@@ -87,6 +97,8 @@ namespace BLM.ViewModels.Production.Forms
         {
             _itemGridSource = Connection.dbTable("Select * from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
             _txtID = _txtRFID;
+       _tempoTable = Connection.dbTable("Select product_name from flc.inventory_production where rfid='" + _txtRFID + "' And status='pending'");
+            _txtProductName = _tempoTable;
             NotifyOfPropertyChange(() => txtID);
             NotifyOfPropertyChange(() => itemGridSource);
             NotifyOfPropertyChange(() => txtRFID);
