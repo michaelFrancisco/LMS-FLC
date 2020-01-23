@@ -7,6 +7,8 @@ using GMap.NET.MapProviders;
 using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 
 namespace BLM.ViewModels.Tracking
 {
@@ -111,7 +113,8 @@ namespace BLM.ViewModels.Tracking
             dt.Interval = new TimeSpan(0, 0, 5);
             dt.Start();
             GMapProviders.GoogleMap.ApiKey = @"AIzaSyB8B3hq7jeZtvEPtFdEoZ3Jd5IaZh2Hp3g";
-
+            GMapProviders.GoogleMap.MinZoom = 15;
+            GMapProviders.GoogleMap.MaxZoom = 20;
             base.OnActivate();
         }
 
@@ -156,11 +159,17 @@ namespace BLM.ViewModels.Tracking
             }
         }
 
+        private void addMarker()
+        {
+        }
+
         private void timer_Tick(object sender, EventArgs e)
         {
             _mapPosition = getLocation(_currentTruck);
             changeLocationtxt();
-            NotifyOfPropertyChange(() => mapPosition);
+            NotifyOfPropertyChange(() => mapPosition);  
+
+
         }
     }
 }

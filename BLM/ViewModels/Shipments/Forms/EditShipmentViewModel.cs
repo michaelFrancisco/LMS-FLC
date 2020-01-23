@@ -118,20 +118,38 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public void btnComplete()
         {
-            DataRowView row = (DataRowView)_itemGridSelectedItem;
-            row[6] = "Complete";
+            try
+            {
+                DataRowView row = (DataRowView)_itemGridSelectedItem;
+                row[6] = "Complete";
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         public void btnIncomplete()
         {
-            DataRowView row = (DataRowView)_itemGridSelectedItem;
-            row[6] = "Incomplete";
+            try
+            {
+                DataRowView row = (DataRowView)_itemGridSelectedItem;
+                row[6] = "Incomplete";
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         public void btnReturn()
         {
-            DataRowView row = (DataRowView)_itemGridSelectedItem;
-            row[6] = "For Return";
+            try
+            {
+                DataRowView row = (DataRowView)_itemGridSelectedItem;
+                row[6] = "For Return";
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         public void btnSave()
