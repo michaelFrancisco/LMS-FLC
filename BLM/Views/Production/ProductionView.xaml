@@ -159,7 +159,7 @@
                     HorizontalAlignment="Left"
                     Orientation="Horizontal">
                     <TextBox
-                        x:Name="txtFirst"
+                        x:Name="txtSearch"
                         Width="300"
                         VerticalContentAlignment="Center">
                         <TextBox.Style>

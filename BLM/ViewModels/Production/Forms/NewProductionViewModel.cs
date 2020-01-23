@@ -127,7 +127,7 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " +_txtRFID+"");
+                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID +"");
             NotifyOfPropertyChange(() => itemGridSource);
 
             _txtID = _txtRFID;
@@ -186,6 +186,7 @@ namespace BLM.ViewModels.Production.Forms
 
         protected override void OnActivate()
         {
+            
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

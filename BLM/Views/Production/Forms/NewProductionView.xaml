@@ -222,7 +222,7 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-     <!--   <Grid
+        <Grid
             x:Name="Quantity"
             Grid.RowSpan="10"
             Grid.ColumnSpan="4"
@@ -269,6 +269,6 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-        </Grid> -->
+        </Grid> 
     </Grid>
 </Window>
