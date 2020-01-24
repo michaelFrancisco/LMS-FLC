@@ -8,18 +8,14 @@ namespace BLM.ViewModels.Production.Forms
     internal class NewProductionViewModel : Screen
     {
         private bool _btnOkIsClicked;
-
         private DataTable _itemGridSource;
-
+        private Visibility _newproductionviewVisibility;
         private Visibility _QuantityBoxVisibility;
-
         private DataTable _receivedGridSource;
         private DataTable _tempoTable;
         private string _txtID;
         private string _txtProductName;
-
         private string _txtRFID;
-
         private string _txtTheoreticalYield;
 
         public bool btnOkIsClicked
@@ -32,6 +28,12 @@ namespace BLM.ViewModels.Production.Forms
         {
             get { return _itemGridSource; }
             set { _itemGridSource = value; }
+        }
+
+        public Visibility newproductionviewVisibility
+        {
+            get { return _newproductionviewVisibility; }
+            set { _newproductionviewVisibility = value; }
         }
 
         public Visibility QuantityBoxVisibility
@@ -78,12 +80,13 @@ namespace BLM.ViewModels.Production.Forms
             get { return _txtTheoreticalYield; }
             set { _txtTheoreticalYield = value; }
         }
+
         public void btnConfirm()
         {
             foreach (DataRow row in _receivedGridSource.Rows)
             {
                 Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_item_name`, `prod_category`, `prod_theoretical_yield`, `prod_actual_yield`, `prod_percent_yield`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`, `prod_status`, `prod_rfid`, `prod_name`)" +
-                    "VALUES('"+row[0]+ "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
+                    "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
             }
             _receivedGridSource = Connection.dbTable(
                 "SELECT item_name as 'NAME'," +
@@ -99,17 +102,6 @@ namespace BLM.ViewModels.Production.Forms
                 "rfid as 'RFID'," +
                 "product_name " +
                 "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
-            NotifyOfPropertyChange(() => receivedGridSource);
-
-            _txtID = string.Empty;
-            _txtRFID = string.Empty;
-            _txtProductName = string.Empty;
-            _txtTheoreticalYield = string.Empty;
-
-            NotifyOfPropertyChange(() =>txtID);
-            NotifyOfPropertyChange(() =>txtRFID);
-            NotifyOfPropertyChange(() =>txtProductName);
-            NotifyOfPropertyChange(() =>txtTheoreticalYield);
         }
 
         public void btnOK()
@@ -127,22 +119,14 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID +"");
-            NotifyOfPropertyChange(() => itemGridSource);
+                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
 
             _txtID = _txtRFID;
-            NotifyOfPropertyChange(() => txtID);
-            NotifyOfPropertyChange(() => txtRFID);
-
             //putting Product Name in textbox
             _txtProductName = _itemGridSource.Rows[0][11].ToString();
-            NotifyOfPropertyChange(() => txtProductName);
-
             _txtTheoreticalYield = itemGridSource.Rows[0][2].ToString();
-            NotifyOfPropertyChange(() => txtTheoreticalYield);
-
             _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
-            NotifyOfPropertyChange(() => QuantityBoxVisibility);
+            NotifyOfPropertyChange(null);
         }
 
         public void btnReceive()
@@ -163,10 +147,8 @@ namespace BLM.ViewModels.Production.Forms
                 "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => receivedGridSource);
 
-
             Connection.dbCommand("UPDATE `flc`.`inventory_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
 
-            
             _itemGridSource = Connection.dbTable(
                 "SELECT item_name as 'NAME'," +
                 "category as 'CATEGORY'," +
@@ -182,13 +164,24 @@ namespace BLM.ViewModels.Production.Forms
                 "product_name " +
                 "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => itemGridSource);
+            btnConfirm();
         }
 
         protected override void OnActivate()
         {
-            
             NotifyOfPropertyChange(null);
             base.OnActivate();
+            
+        }
+
+        public void btnCancel()
+        {
+            _txtRFID = string.Empty;
+            _txtProductName = string.Empty;
+            _txtTheoreticalYield = string.Empty;
+            _newproductionviewVisibility = System.Windows.Visibility.Collapsed;
+            this.TryClose();
+            NotifyOfPropertyChange(null);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Production.Forms;
-using BLM.ViewModels.Shipments.Forms;
 using Caliburn.Micro;
-using System;
 using System.Data;
 
 namespace BLM.ViewModels.Production
@@ -11,12 +9,13 @@ namespace BLM.ViewModels.Production
     {
         private readonly IWindowManager windowManager = new WindowManager();
         private object _productionGridSelectedItem;
-
         private DataTable _productionGridSource;
-
         private string _selectedStatus;
-
+        private string _txtProductName;
+        private string _txtRFID;
         private string _txtSearch;
+        private string _txtStatus;
+        private string _txtTheoreticalYield;
 
         public object productionGridSelectedItem
         {
@@ -29,12 +28,17 @@ namespace BLM.ViewModels.Production
             get { return _productionGridSource; }
             set { _productionGridSource = value; }
         }
-        private string _txtProductName;
 
         public string txtProductName
         {
             get { return _txtProductName; }
             set { _txtProductName = value; }
+        }
+
+        public string txtRFID
+        {
+            get { return _txtRFID; }
+            set { _txtRFID = value; }
         }
 
         public string txtSearch
@@ -69,16 +73,24 @@ namespace BLM.ViewModels.Production
                     NotifyOfPropertyChange(() => productionGridSource);
                     clear();
                 }
-
             }
         }
+
+        public string txtStatus
+        {
+            get { return _txtStatus; }
+            set { _txtStatus = value; }
+        }
+
+        public string txtTheoreticalYield
+        {
+            get { return _txtTheoreticalYield; }
+            set { _txtTheoreticalYield = value; }
+        }
+
         public void btnCreate()
         {
             windowManager.ShowWindow(new NewProductionViewModel(), null, null);
-        }
-
-        public void btnExport()
-        {
         }
 
         public void btnFinished()
@@ -87,12 +99,6 @@ namespace BLM.ViewModels.Production
                  "SELECT prod_id as 'ID'," +
                  "prod_name as 'NAME'," +
                  "prod_theoretical_yield as 'THEORETICAL'," +
-    //             "prod_item_name as 'ITEM'," +
-    //             "prod_category as 'CATEGORY'," +
-    //             "prod_qty as 'QUANTITY'," +
-    //              "prod_received_weight as 'WEIGHT'," +
-    //              "prod_size as 'SIZE'," +
-    //              "prod_unit as 'UNIT'," +
                  "prod_status as 'STATUS'," +
                  "prod_rfid as 'RFID' " +
                  "from flc.production where prod_status = 'Finished' group by prod_rfid");
@@ -100,21 +106,16 @@ namespace BLM.ViewModels.Production
             _selectedStatus = "Finished";
             clear();
         }
+
         public void btnPending()
         {
-             _productionGridSource = Connection.dbTable(
-                 "SELECT prod_id as 'ID'," +
-                 "prod_name as 'NAME'," +
-                 "prod_theoretical_yield as 'THEORETICAL'," +
-    //             "prod_item_name as 'ITEM'," +
-    //             "prod_category as 'CATEGORY'," +
-    //             "prod_qty as 'QUANTITY'," +
-    //              "prod_received_weight as 'WEIGHT'," +
-    //              "prod_size as 'SIZE'," +
-    //              "prod_unit as 'UNIT'," +
-                 "prod_status as 'STATUS'," +
-                 "prod_rfid as 'RFID' " +
-                 "from flc.production where prod_status = 'Pending' group by prod_rfid");
+            _productionGridSource = Connection.dbTable(
+                "SELECT prod_id as 'ID'," +
+                "prod_name as 'NAME'," +
+                "prod_theoretical_yield as 'THEORETICAL'," +
+                "prod_status as 'STATUS'," +
+                "prod_rfid as 'RFID' " +
+                "from flc.production where prod_status = 'Pending' group by prod_rfid");
 
             NotifyOfPropertyChange(null);
             _selectedStatus = "Pending";
@@ -127,12 +128,6 @@ namespace BLM.ViewModels.Production
                  "SELECT prod_id as 'ID'," +
                  "prod_name as 'NAME'," +
                  "prod_theoretical_yield as 'THEORETICAL'," +
-     //            "prod_item_name as 'ITEM'," +
-     //            "prod_category as 'CATEGORY'," +
-     //            "prod_qty as 'QUANTITY'," +
-     //             "prod_received_weight as 'WEIGHT'," +
-     //             "prod_size as 'SIZE'," +
-     //             "prod_unit as 'UNIT'," +
                  "prod_status as 'STATUS'," +
                  "prod_rfid as 'RFID' " +
                  "from flc.production where prod_status = 'Processing' group by prod_rfid");
@@ -162,56 +157,11 @@ namespace BLM.ViewModels.Production
             clear();
         }
 
-        public void showItem()
-        {
-            try
-            {
-                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                // windowManager.ShowWindow(new EditProductionViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
-            }
-            catch
-            {
-            }
-        }
-
-
-        private string _txtTheoreticalYield;
-
-        public string txtTheoreticalYield
-        {
-            get { return _txtTheoreticalYield; }
-            set { _txtTheoreticalYield = value; }
-        }
-        private string _txtStatus;
-
-        public string txtStatus
-        {
-            get { return _txtStatus; }
-            set { _txtStatus = value; }
-        }
-            
-        private string _txtRFID;
-
-        public string txtRFID
-        {
-            get { return _txtRFID; }
-            set { _txtRFID = value; }
-        }
-        private void clear()
-        {
-            _txtProductName = string.Empty;
-            _txtStatus = string.Empty;
-            _txtTheoreticalYield = string.Empty;
-            _txtRFID = string.Empty;
-            NotifyOfPropertyChange(null);
-        }
-
-
         public void print()
         {
             try
             {
-                if(_selectedStatus == "All")
+                if (_selectedStatus == "All")
                 {
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
                     _txtProductName = dataRowView.Row[1].ToString();
@@ -219,7 +169,6 @@ namespace BLM.ViewModels.Production
                     _txtStatus = dataRowView.Row[9].ToString();
                     _txtRFID = dataRowView.Row[10].ToString();
                     NotifyOfPropertyChange(null);
-                   
                 }
                 else
                 {
@@ -229,12 +178,22 @@ namespace BLM.ViewModels.Production
                     _txtStatus = dataRowView.Row[3].ToString();
                     _txtRFID = dataRowView.Row[4].ToString();
                     NotifyOfPropertyChange(null);
-                  
                 }
             }
             catch
             {
+            }
+        }
 
+        public void showItem()
+        {
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+                // windowManager.ShowWindow(new EditProductionViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+            }
+            catch
+            {
             }
         }
         protected override void OnActivate()
@@ -252,10 +211,19 @@ namespace BLM.ViewModels.Production
                 "prod_status as 'STATUS', " +
                 "prod_rfid as 'RFID' " +
                 "from flc.production");
-            NotifyOfPropertyChange(()=>productionGridSource);
+            NotifyOfPropertyChange(() => productionGridSource);
             _selectedStatus = "All";
             clear();
             base.OnActivate();
+        }
+
+        private void clear()
+        {
+            _txtProductName = string.Empty;
+            _txtStatus = string.Empty;
+            _txtTheoreticalYield = string.Empty;
+            _txtRFID = string.Empty;
+            NotifyOfPropertyChange(null);
         }
     }
 }
