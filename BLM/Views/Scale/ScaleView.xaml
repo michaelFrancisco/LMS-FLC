@@ -24,6 +24,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -68,6 +74,42 @@
                 Margin="0.8,4,0,4.4"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                BorderBrush="#FF1F4287"
+                TextWrapping="Wrap" />
+            <TextBox
+                x:Name="txtTheoreticalYield"
+                Grid.Row="6"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Width="240"
+                Height="40"
+                Margin="0.8,4,0,4.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#FF1F4287"
+                TextWrapping="Wrap" />
+            <TextBox
+                x:Name="txtActualYield"
+                Grid.Row="7"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Width="240"
+                Height="40"
+                Margin="0.8,4,0,4.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#FF1F4287"
+                TextWrapping="Wrap" />
+            <TextBox
+                x:Name="txtPercentYield"
+                Grid.Row="8"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Width="240"
+                Height="40"
+                Margin="0.8,4,0,4.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
                 BorderBrush="#FF1F4287"
                 TextWrapping="Wrap" />
             <StackPanel
@@ -130,6 +172,33 @@
                 VerticalAlignment="Center"
                 Foreground="White"
                 Text="Product" />
+            <TextBlock
+                x:Name="txtBlock1"
+                Grid.Row="6"
+                Grid.ColumnSpan="2"
+                Margin="0,1,1.2,0.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="White"
+                Text="Theoretical Yield" />
+            <TextBlock
+                x:Name="txtBlock2"
+                Grid.Row="7"
+                Grid.ColumnSpan="2"
+                Margin="0,1,1.2,0.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="White"
+                Text="Actual Yield" />
+            <TextBlock
+                x:Name="txtBlock3"
+                Grid.Row="8"
+                Grid.ColumnSpan="2"
+                Margin="0,1,1.2,0.4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="White"
+                Text="Percent Yield" />
         </Grid>
 
     </Grid>

@@ -97,7 +97,10 @@
                     Margin="5"
                     HorizontalAlignment="Left"
                     Orientation="Horizontal">
-                    <TextBox x:Name="txtSearch" Width="300" VerticalContentAlignment="Center">
+                    <TextBox
+                        x:Name="txtSearch"
+                        Width="300"
+                        VerticalContentAlignment="Center">
                         <TextBox.Style>
                             <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
                                 <Style.Resources>
