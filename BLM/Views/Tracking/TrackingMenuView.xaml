@@ -34,29 +34,40 @@
                 Foreground="White">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-map-64.png" />
-                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Live Map"/>
+                    <Label
+                        VerticalContentAlignment="Center"
+                        Content="Live Map"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
             <Button
                 x:Name="btnScheduling"
+                Grid.Column="1"
                 Margin="10,0"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}"
-                Foreground="White" Grid.Column="1">
+                Foreground="White">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-schedule-100.png" />
-                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Scheduling"/>
+                    <Label
+                        VerticalContentAlignment="Center"
+                        Content="Scheduling"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
             <Button
                 x:Name="btnTruckInfo"
+                Grid.Column="2"
                 Margin="10,0"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}"
-                Foreground="White" Grid.Column="2">
+                Foreground="White">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                    <Label VerticalContentAlignment="Center" Foreground="White" Content="Truck Info"/>
+                    <Label
+                        VerticalContentAlignment="Center"
+                        Content="Truck Info"
+                        Foreground="White" />
                 </StackPanel>
             </Button>
         </Grid>

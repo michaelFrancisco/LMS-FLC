@@ -165,11 +165,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="ViewModels\Inventory\Forms\EditItemViewModel.cs" />
@@ -259,17 +254,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="DataSet1.xsc">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet1.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSet1.xss">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -350,111 +334,193 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-dashboard-64.png" />
-    <Resource Include="Resources\Icons\icons8-empty-box-64.png" />
-    <Resource Include="Resources\Icons\icons8-factory-100.png" />
-    <Resource Include="Resources\Icons\icons8-in-inventory-64.png" />
-    <Resource Include="Resources\Icons\icons8-in-transit-100.png" />
-    <Resource Include="Resources\Icons\icons8-purchase-order-100.png" />
-    <Resource Include="Resources\Icons\icons8-scale-64.png" />
+    <Resource Include="Resources\Icons\icons8-dashboard-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-empty-box-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-factory-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-in-inventory-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-in-transit-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-purchase-order-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-scale-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-notification-100.png" />
+    <Resource Include="Resources\Icons\icons8-notification-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-logout-rounded-left-100%281%29.png" />
+    <Resource Include="Resources\Icons\icons8-logout-rounded-left-100%281%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-chat-messages-96.png" />
+    <Resource Include="Resources\Icons\icons8-chat-messages-96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-user-96.png" />
+    <Resource Include="Resources\Icons\icons8-user-96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-login-64.png" />
+    <Resource Include="Resources\Icons\icons8-login-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-log-80.png" />
+    <Resource Include="Resources\Icons\icons8-log-80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-commodity-64.png" />
+    <Resource Include="Resources\Icons\icons8-commodity-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-packaging-64.png" />
+    <Resource Include="Resources\Icons\icons8-packaging-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-checked-128.png" />
+    <Resource Include="Resources\Icons\icons8-checked-128.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-edit-96.png" />
+    <Resource Include="Resources\Icons\icons8-edit-96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-save-400.png" />
+    <Resource Include="Resources\Icons\icons8-save-400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-cancel-256.png" />
+    <Resource Include="Resources\Icons\icons8-cancel-256.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-show-property-64.png" />
+    <Resource Include="Resources\Icons\icons8-show-property-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-create-64.png" />
+    <Resource Include="Resources\Icons\icons8-create-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-export-100.png" />
+    <Resource Include="Resources\Icons\icons8-export-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-refresh-104.png" />
+    <Resource Include="Resources\Icons\icons8-refresh-104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-down-arrow-64%281%29.png" />
+    <Resource Include="Resources\Icons\icons8-down-arrow-64%281%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-up-64%281%29.png" />
+    <Resource Include="Resources\Icons\icons8-up-64%281%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-truck-64.png" />
+    <Resource Include="Resources\Icons\icons8-truck-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-error-100.png" />
+    <Resource Include="Resources\Icons\icons8-error-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-return-100.png" />
+    <Resource Include="Resources\Icons\icons8-return-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\Lich_minimap_icon.png" />
+    <Resource Include="Resources\Icons\Lich_minimap_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\Lone_Druid_minimap_icon.png" />
+    <Resource Include="Resources\Icons\Lone_Druid_minimap_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\Bounty_Hunter_minimap_icon.png" />
+    <Resource Include="Resources\Icons\Bounty_Hunter_minimap_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-truck-96.png" />
+    <Resource Include="Resources\Icons\icons8-truck-96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-truck-96%281%29.png" />
+    <Resource Include="Resources\Icons\icons8-truck-96%281%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-truck-96%282%29.png" />
+    <Resource Include="Resources\Icons\icons8-truck-96%282%29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-map-64.png" />
+    <Resource Include="Resources\Icons\icons8-map-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-schedule-100.png" />
-    <Resource Include="Resources\Icons\icons8-copy-production-order-64.png" />
+    <Resource Include="Resources\Icons\icons8-schedule-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-copy-production-order-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-product.png" />
-    <Resource Include="Resources\Icons\icons8-wait.png" />
+    <Resource Include="Resources\Icons\icons8-product.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icons8-wait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-go-64.png" />
+    <Resource Include="Resources\Icons\icons8-go-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\icons8-next-64.png" />
+    <Resource Include="Resources\Icons\icons8-next-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid Visibility="{Binding newproductionviewVisibility}">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="465*" />
@@ -119,6 +119,7 @@
                 cal:Message.Attach="[Event MouseDoubleClick] = [Action addItem]"
                 AlternatingRowBackground="LightGray"
                 AlternationCount="2"
+                AutoGeneratingColumn="itemsGrid_AutoGeneratingColumn"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -130,7 +131,7 @@
                 ItemsSource="{Binding itemGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding itemGridSelectedItem}"
-                SelectionMode="Single" AutoGeneratingColumn="itemsGrid_AutoGeneratingColumn">
+                SelectionMode="Single">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -145,6 +146,7 @@
                 cal:Message.Attach="[Event MouseDoubleClick] = [Action editItem]"
                 AlternatingRowBackground="LightGray"
                 AlternationCount="2"
+                AutoGeneratingColumn="receivedGrid_AutoGeneratingColumn"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -156,7 +158,7 @@
                 ItemsSource="{Binding receivedGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding shipmentGridSelectedItem}"
-                SelectionMode="Single" AutoGeneratingColumn="receivedGrid_AutoGeneratingColumn">
+                SelectionMode="Single">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -167,10 +169,11 @@
         <StackPanel
             Grid.Row="9"
             Grid.Column="3"
+            Grid.ColumnSpan="2"
             Width="auto"
             Margin="0,5.2,-0.4,5.4"
             HorizontalAlignment="Right"
-            Orientation="Horizontal" Grid.ColumnSpan="2">
+            Orientation="Horizontal">
             <Button
                 x:Name="btnCancel"
                 Width="200"
@@ -270,6 +273,6 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-        </Grid> 
+        </Grid>
     </Grid>
 </Window>

@@ -12,5 +12,5 @@
     FontFamily="Roboto"
     FontSize="22"
     mc:Ignorable="d">
-    <Grid Width="Auto" Height="Auto"/>
+    <Grid Width="Auto" Height="Auto" />
 </UserControl>

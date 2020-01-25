@@ -6,6 +6,8 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -21,8 +23,7 @@ namespace BLM.Views.Tracking
         private static ImageBrush brushC = new ImageBrush();
         private int _currentTruck;
         private IFirebaseClient client;
-        DispatcherTimer dt = new DispatcherTimer();
-
+        private DispatcherTimer dt = new DispatcherTimer();
 
         private IFirebaseConfig config = new FirebaseConfig
         {
@@ -30,38 +31,32 @@ namespace BLM.Views.Tracking
             BasePath = "https://blm-transportation-tracker.firebaseio.com/"
         };
 
-        private Rectangle mapMarkerIconA = new Rectangle
+        private Ellipse mapMarkerIconA = new Ellipse
         {
-            Width = 32,
-            Height = 32,
-            Fill = brushA,
+            Width = 12,
+            Height = 12,
+            Fill = Brushes.Red,
         };
 
-        private Rectangle mapMarkerIconB = new Rectangle
+        private Ellipse mapMarkerIconB = new Ellipse
         {
-            Width = 32,
-            Height = 32,
-            Fill = brushB,
+            Width = 12,
+            Height = 12,
+            Fill = Brushes.Green,
         };
 
-        private Rectangle mapMarkerIconC = new Rectangle
+        private Ellipse mapMarkerIconC = new Ellipse
         {
-            Width = 32,
-            Height = 32,
-            Fill = brushC,
+            Width = 12,
+            Height = 12,
+            Fill = Brushes.Blue,
         };
-
-        
 
         public TrackingView()
         {
             InitializeComponent();
 
             _currentTruck = 1;
-            brushA.ImageSource = new BitmapImage(new Uri(@"C:\Users\Michael C. Francisco\source\repos\michaelFrancisco\BLM\BLM\Resources\Icons\icons8-truck-96.png"));
-            brushB.ImageSource = new BitmapImage(new Uri(@"C:\Users\Michael C. Francisco\source\repos\michaelFrancisco\BLM\BLM\Resources\Icons\icons8-truck-96(1).png"));
-            brushC.ImageSource = new BitmapImage(new Uri(@"C:\Users\Michael C. Francisco\source\repos\michaelFrancisco\BLM\BLM\Resources\Icons\icons8-truck-96(2).png"));
-
             dt.Tick += new EventHandler(timer_Tick);
             dt.Interval = new TimeSpan(0, 0, 1);
             dt.Start();

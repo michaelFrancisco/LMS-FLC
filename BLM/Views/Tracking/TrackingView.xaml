@@ -11,7 +11,8 @@
     d:DesignWidth="1030"
     FontFamily="Roboto"
     FontSize="22"
-    mc:Ignorable="d" Unloaded="UserControl_Unloaded">
+    Unloaded="UserControl_Unloaded"
+    mc:Ignorable="d">
     <Grid Width="Auto" Height="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />

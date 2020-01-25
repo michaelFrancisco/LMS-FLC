@@ -32,13 +32,13 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <!--Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"-->
+                <!--  Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"  -->
                 <Button
                     x:Name="btnPending"
                     Margin="10,0"
-                    Command="{Binding highlightselectedButton}"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
+                    Command="{Binding highlightselectedButton}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
@@ -77,10 +77,11 @@
                 </Button>
                 <Button
                     x:Name="btnRefresh"
+                    Grid.Column="3"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
-                    Foreground="White" Grid.Column="3">
+                    Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
@@ -105,63 +106,67 @@
             <Label
                 x:Name="s3"
                 Margin="5,4.6,5,4.8"
-                FontSize="24"
-                Content="Product Name" />
+                Content="Product Name"
+                FontSize="24" />
             <Label
                 x:Name="s2"
                 Grid.Row="1"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                FontSize="24"
-                Content="Theoretical Yield" />
+                Content="Theoretical Yield"
+                FontSize="24" />
             <Label
                 x:Name="s1"
                 Grid.Column="2"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                FontSize="24"
-                Content="Status" />
+                Content="Status"
+                FontSize="24" />
             <TextBox
                 x:Name="txtProductName"
                 Grid.Column="1"
                 Height="40"
-                IsReadOnly="True"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-              
-                TextWrapping="Wrap" FontSize="26"/>
+                FontSize="26"
+                IsReadOnly="True"
+                TextWrapping="Wrap" />
             <TextBox
                 x:Name="txtStatus"
                 Grid.Column="3"
                 Height="40"
-                IsReadOnly="True"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                TextWrapping="Wrap" FontSize="26"/>
+                FontSize="26"
+                IsReadOnly="True"
+                TextWrapping="Wrap" />
             <TextBox
                 x:Name="txtTheoreticalYield"
+                Grid.Row="1"
                 Grid.Column="1"
                 Height="40"
-                IsReadOnly="True"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-          
-                TextWrapping="Wrap" FontSize="26" Grid.Row="1"/>
+                FontSize="26"
+                IsReadOnly="True"
+                TextWrapping="Wrap" />
 
             <TextBox
                 x:Name="txtRFID"
+                Grid.Row="1"
                 Grid.Column="3"
-                  IsReadOnly="True"
                 Height="40"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                TextWrapping="Wrap" FontSize="26" Grid.Row="1"/>
+                FontSize="26"
+                IsReadOnly="True"
+                TextWrapping="Wrap" />
         </Grid>
 
         <Grid Grid.Row="3" Background="White">
@@ -269,6 +274,7 @@
                     cal:Message.Attach="[Event SelectionChanged] = [Action print]"
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
+                    AutoGeneratingColumn="productionGrid_AutoGeneratingColumn"
                     Background="White"
                     BorderBrush="Black"
                     BorderThickness="1"
@@ -280,7 +286,7 @@
                     ItemsSource="{Binding productionGridSource}"
                     RowBackground="White"
                     SelectedItem="{Binding productionGridSelectedItem}"
-                    SelectionMode="Single" AutoGeneratingColumn="productionGrid_AutoGeneratingColumn">
+                    SelectionMode="Single">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White" />
