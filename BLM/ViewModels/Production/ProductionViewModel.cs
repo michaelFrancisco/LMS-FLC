@@ -2,6 +2,7 @@
 using BLM.ViewModels.Production.Forms;
 using Caliburn.Micro;
 using System.Data;
+using System.Drawing;
 
 namespace BLM.ViewModels.Production
 {
@@ -157,6 +158,20 @@ namespace BLM.ViewModels.Production
             clear();
         }
 
+        //private SystemColors _highlightselectedButton;
+
+        //public SystemColors highlightselectedButton
+        //{
+        //    get { return _highlightselectedButton; }
+        //    set {
+        //        _highlightselectedButton = value;
+        //    if (_selectedStatus != null)
+        //        {
+        //            _highlightselectedButton = SystemColors.;
+        //        }
+        //    }
+        //}
+        
         public void print()
         {
             try

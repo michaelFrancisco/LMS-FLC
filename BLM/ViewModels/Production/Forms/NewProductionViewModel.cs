@@ -171,16 +171,11 @@ namespace BLM.ViewModels.Production.Forms
         {
             NotifyOfPropertyChange(null);
             base.OnActivate();
-            
         }
 
         public void btnCancel()
         {
-            _txtRFID = string.Empty;
-            _txtProductName = string.Empty;
-            _txtTheoreticalYield = string.Empty;
-            _newproductionviewVisibility = System.Windows.Visibility.Collapsed;
-            this.TryClose();
+            TryClose();
             NotifyOfPropertyChange(null);
         }
     }

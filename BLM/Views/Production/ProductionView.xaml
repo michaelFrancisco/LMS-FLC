@@ -30,10 +30,13 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <!--Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"-->
                 <Button
                     x:Name="btnPending"
                     Margin="10,0"
+                    Command="{Binding highlightselectedButton}"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -69,6 +72,19 @@
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-product.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
                             Finished
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnRefresh"
+                    Margin="10,0"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White" Grid.Column="3">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
+                        <Label VerticalContentAlignment="Center" Foreground="White">
+                            Refresh All
                         </Label>
                     </StackPanel>
                 </Button>
@@ -195,7 +211,7 @@
                     </TextBox>
                     <ComboBox Width="200" Margin="5,0" />
                     <Button
-                        x:Name="btnRefresh"
+                        x:Name="btnRefresha"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
                         Foreground="White">
@@ -203,9 +219,9 @@
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
-                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
+                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-ok-64.png" />
                             <Label Foreground="White">
-                                Refresh
+                                Proceed
                             </Label>
                         </StackPanel>
                     </Button>

@@ -391,6 +391,12 @@
     <Resource Include="Resources\Icons\icons8-product.png" />
     <Resource Include="Resources\Icons\icons8-wait.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-go-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-next-64.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
