@@ -37,7 +37,10 @@
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-down-arrow-64(1).png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
+                        <Label
+                            VerticalContentAlignment="Center"
+                            FontFamily="Roboto"
+                            Foreground="White">
                             Inbound
                         </Label>
                     </StackPanel>

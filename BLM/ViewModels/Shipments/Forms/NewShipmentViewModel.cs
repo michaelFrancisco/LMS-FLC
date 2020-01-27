@@ -36,6 +36,8 @@ namespace BLM.ViewModels.Shipments.Forms
         private string _txtSearch;
         private List<string> _txtTruck;
 
+        private Visibility _WeightBoxVisibility;
+
         public bool btnOKisEnabled
         {
             get { return _btnOKisEnabled; }
@@ -234,6 +236,12 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _txtTruck = value; }
         }
 
+        public Visibility WeightBoxVisibility
+        {
+            get { return _WeightBoxVisibility; }
+            set { _WeightBoxVisibility = value; }
+        }
+
         public void addItem()
         {
             try
@@ -254,6 +262,12 @@ namespace BLM.ViewModels.Shipments.Forms
             catch
             {
             }
+        }
+
+        public void addWeight()
+        {
+            _WeightBoxVisibility = System.Windows.Visibility.Visible;
+            NotifyOfPropertyChange(() => WeightBoxVisibility);
         }
 
         public void btnCancel()
@@ -355,7 +369,7 @@ namespace BLM.ViewModels.Shipments.Forms
             }
             return -1;
         }
-        
+
         public bool fieldsareComplete()
         {
             if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))
@@ -426,8 +440,14 @@ namespace BLM.ViewModels.Shipments.Forms
             _btnOKisEnabled = true;
             _txtQuantity = 1;
             _selectedDate = DateTime.Now;
+            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
             NotifyOfPropertyChange(null);
             base.OnActivate();
+        }
+        public void btnDone()
+        {
+            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
+            NotifyOfPropertyChange(() => WeightBoxVisibility);
         }
 
         private int getShipmentID()

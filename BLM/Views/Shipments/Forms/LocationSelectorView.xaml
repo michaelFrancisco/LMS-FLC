@@ -19,7 +19,8 @@
         </Grid.RowDefinitions>
         <TextBox
             x:Name="txtSearch"
-            VerticalContentAlignment="Center" Margin="0">
+            Margin="0"
+            VerticalContentAlignment="Center">
             <TextBox.Style>
                 <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
                     <Style.Resources>
@@ -53,11 +54,12 @@
         </TextBox>
         <gmaps:GMapControl
             x:Name="map"
+            Grid.Row="1"
             CanDragMap="True"
             MaxZoom="20"
             MinZoom="12"
             MouseWheelZoomEnabled="True"
             MouseWheelZoomType="MousePositionWithoutCenter"
-            Zoom="15" Grid.Row="1" />
+            Zoom="15" />
     </Grid>
 </Window>
