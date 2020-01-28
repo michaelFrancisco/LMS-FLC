@@ -27,15 +27,20 @@ namespace BLM.ViewModels.Shipments.Forms
         private string _selectedTruck;
         private object _shipmentGridSelectedItem;
         private DataTable _shipmentGridSource;
+        private string _tempo;
         private List<String> _txtCategory;
         private List<string> _txtDeliveryAgent;
         private List<string> _txtDestination;
+        private int _txtEnteredWeight;
+        private int _txtGrossWeight;
+        private int _txtNetWeight;
         private List<String> _txtOrigin;
         private int _txtQuantity;
         private string _txtQuantityLabel;
         private string _txtSearch;
+        private int _txtTareWeight;
         private List<string> _txtTruck;
-        private string _tempo;
+        private string _txtWeight;
         private Visibility _WeightBoxVisibility;
 
         public bool btnOKisEnabled
@@ -163,6 +168,24 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _txtDestination = value; }
         }
 
+        public int txtEnteredWeight
+        {
+            get { return _txtEnteredWeight; }
+            set { _txtEnteredWeight = value; }
+        }
+
+        public int txtGrossWeight
+        {
+            get { return _txtGrossWeight; }
+            set { _txtGrossWeight = value; }
+        }
+
+        public int txtNetWeight
+        {
+            get { return _txtNetWeight; }
+            set { _txtNetWeight = value; }
+        }
+
         public List<String> txtOrigin
         {
             get
@@ -225,6 +248,12 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public int txtTareWeight
+        {
+            get { return _txtTareWeight; }
+            set { _txtTareWeight = value; }
+        }
+
         public List<string> txtTruck
         {
             get
@@ -234,6 +263,12 @@ namespace BLM.ViewModels.Shipments.Forms
                 return list;
             }
             set { _txtTruck = value; }
+        }
+
+        public string txtWeight
+        {
+            get { return _txtWeight; }
+            set { _txtWeight = value; }
         }
 
         public Visibility WeightBoxVisibility
@@ -279,6 +314,13 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public void btnCaptureWeight()
+        {
+            _tempo = "clicked";
+            _txtGrossWeight = _txtEnteredWeight;
+            NotifyOfPropertyChange(() => txtGrossWeight);
+        }
+
         public void btnDone()
         {
             _txtWeight = _txtNetWeight.ToString();
@@ -289,13 +331,6 @@ namespace BLM.ViewModels.Shipments.Forms
             _txtEnteredWeight = 0;
             _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
             NotifyOfPropertyChange(null);
-        }
-        private string _txtWeight;
-
-        public string txtWeight
-        {
-            get { return _txtWeight; }
-            set { _txtWeight = value; }
         }
 
         public void btnOK()
@@ -372,6 +407,20 @@ namespace BLM.ViewModels.Shipments.Forms
             }
             catch
             {
+            }
+        }
+
+        public void EnteredWeight()
+        {
+            if (_tempo == "notClicked")
+            {
+                _txtGrossWeight = _txtEnteredWeight;
+                _txtNetWeight = _txtGrossWeight - _txtTareWeight;
+                NotifyOfPropertyChange(null);
+            }
+            else
+            {
+                _tempo = "clicked";
             }
         }
 
@@ -481,57 +530,6 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 return false;
             }
-        }
-        private int _txtEnteredWeight;
-
-        public int txtEnteredWeight
-        {
-            get { return _txtEnteredWeight; }
-            set { _txtEnteredWeight = value; }
-        }
-        private int _txtGrossWeight;
-
-        public int txtGrossWeight
-        {
-            get { return _txtGrossWeight; }
-            set { _txtGrossWeight = value; }
-        }
-        private int _txtTareWeight;
-
-        public int txtTareWeight
-        {
-            get { return _txtTareWeight; }
-            set { _txtTareWeight = value; }
-        }
-        private int _txtNetWeight;
-
-        public int txtNetWeight
-        {
-            get { return _txtNetWeight; }
-            set { _txtNetWeight = value; }
-        }
-
-        public void EnteredWeight()
-        {
-            
-            if (_tempo == "notClicked") 
-            {
-                _txtGrossWeight = _txtEnteredWeight;
-                _txtNetWeight = _txtGrossWeight - _txtTareWeight;
-                NotifyOfPropertyChange(null);
-            }
-            else
-            {
-                _tempo = "clicked";
-            }
-                
-        }
-        public void btnCaptureWeight()
-        {
-            _tempo = "clicked";
-            _txtGrossWeight = _txtEnteredWeight;
-            NotifyOfPropertyChange(() => txtGrossWeight);
-            
         }
     }
 }

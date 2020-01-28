@@ -50,7 +50,7 @@ namespace BLM.Views.Tracking
             Height = 32,
             Fill = brushC,
         };
-
+         
         
 
         public TrackingView()
