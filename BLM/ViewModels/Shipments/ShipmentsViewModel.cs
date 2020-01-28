@@ -9,14 +9,23 @@ namespace BLM.ViewModels.Shipments
     internal class ShipmentsViewModel : Screen
     {
         private readonly IWindowManager windowManager = new WindowManager();
+        private DataTable _baseshipmentGridSource;
+        private string _selectedCategory;
         private object _shipmentsGridSelectedItem;
 
         private DataTable _shipmentsGridSource;
-
-        private string _selectedCategory;
-
         private string _txtSearch;
-        private DataTable _baseshipmentGridSource;
+        public object shipmentsGridSelectedItem
+        {
+            get { return _shipmentsGridSelectedItem; }
+            set { _shipmentsGridSelectedItem = value; }
+        }
+
+        public DataTable shipmentsGridSource
+        {
+            get { return _shipmentsGridSource; }
+            set { _shipmentsGridSource = value; }
+        }
 
         public string txtSearch
         {
@@ -38,19 +47,6 @@ namespace BLM.ViewModels.Shipments
                 }
             }
         }
-
-        public object shipmentsGridSelectedItem
-        {
-            get { return _shipmentsGridSelectedItem; }
-            set { _shipmentsGridSelectedItem = value; }
-        }
-
-        public DataTable shipmentsGridSource
-        {
-            get { return _shipmentsGridSource; }
-            set { _shipmentsGridSource = value; }
-        }
-
         public void btnAll()
         {
             _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
@@ -124,5 +120,7 @@ namespace BLM.ViewModels.Shipments
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
+
+        
     }
 }

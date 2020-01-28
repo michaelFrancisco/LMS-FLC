@@ -35,7 +35,7 @@ namespace BLM.ViewModels.Shipments.Forms
         private string _txtQuantityLabel;
         private string _txtSearch;
         private List<string> _txtTruck;
-
+        private string _tempo;
         private Visibility _WeightBoxVisibility;
 
         public bool btnOKisEnabled
@@ -279,6 +279,25 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public void btnDone()
+        {
+            _txtWeight = _txtNetWeight.ToString();
+            _tempo = "notClicked";
+            _txtGrossWeight = 0;
+            _txtNetWeight = 0;
+            _txtTareWeight = 0;
+            _txtEnteredWeight = 0;
+            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
+            NotifyOfPropertyChange(null);
+        }
+        private string _txtWeight;
+
+        public string txtWeight
+        {
+            get { return _txtWeight; }
+            set { _txtWeight = value; }
+        }
+
         public void btnOK()
         {
             try
@@ -436,6 +455,7 @@ namespace BLM.ViewModels.Shipments.Forms
 
         protected override void OnActivate()
         {
+            _tempo = "notClicked";
             _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
             _btnOKisEnabled = true;
             _txtQuantity = 1;
@@ -443,11 +463,6 @@ namespace BLM.ViewModels.Shipments.Forms
             _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
             NotifyOfPropertyChange(null);
             base.OnActivate();
-        }
-        public void btnDone()
-        {
-            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
-            NotifyOfPropertyChange(() => WeightBoxVisibility);
         }
 
         private int getShipmentID()
@@ -466,6 +481,57 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 return false;
             }
+        }
+        private int _txtEnteredWeight;
+
+        public int txtEnteredWeight
+        {
+            get { return _txtEnteredWeight; }
+            set { _txtEnteredWeight = value; }
+        }
+        private int _txtGrossWeight;
+
+        public int txtGrossWeight
+        {
+            get { return _txtGrossWeight; }
+            set { _txtGrossWeight = value; }
+        }
+        private int _txtTareWeight;
+
+        public int txtTareWeight
+        {
+            get { return _txtTareWeight; }
+            set { _txtTareWeight = value; }
+        }
+        private int _txtNetWeight;
+
+        public int txtNetWeight
+        {
+            get { return _txtNetWeight; }
+            set { _txtNetWeight = value; }
+        }
+
+        public void EnteredWeight()
+        {
+            
+            if (_tempo == "notClicked") 
+            {
+                _txtGrossWeight = _txtEnteredWeight;
+                _txtNetWeight = _txtGrossWeight - _txtTareWeight;
+                NotifyOfPropertyChange(null);
+            }
+            else
+            {
+                _tempo = "clicked";
+            }
+                
+        }
+        public void btnCaptureWeight()
+        {
+            _tempo = "clicked";
+            _txtGrossWeight = _txtEnteredWeight;
+            NotifyOfPropertyChange(() => txtGrossWeight);
+            
         }
     }
 }

@@ -23,6 +23,7 @@ namespace BLM.Views.Shipments.Forms
         public NewShipmentView()
         {
             InitializeComponent();
+            txtEnteredWeight.Focus();
         }
     }
 }

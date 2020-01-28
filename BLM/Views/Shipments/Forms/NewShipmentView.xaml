@@ -412,6 +412,7 @@
                         Margin="40,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        cal:Message.Attach="[Event TextChanged]=[Action EnteredWeight]"
                         Background="Black"
                         FlowDirection="RightToLeft"
                         FontFamily="Digital-7"
@@ -454,6 +455,7 @@
                             Height="60"
                             MinWidth="150"
                             Margin="40,10,0,0"
+                            Padding="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="Transparent"
@@ -461,7 +463,6 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Roboto"
                             FontSize="50"
-                            Padding="0"
                             Foreground="Black" />
 
                         <Label
@@ -469,6 +470,7 @@
                             Height="60"
                             MinWidth="150"
                             Margin="40,10,0,0"
+                            Padding="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="Transparent"
@@ -476,7 +478,6 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Roboto"
                             FontSize="50"
-                             Padding="0"
                             Foreground="Black" />
 
                         <Label
@@ -484,6 +485,7 @@
                             Height="60"
                             MinWidth="150"
                             Margin="40,10,0,0"
+                            Padding="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="Transparent"
@@ -491,7 +493,6 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Roboto"
                             FontSize="50"
-                             Padding="0"
                             Foreground="Black" />
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
@@ -507,8 +508,7 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Digital-7"
                             FontSize="60"
-                            Foreground="Red"
-                            Text="123" />
+                            Foreground="Red" />
 
                         <TextBox
                             x:Name="txtTareWeight"
@@ -522,8 +522,7 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Digital-7"
                             FontSize="60"
-                            Foreground="Red"
-                            Text="123" />
+                            Foreground="Red" />
 
                         <TextBox
                             x:Name="txtNetWeight"
@@ -537,8 +536,7 @@
                             FlowDirection="RightToLeft"
                             FontFamily="Digital-7"
                             FontSize="60"
-                            Foreground="Red"
-                            Text="123" />
+                            Foreground="Red" />
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button

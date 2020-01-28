@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid Visibility="{Binding newproductionviewVisibility}">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="465*" />
@@ -270,6 +270,6 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-        </Grid> 
+        </Grid>
     </Grid>
 </Window>
