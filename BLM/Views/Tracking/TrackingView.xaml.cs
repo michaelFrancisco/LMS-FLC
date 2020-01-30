@@ -48,6 +48,8 @@ namespace BLM.Views.Tracking
             Height = 12,
             Fill = Brushes.Blue,
         };
+         
+        
 
         public TrackingView()
         {
