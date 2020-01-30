@@ -14,10 +14,6 @@ namespace BLM.ViewModels.Tracking
             ActivateItem(new TrackingViewModel());
 
         }
-        public void btnScheduling()
-        {
-            ActivateItem(new SchedulingViewModel());
-        }
         public void btnTruckInfo()
         {
             ActivateItem(new TruckInfoViewModel());

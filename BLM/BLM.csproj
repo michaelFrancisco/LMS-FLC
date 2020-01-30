@@ -179,7 +179,6 @@
     <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\NewShipmentViewModel.cs" />
     <Compile Include="ViewModels\Shipments\ShipmentsViewModel.cs" />
-    <Compile Include="ViewModels\Tracking\SchedulingViewModel.cs" />
     <Compile Include="ViewModels\Tracking\TrackingMenuViewModel.cs" />
     <Compile Include="ViewModels\Tracking\TrackingViewModel.cs" />
     <Compile Include="ViewModels\Tracking\TruckInfoViewModel.cs" />
@@ -221,9 +220,6 @@
     </Compile>
     <Compile Include="Views\Shipments\ShipmentsView.xaml.cs">
       <DependentUpon>ShipmentsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tracking\SchedulingView.xaml.cs">
-      <DependentUpon>SchedulingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tracking\TrackingMenuView.xaml.cs">
       <DependentUpon>TrackingMenuView.xaml</DependentUpon>
@@ -313,10 +309,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shipments\ShipmentsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tracking\SchedulingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,7 +24,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button
                 x:Name="btnLiveMap"
@@ -37,21 +36,6 @@
                     <Label
                         VerticalContentAlignment="Center"
                         Content="Live Map"
-                        Foreground="White" />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnScheduling"
-                Grid.Column="1"
-                Margin="10,0"
-                Background="{x:Null}"
-                BorderBrush="{x:Null}"
-                Foreground="White">
-                <StackPanel Orientation="Horizontal">
-                    <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-schedule-100.png" />
-                    <Label
-                        VerticalContentAlignment="Center"
-                        Content="Scheduling"
                         Foreground="White" />
                 </StackPanel>
             </Button>

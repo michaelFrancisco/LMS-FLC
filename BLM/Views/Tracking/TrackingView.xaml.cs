@@ -6,11 +6,8 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -57,13 +54,15 @@ namespace BLM.Views.Tracking
             InitializeComponent();
 
             _currentTruck = 1;
+
             dt.Tick += new EventHandler(timer_Tick);
-            dt.Interval = new TimeSpan(0, 0, 1);
+            dt.Interval = new TimeSpan(0, 0, 5);
             dt.Start();
 
             map.MapProvider = GMapProviders.GoogleMap;
             GMapProviders.GoogleMap.ApiKey = @"AIzaSyB8B3hq7jeZtvEPtFdEoZ3Jd5IaZh2Hp3g";
             map.MouseWheelZoomType = MouseWheelZoomType.ViewCenter;
+            map.ShowCenter = false;
             map.MinZoom = 10;
             map.MaxZoom = 18;
         }
@@ -88,7 +87,22 @@ namespace BLM.Views.Tracking
             return new PointLatLng(obj.latitude, obj.longitude);
         }
 
-        private void changeLocationtxt()
+        private void btnTruck1_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _currentTruck = 1;
+        }
+
+        private void btnTruck2_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _currentTruck = 2;
+        }
+
+        private void btnTruck3_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _currentTruck = 3;
+        }
+
+        private void changeLocationText()
         {
             List<Placemark> plc = null;
             var st = GMapProviders.GoogleMap.GetPlacemarks(getLocation(1), out plc);
@@ -99,6 +113,10 @@ namespace BLM.Views.Tracking
                     if (!string.IsNullOrEmpty(pl.PostalCodeNumber))
                     {
                         txtLocation1.Text = "Location: " + pl.Address;
+                    }
+                    else
+                    {
+                        txtLocation2.Text = "Location: Unknown";
                     }
                 }
             }
@@ -111,6 +129,10 @@ namespace BLM.Views.Tracking
                     {
                         txtLocation2.Text = "Location: " + pl.Address;
                     }
+                    else
+                    {
+                        txtLocation2.Text = "Location: Unknown";
+                    }
                 }
             }
             st = GMapProviders.GoogleMap.GetPlacemarks(getLocation(3), out plc);
@@ -122,6 +144,10 @@ namespace BLM.Views.Tracking
                     {
                         txtLocation3.Text = "Location: " + pl.Address;
                     }
+                    else
+                    {
+                        txtLocation2.Text = "Location: Unknown";
+                    }
                 }
             }
         }
@@ -130,7 +156,7 @@ namespace BLM.Views.Tracking
         {
             map.Position = getLocation(_currentTruck);
             updateMarkers();
-            changeLocationtxt();
+            changeLocationText();
         }
 
         private void updateMarkers()
@@ -139,6 +165,7 @@ namespace BLM.Views.Tracking
             GMapMarker a = new GMapMarker(getLocation(1));
             GMapMarker b = new GMapMarker(getLocation(2));
             GMapMarker c = new GMapMarker(getLocation(3));
+
             a.Shape = mapMarkerIconA;
             b.Shape = mapMarkerIconB;
             c.Shape = mapMarkerIconC;
@@ -147,15 +174,15 @@ namespace BLM.Views.Tracking
             map.Markers.Add(c);
         }
 
+        private void UserControl_Unloaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            dt.Stop();
+        }
+
         internal class Data
         {
             public double latitude { get; set; }
             public double longitude { get; set; }
-        }
-
-        private void UserControl_Unloaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            dt.Stop();
         }
     }
 }
