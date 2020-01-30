@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: flc
+-- Host: localhost    Database: flc
 -- ------------------------------------------------------
--- Server version	8.0.18
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -53,13 +53,13 @@ CREATE TABLE `inventory` (
   `Item_ID` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) DEFAULT NULL,
   `Category` varchar(45) DEFAULT NULL,
-  `Quantity` int(10) DEFAULT NULL,
-  `Size` int(10) DEFAULT NULL,
+  `Quantity` int DEFAULT NULL,
+  `Size` int DEFAULT NULL,
   `Unit` varchar(45) DEFAULT NULL,
-  `Weight` int(10) DEFAULT NULL,
-  `Critical_Level` int(10) DEFAULT NULL,
+  `Weight` int DEFAULT NULL,
+  `Critical_Level` int DEFAULT NULL,
   `RFID` varchar(45) DEFAULT NULL,
-  `Supplier_ID` int(5) DEFAULT NULL,
+  `Supplier_ID` int DEFAULT NULL,
   PRIMARY KEY (`Item_ID`),
   UNIQUE KEY `RFID_UNIQUE` (`RFID`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
@@ -84,18 +84,18 @@ DROP TABLE IF EXISTS `inventory_production`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventory_production` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `item_name` varchar(45) DEFAULT NULL,
   `category` varchar(45) DEFAULT NULL,
-  `theoretical_yield` int(20) DEFAULT NULL,
-  `actual_yield` int(20) DEFAULT NULL,
+  `theoretical_yield` int DEFAULT NULL,
+  `actual_yield` int DEFAULT NULL,
   `percent_yield` decimal(10,2) DEFAULT NULL,
   `quantity` decimal(10,2) DEFAULT NULL,
   `weight` decimal(10,2) DEFAULT NULL,
   `size` decimal(10,2) DEFAULT NULL,
   `unit` varchar(20) DEFAULT NULL,
   `status` varchar(25) DEFAULT NULL,
-  `rfid` int(15) DEFAULT NULL,
+  `rfid` int DEFAULT NULL,
   `product_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -119,18 +119,18 @@ DROP TABLE IF EXISTS `production`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `production` (
-  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prod_item_name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `prod_id` int NOT NULL AUTO_INCREMENT,
+  `prod_item_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `prod_category` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `prod_theoretical_yield` decimal(10,2) DEFAULT NULL,
   `prod_actual_yield` decimal(10,2) DEFAULT NULL,
   `prod_percent_yield` decimal(10,2) DEFAULT NULL,
-  `prod_qty` int(25) DEFAULT NULL,
+  `prod_qty` int DEFAULT NULL,
   `prod_received_weight` decimal(10,2) DEFAULT NULL,
-  `prod_size` int(25) DEFAULT NULL,
-  `prod_unit` varchar(25) COLLATE utf8_bin DEFAULT NULL,
+  `prod_size` int DEFAULT NULL,
+  `prod_unit` varchar(25) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `prod_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `prod_rfid` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `prod_rfid` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `prod_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`prod_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -154,13 +154,13 @@ DROP TABLE IF EXISTS `recipe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recipe` (
-  `recipe_id` int(10) NOT NULL AUTO_INCREMENT,
-  `id` int(11) NOT NULL,
+  `recipe_id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `recipe` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `weight` decimal(10,2) NOT NULL,
   `unit` varchar(45) DEFAULT NULL,
-  `size` int(10) DEFAULT NULL,
+  `size` int DEFAULT NULL,
   PRIMARY KEY (`recipe_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -184,8 +184,8 @@ DROP TABLE IF EXISTS `shipment_items`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shipment_items` (
   `Item_ID` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `Shipment_ID` int(5) DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
+  `Shipment_ID` int DEFAULT NULL,
+  `Quantity` int DEFAULT NULL,
   PRIMARY KEY (`Item_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -213,8 +213,8 @@ CREATE TABLE `shipments` (
   `Status` varchar(45) DEFAULT NULL,
   `Origin` varchar(100) DEFAULT NULL,
   `Destination` varchar(100) DEFAULT NULL,
-  `Truck_ID` int(5) DEFAULT NULL,
-  `Delivery_Agent_ID` int(5) DEFAULT NULL,
+  `Truck_ID` int DEFAULT NULL,
+  `Delivery_Agent_ID` int DEFAULT NULL,
   `Date_Created` datetime DEFAULT CURRENT_TIMESTAMP,
   `Date_Due` datetime DEFAULT NULL,
   `Date_Accomplished` datetime DEFAULT NULL,
@@ -272,7 +272,7 @@ CREATE TABLE `trucks` (
   `Name` varchar(45) DEFAULT NULL,
   `Plate_Number` varchar(45) DEFAULT NULL,
   `Model` varchar(45) DEFAULT NULL,
-  `Capacity` int(11) DEFAULT NULL,
+  `Capacity` int DEFAULT NULL,
   PRIMARY KEY (`Truck_ID`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -316,6 +316,10 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (00001,'Michael C. Francisco','admin','admin','IT'),(00002,'Antonio Roberto','driver','driver','Delivery Agent');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'flc'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -326,4 +330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-30 20:58:52
+-- Dump completed on 2020-01-30 21:04:23
