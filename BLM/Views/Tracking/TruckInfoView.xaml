@@ -7,10 +7,15 @@
     xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
     xmlns:local="clr-namespace:BLM.Views.Inventory"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="645"
+    d:DesignHeight="2000"
     d:DesignWidth="1030"
     FontFamily="Roboto"
     FontSize="22"
     mc:Ignorable="d">
-    <Grid Width="Auto" Height="Auto" />
+    <Grid Width="Auto" Height="Auto">
+        <Grid.Background>
+            <SolidColorBrush Color="White" />
+        </Grid.Background>
+
+    </Grid>
 </UserControl>
