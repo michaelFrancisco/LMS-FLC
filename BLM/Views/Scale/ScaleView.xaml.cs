@@ -22,6 +22,7 @@ namespace BLM.Views.Scale
         public ScaleView()
         {
             InitializeComponent();
+           
         }
 
         private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)

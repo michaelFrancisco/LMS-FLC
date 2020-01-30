@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO.Ports;
 using System.Linq;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace BLM.ViewModels.Scale
@@ -13,9 +14,9 @@ namespace BLM.ViewModels.Scale
     {
         private List<string> _cbItems;
         private string _cbSelectedItem;
-        private int _txtInputWeight;
-        private int _txtItemWeight;
-        private int _txtTotal;
+        private int _txtEnteredWeight1;
+        private int _txtTareWeight1;
+        private int _txtNetWeight1;
 
         private DispatcherTimer dt = new DispatcherTimer();
 
@@ -64,8 +65,8 @@ namespace BLM.ViewModels.Scale
                 try
                 {
                     DataTable dt = Connection.dbTable("Select Weight from inventory where Name ='" + _cbSelectedItem + "'");
-                    _txtItemWeight = (int)dt.Rows[0][0];
-                    NotifyOfPropertyChange(() => txtItemWeight);
+                    _txtTareWeight1 = (int)dt.Rows[0][0];
+                    NotifyOfPropertyChange(() => txtTareWeight1);
                 }
                 catch
                 {
@@ -73,22 +74,22 @@ namespace BLM.ViewModels.Scale
             }
         }
 
-        public int txtInputWeight
+        public int txtEnteredWeight1
         {
-            get { return _txtInputWeight; }
-            set { _txtInputWeight = value; }
+            get { return _txtEnteredWeight1; }
+            set { _txtEnteredWeight1 = value; }
         }
 
-        public int txtItemWeight
+        public int txtTareWeight1
         {
-            get { return _txtItemWeight; }
-            set { _txtItemWeight = value; }
+            get { return _txtTareWeight1; }
+            set { _txtTareWeight1 = value; }
         }
 
-        public int txtTotal
+        public int txtNetWeight1
         {
-            get { return _txtTotal; }
-            set { _txtTotal = value; }
+            get { return _txtNetWeight1; }
+            set { _txtNetWeight1 = value; }
         }
 
         public void timer_Tick(object sender, EventArgs e)
@@ -98,8 +99,8 @@ namespace BLM.ViewModels.Scale
                 Int32.TryParse(port.ReadLine(), out int result);
                 if (result > -1)
                 {
-                    _txtInputWeight = result;
-                    NotifyOfPropertyChange(() => txtInputWeight);
+                    _txtEnteredWeight1 = result;
+                    NotifyOfPropertyChange(() => txtEnteredWeight1);
                 }
             }
             catch
@@ -107,10 +108,10 @@ namespace BLM.ViewModels.Scale
 
             try
             {
-                if (_txtItemWeight > -1)
+                if (_txtTareWeight1 > -1)
                 {
-                    _txtTotal = _txtInputWeight / _txtItemWeight;
-                    NotifyOfPropertyChange(() => txtTotal);
+                    _txtNetWeight1 = _txtEnteredWeight1 / _txtTareWeight1;
+                    NotifyOfPropertyChange(() => txtNetWeight1);
                 }
             }
             catch
@@ -120,13 +121,20 @@ namespace BLM.ViewModels.Scale
 
         protected override void OnActivate()
         {
-            port.BaudRate = 9600;
-            port.PortName = "COM4";
-            port.Open();
+            try
+            {
+                port.BaudRate = 9600;
+                port.PortName = "COM4";
+                port.Open();
 
-            dt.Tick += new EventHandler(timer_Tick);
-            dt.Interval = new TimeSpan(0, 0, 0);
-            dt.Start();
+                dt.Tick += new EventHandler(timer_Tick);
+                dt.Interval = new TimeSpan(0, 0, 0);
+                dt.Start();
+            }
+            catch
+            {
+               MessageBox.Show("Please Check the connection of your weighing scale");
+            }
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.IO.Ports;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace BLM.ViewModels.Shipments.Forms
 {
@@ -42,6 +44,9 @@ namespace BLM.ViewModels.Shipments.Forms
         private List<string> _txtTruck;
         private string _txtWeight;
         private Visibility _WeightBoxVisibility;
+        private DispatcherTimer dt1 = new DispatcherTimer();
+        private SerialPort port1 = new SerialPort();
+
 
         public bool btnOKisEnabled
         {
@@ -302,7 +307,23 @@ namespace BLM.ViewModels.Shipments.Forms
         public void addWeight()
         {
             _WeightBoxVisibility = System.Windows.Visibility.Visible;
-            NotifyOfPropertyChange(() => WeightBoxVisibility);
+
+            try
+            {
+                port1.BaudRate = 9600;
+                port1.PortName = "COM4";
+                port1.Open();
+
+                dt1.Tick += new EventHandler(timer_Tick);
+                dt1.Interval = new TimeSpan(0, 0, 0);
+                dt1.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Please Check the connection of your weighing scale");
+            }
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
         }
 
         public void btnCancel()
@@ -510,6 +531,7 @@ namespace BLM.ViewModels.Shipments.Forms
             _txtQuantity = 1;
             _selectedDate = DateTime.Now;
             _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
+
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
@@ -530,6 +552,40 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 return false;
             }
+        }
+
+
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Int32.TryParse(port1.ReadLine(), out int result);
+                if (result > -1)
+                {
+                    _txtEnteredWeight = result;
+                    NotifyOfPropertyChange(() => txtEnteredWeight);
+                }
+            }
+            catch
+            { }
+
+            try
+            {
+                if (_txtTareWeight > -1)
+                {
+                    _txtNetWeight = _txtGrossWeight - _txtTareWeight;
+                    NotifyOfPropertyChange(() => txtNetWeight);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            dt1.Stop();
+            base.OnDeactivate(close);
         }
     }
 }

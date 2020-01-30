@@ -62,7 +62,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from users where User_ID = '" + _shipmentData.Rows[0][6].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from users where User_ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblDeliveryAgent = value; }
@@ -201,7 +201,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from trucks where Truck_ID = '" + _shipmentData.Rows[0][5].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from trucks where Truck_ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblTruck = value; }

@@ -102,14 +102,15 @@ namespace BLM.ViewModels.Shipments
 
         public void showItem()
         {
-            try
-            {
-                DataRowView dataRowView = (DataRowView)_shipmentsGridSelectedItem;
+            //try
+            //{
+                DataRowView dataRowView = (DataRowView) _shipmentsGridSelectedItem;
                 windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
-            }
-            catch
-            {
-            }
+            //}
+            //catch
+            //{
+
+            //}
         }
 
         protected override void OnActivate()
