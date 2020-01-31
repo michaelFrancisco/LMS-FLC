@@ -111,8 +111,14 @@ namespace BLM.ViewModels.Inventory
 
         public void showItem()
         {
-            DataRowView dataRowView = (DataRowView)_inventoryGridSelectedItem;
-            windowManager.ShowWindow(new EditItemViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_inventoryGridSelectedItem;
+                windowManager.ShowWindow(new EditItemViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         protected override void OnActivate()

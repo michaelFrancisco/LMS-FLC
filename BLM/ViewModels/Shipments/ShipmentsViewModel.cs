@@ -15,6 +15,7 @@ namespace BLM.ViewModels.Shipments
 
         private DataTable _shipmentsGridSource;
         private string _txtSearch;
+
         public object shipmentsGridSelectedItem
         {
             get { return _shipmentsGridSelectedItem; }
@@ -47,6 +48,7 @@ namespace BLM.ViewModels.Shipments
                 }
             }
         }
+
         public void btnAll()
         {
             _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
@@ -102,15 +104,14 @@ namespace BLM.ViewModels.Shipments
 
         public void showItem()
         {
-            //try
-            //{
-                DataRowView dataRowView = (DataRowView) _shipmentsGridSelectedItem;
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_shipmentsGridSelectedItem;
                 windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
-            //}
-            //catch
-            //{
-
-            //}
+            }
+            catch
+            {
+            }
         }
 
         protected override void OnActivate()
@@ -121,7 +122,5 @@ namespace BLM.ViewModels.Shipments
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
-
-        
     }
 }

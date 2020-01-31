@@ -69,6 +69,8 @@ namespace BLM.ViewModels
 
         public void btnDashboard()
         {
+            ActivateItem(new DashboardViewModel());
+
         }
 
         public void btnInventory()
