@@ -85,7 +85,7 @@ namespace BLM.ViewModels.Production.Forms
         {
             foreach (DataRow row in _receivedGridSource.Rows)
             {
-                Connection.dbCommand("INSERT INTO `flc`.`production` (`prod_item_name`, `prod_category`, `prod_theoretical_yield`, `prod_actual_yield`, `prod_percent_yield`, `prod_qty`, `prod_received_weight`, `prod_size`, `prod_unit`, `prod_status`, `prod_rfid`, `prod_name`)" +
+                Connection.dbCommand("INSERT INTO `flc`.`production` (`item_name`, `category`, `theoretical_yield`, `actual_yield`, `percent_yield`, `qty`, `received_weight`, `size`, `unit`, `status`, `rfid`, `name`)" +
                     "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
             }
             _receivedGridSource = Connection.dbTable(
@@ -101,7 +101,7 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
         }
 
         public void btnOK()
@@ -119,7 +119,7 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
 
             _txtID = _txtRFID;
             //putting Product Name in textbox
@@ -144,10 +144,10 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => receivedGridSource);
 
-            Connection.dbCommand("UPDATE `flc`.`inventory_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
+            Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
 
             _itemGridSource = Connection.dbTable(
                 "SELECT item_name as 'NAME'," +
@@ -162,7 +162,7 @@ namespace BLM.ViewModels.Production.Forms
                 "status as 'STATUS'," +
                 "rfid as 'RFID'," +
                 "product_name " +
-                "FROM inventory_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
             NotifyOfPropertyChange(() => itemGridSource);
             btnConfirm();
         }

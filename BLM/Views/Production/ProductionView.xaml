@@ -43,7 +43,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
-                            Pending
+                            Request/s
                         </Label>
                     </StackPanel>
                 </Button>
@@ -119,30 +119,23 @@
             <Label
                 x:Name="s1"
                 Grid.Column="2"
+                Grid.Row="1"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Content="Status"
+                Content="Date Created"
                 FontSize="24" />
             <TextBox
                 x:Name="txtProductName"
                 Grid.Column="1"
+                Grid.ColumnSpan="23"
                 Height="40"
                 Margin="5,4.6,5,4.8"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                FontSize="26"
+                FontSize="18"
                 IsReadOnly="True"
-                TextWrapping="Wrap" />
-            <TextBox
-                x:Name="txtStatus"
-                Grid.Column="3"
-                Height="40"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                FontSize="26"
-                IsReadOnly="True"
+                Text=""
                 TextWrapping="Wrap" />
             <TextBox
                 x:Name="txtTheoreticalYield"
@@ -181,7 +174,7 @@
                     Orientation="Horizontal">
                     <TextBox
                         x:Name="txtSearch"
-                        Width="300"
+                        Width="400"
                         VerticalContentAlignment="Center">
                         <TextBox.Style>
                             <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
@@ -214,9 +207,8 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-                    <ComboBox Width="200" Margin="5,0" />
                     <Button
-                        x:Name="btnRefresha"
+                        x:Name="btnProceed"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
                         Foreground="White">
@@ -279,7 +271,7 @@
                     BorderBrush="Black"
                     BorderThickness="1"
                     CanUserAddRows="False"
-                    ColumnWidth="*"
+                    ColumnWidth="Auto"
                     FontSize="16"
                     Foreground="Black"
                     IsReadOnly="True"

@@ -22,7 +22,6 @@ namespace BLM.Views.Production.Forms
         public NewProductionView()
         {
             InitializeComponent();
-            txtRFID.Focus();
         }
 
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
