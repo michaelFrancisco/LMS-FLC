@@ -230,9 +230,6 @@ namespace BLM.ViewModels.Production
         private string _productName;
 
 
-       
-
-
     public void btnProceed()
         {
             try
