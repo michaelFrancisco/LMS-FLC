@@ -1,12 +1,12 @@
 ﻿using BLM.Models;
-using Caliburn.Micro;
 using System.Data;
 using System.Windows;
 
 namespace BLM.ViewModels.Shipments.Forms
 {
-    internal class EditShipmentViewModel : Screen
+    internal class EditShipmentViewModel : Caliburn.Micro.Screen
     {
+        private System.Int32 _itemGridSelectedIndex;
         private object _itemGridSelectedItem;
         private DataTable _itemGridSource;
         private string _lblCategory;
@@ -26,6 +26,12 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             _selectedShipmentID = selectedShipmentID;
             _shipmentData = Connection.dbTable("Select * from shipments;");
+        }
+
+        public System.Int32 itemGridSelectedIndex
+        {
+            get { return _itemGridSelectedIndex; }
+            set { _itemGridSelectedIndex = value; }
         }
 
         public object itemGridSelectedItem
@@ -110,10 +116,23 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _lblOrigin = value; }
         }
 
-        protected override void OnActivate()
+        public string lblTruck
         {
-            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
-            base.OnActivate();
+            get
+            {
+                DataTable dt = Connection.dbTable("Select Name from trucks where Truck_ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
+                return dt.Rows[0][0].ToString();
+            }
+            set { _lblTruck = value; }
+        }
+
+        public void btnCancel()
+        {
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Are you sure? Unsaved changes will be lost.", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                TryClose();
+            }
         }
 
         public void btnComplete()
@@ -122,9 +141,12 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 DataRowView row = (DataRowView)_itemGridSelectedItem;
                 row[6] = "Complete";
+                _itemGridSelectedIndex++;
+                NotifyOfPropertyChange(() => itemGridSelectedIndex);
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                System.Console.WriteLine(e.Message);
             }
         }
 
@@ -134,6 +156,8 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 DataRowView row = (DataRowView)_itemGridSelectedItem;
                 row[6] = "Incomplete";
+                _itemGridSelectedIndex++;
+                NotifyOfPropertyChange(() => itemGridSelectedIndex);
             }
             catch (System.Exception)
             {
@@ -146,6 +170,8 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 DataRowView row = (DataRowView)_itemGridSelectedItem;
                 row[6] = "For Return";
+                _itemGridSelectedIndex++;
+                NotifyOfPropertyChange(() => itemGridSelectedIndex);
             }
             catch (System.Exception)
             {
@@ -162,23 +188,20 @@ namespace BLM.ViewModels.Shipments.Forms
             DataTable markedasIncomplete = Connection.dbTable("Select * from shipment_items where `Shipment_ID` = '" + _selectedShipmentID + "' and Status = 'Incomplete'");
             if (markedforReturn.Rows.Count > 0 || markedasIncomplete.Rows.Count > 0)
             {
-                MessageBox.Show("Some items are marked as INCOMPLETE or FOR RETURN, this shipment will be marked as INCOMPLETE");
+                System.Windows.MessageBox.Show("Some items are marked as INCOMPLETE or FOR RETURN, this shipment will be marked as INCOMPLETE");
                 Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Incomplete' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
             }
             else
             {
                 Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Complete' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
+                foreach (DataRow row in _itemGridSource.Rows)
+                {
+                    DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + row[7].ToString() + ";");
+                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)row[3]).ToString() + "' WHERE (`Item_ID` = '" + row[0].ToString() + "');");
+                    Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(" + row[3].ToString() + ") was added to inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(" + row[3].ToString() + ") was added to inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                }
             }
             TryClose();
-        }
-
-        public void btnCancel()
-        {
-            MessageBoxResult dialogResult = MessageBox.Show("Are you sure? Unsaved changes will be lost.", "!", MessageBoxButton.YesNo);
-            if (dialogResult == MessageBoxResult.Yes)
-            {
-                TryClose();
-            }
         }
 
         public void itemGridSelectionChanged()
@@ -197,14 +220,10 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
-        public string lblTruck
+        protected override void OnActivate()
         {
-            get
-            {
-                DataTable dt = Connection.dbTable("Select Name from trucks where Truck_ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
-                return dt.Rows[0][0].ToString();
-            }
-            set { _lblTruck = value; }
+            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`Item_ID` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
+            base.OnActivate();
         }
     }
 }

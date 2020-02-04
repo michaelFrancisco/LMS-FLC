@@ -12,7 +12,6 @@ namespace BLM.ViewModels.Shipments
         private DataTable _baseshipmentGridSource;
         private string _selectedCategory;
         private object _shipmentsGridSelectedItem;
-
         private DataTable _shipmentsGridSource;
         private string _txtSearch;
 
@@ -107,7 +106,10 @@ namespace BLM.ViewModels.Shipments
             try
             {
                 DataRowView dataRowView = (DataRowView)_shipmentsGridSelectedItem;
-                windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                if (dataRowView.Row["Status"].ToString() == "Pending")
+                {
+                    windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                }
             }
             catch
             {

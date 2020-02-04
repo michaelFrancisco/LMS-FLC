@@ -33,7 +33,6 @@
             <StackPanel Margin="5" Orientation="Vertical">
                 <Button
                     x:Name="btnTruck1"
-                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
@@ -49,7 +48,10 @@
                                 Height="50"
                                 Margin="5,0"
                                 Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                            <Label VerticalAlignment="Center" Foreground="White">Truck #1</Label>
+                            <Label
+                                VerticalAlignment="Center"
+                                Content="Truck A"
+                                Foreground="White" />
                         </StackPanel>
                         <TextBlock
                             x:Name="txtLocation1"
@@ -61,7 +63,6 @@
                 </Button>
                 <Button
                     x:Name="btnTruck2"
-                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
@@ -77,7 +78,10 @@
                                 Height="50"
                                 Margin="5,0"
                                 Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                            <Label VerticalAlignment="Center" Foreground="White">Truck #2</Label>
+                            <Label
+                                VerticalAlignment="Center"
+                                Content="Truck B"
+                                Foreground="White" />
                         </StackPanel>
                         <TextBlock
                             x:Name="txtLocation2"
@@ -89,7 +93,6 @@
                 </Button>
                 <Button
                     x:Name="btnTruck3"
-                    Height="150"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
@@ -105,7 +108,10 @@
                                 Height="50"
                                 Margin="5,0"
                                 Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
-                            <Label VerticalAlignment="Center" Foreground="White">Truck #3</Label>
+                            <Label
+                                VerticalAlignment="Center"
+                                Content="Truck C"
+                                Foreground="White" />
                         </StackPanel>
                         <TextBlock
                             x:Name="txtLocation3"

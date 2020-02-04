@@ -163,6 +163,7 @@
             IsReadOnly="True"
             ItemsSource="{Binding itemGridSource}"
             RowBackground="White"
+            SelectedIndex="{Binding itemGridSelectedIndex}"
             SelectedItem="{Binding itemGridSelectedItem}"
             SelectionMode="Single">
             <DataGrid.Resources>

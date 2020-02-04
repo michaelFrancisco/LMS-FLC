@@ -60,7 +60,7 @@ namespace BLM.Views.Tracking
             dt.Start();
 
             map.MapProvider = GMapProviders.GoogleMap;
-            GMapProviders.GoogleMap.ApiKey = @"AIzaSyB8B3hq7jeZtvEPtFdEoZ3Jd5IaZh2Hp3g";
+            GMapProviders.GoogleMap.ApiKey = @"AIzaSyBZPVDnNwV-u7jRFFUJb83p31k3Pjx8hBM";
             map.MouseWheelZoomType = MouseWheelZoomType.ViewCenter;
             map.ShowCenter = false;
             map.MinZoom = 10;

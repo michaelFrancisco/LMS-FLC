@@ -13,6 +13,6 @@
     FontSize="22"
     mc:Ignorable="d">
     <Grid Width="Auto" Height="Auto">
-        <Image Source="/BLM;component/Resources/dashboard.png"/>
+        <Image Source="/BLM;component/Resources/dashboard.png" />
     </Grid>
 </UserControl>

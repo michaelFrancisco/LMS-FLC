@@ -10,5 +10,6 @@ namespace BLM.Models
     {
         public static string name;
         public static string user_level;
+        public static string User_ID;
 	}
 }
