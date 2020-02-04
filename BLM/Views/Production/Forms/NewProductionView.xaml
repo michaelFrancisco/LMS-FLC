@@ -226,53 +226,6 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-        <Grid
-            x:Name="Quantity"
-            Grid.RowSpan="10"
-            Grid.ColumnSpan="4"
-            Margin="0,0,-0.4,0.4"
-            Visibility="{Binding QuantityBoxVisibility}">
-            <Grid Background="Black" Opacity="0.5" />
-            <Border
-                MinWidth="350"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="Black"
-                BorderThickness="1"
-                CornerRadius="0,55,0,55">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Border.Background>
-                <StackPanel
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    AutomationProperties.IsRowHeader="True">
-                    <TextBlock Margin="5" Text="Enter ID" />
-                    <TextBox
-                        x:Name="txtRFID"
-                        Width="250"
-                        Height="30"
-                        MinWidth="150"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        TabIndex="0" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        Content="{Binding quantityToolTipText}"
-                        FontSize="16" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button
-                            x:Name="btnOK"
-                            Width="100"
-                            Margin="5"
-                            Background="{x:Null}"
-                            BorderBrush="Black"
-                            Content="OK"
-                            IsDefault="True"
-                            IsEnabled="True" />
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-        </Grid>
+       
     </Grid>
 </Window>
