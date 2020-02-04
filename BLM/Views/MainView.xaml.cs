@@ -24,5 +24,15 @@ namespace BLM.Views
         {
             InitializeComponent();
         }
+
+        private void notificationsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "Log_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
     }
 }

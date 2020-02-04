@@ -23,6 +23,9 @@ namespace BLM.ViewModels
         private Brush _brushShipments;
         private Brush _brushTracking;
 
+        private List<string> _notificationDateComboBox;
+        private DataTable _notificationGridSource;
+        private string _notificationsDateComboBoxSelectedItem;
         private int _sidebarSelectedIndex;
 
         private double _sidebarWidth;
@@ -73,6 +76,58 @@ namespace BLM.ViewModels
         {
             get { return _brushTracking; }
             set { _brushTracking = value; }
+        }
+
+        public List<string> notificationDateComboBox
+        {
+            get
+            {
+                DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y');");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
+                return list;
+            }
+            set { _notificationDateComboBox = value; }
+        }
+
+        public DataTable notificationGridSource
+        {
+            get { return _notificationGridSource; }
+            set { _notificationGridSource = value; }
+        }
+
+        public string notificationsDateComboBoxSelectedItem
+        {
+            get { return _notificationsDateComboBoxSelectedItem; }
+            set
+            {
+                _notificationsDateComboBoxSelectedItem = value;
+                _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where date_format(Timestamp, '%c/%d/%Y') = '" + notificationsDateComboBoxSelectedItem + "';");
+                NotifyOfPropertyChange(() => notificationGridSource);
+            }
+        }
+
+        private object _notificationSelectedItem;
+
+        public object notificationSelectedItem
+        {
+            get { return _notificationSelectedItem; }
+            set { _notificationSelectedItem = value; }
+        }
+
+        public void notificationsGridSelectionChanged()
+        {
+            DataRowView row = (DataRowView)_notificationSelectedItem;
+            DataTable dt = Connection.dbTable("select Body from system_log where Log_ID = '" + row[0].ToString() + "'");
+            _notificationsText = dt.Rows[0][0].ToString();
+            NotifyOfPropertyChange(() => notificationsText);
+        }
+
+        private string _notificationsText;
+
+        public string notificationsText
+        {
+            get { return _notificationsText; }
+            set { _notificationsText = value; }
         }
 
         public int sidebarSelectedIndex
@@ -127,24 +182,11 @@ namespace BLM.ViewModels
             NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
 
-        private List<string> _notificationDateComboBox;
-
-        public List<string> notificationDateComboBox
-        {
-            get 
-            {
-                DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y');");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Timestamp")).ToList();
-                return list;
-            }
-            set { _notificationDateComboBox = value; }
-        }
-
         public void btnNotifications()
         {
             if (_sidebarWidth == 0)
             {
-                _sidebarWidth = 350;
+                _sidebarWidth = 370;
                 NotifyOfPropertyChange(() => sidebarWidth);
             }
             else
