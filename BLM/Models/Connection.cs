@@ -17,6 +17,7 @@ namespace BLM.Models
         }
 
         public static DataTable dbTable(string query)
+        
         {
             OdbcConnection dbConnection = new OdbcConnection("DSN=FLC");
             dbConnection.Open();

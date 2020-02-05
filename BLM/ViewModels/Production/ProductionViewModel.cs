@@ -12,9 +12,10 @@ namespace BLM.ViewModels.Production
         private readonly IWindowManager windowManager = new WindowManager();
         private object _productionGridSelectedItem;
         private DataTable _productionGridSource;
+        private string _productName;
         private string _selectedStatus;
-        private string _txtProductName;
         private string _txtID;
+        private string _txtProductName;
         private string _txtSearch;
         private string _txtStatus;
         private string _txtTheoreticalYield;
@@ -31,18 +32,17 @@ namespace BLM.ViewModels.Production
             set { _productionGridSource = value; }
         }
 
-        public string txtProductName
-        {
-            get { return _txtProductName; }
-            set { _txtProductName = value; }
-        }
-
         public string txtID
         {
             get { return _txtID; }
             set { _txtID = value; }
         }
 
+        public string txtProductName
+        {
+            get { return _txtProductName; }
+            set { _txtProductName = value; }
+        }
         public string txtSearch
         {
             get { return _txtSearch; }
@@ -60,12 +60,15 @@ namespace BLM.ViewModels.Production
                 else
                 {
                     _productionGridSource = Connection.dbTable(
-             "SELECT `id`," +
+           "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
+                "`size` as `Size`," +
+                "`unit` as `Unit`," +
+                "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production");
+                "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
                     NotifyOfPropertyChange(() => productionGridSource);
                     clear();
                 }
@@ -92,12 +95,15 @@ namespace BLM.ViewModels.Production
         public void btnFinished()
         {
             _productionGridSource = Connection.dbTable(
-                "SELECT `id`," +
+               "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
+                "`size` as `Size`," +
+                "`unit` as `Unit`," +
+                "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production where status = 'finished'");
+                "FROM flc.production where `Status` = 'moved to inventory'");
             NotifyOfPropertyChange(null);
             _selectedStatus = "Finished";
             clear();
@@ -106,27 +112,70 @@ namespace BLM.ViewModels.Production
         public void btnPending()
         {
             _productionGridSource = Connection.dbTable(
-                  "SELECT `id`," +
+                "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
+                "`size` as `Size`," +
+                "`unit` as `Unit`," +
+                "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production where status = 'pending'");
+                "FROM flc.production where `Status` = 'pending'");
 
             NotifyOfPropertyChange(null);
             _selectedStatus = "Pending";
             clear();
         }
 
+        public void btnProceed()
+        {
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+                _productName = dataRowView.Row[1].ToString();
+                _txtStatus = dataRowView.Row[6].ToString();
+                _txtID = dataRowView.Row[0].ToString();
+
+                if (_txtStatus == "pending")
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Pending to Processing?.", "!", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        _txtID = dataRowView.Row[0].ToString();
+                        Connection.dbCommand(@"UPDATE `flc`.`production` SET `status` = 'processing' WHERE `id` = '" + _txtID + "'");
+                        MessageBox.Show("The Product '" + _productName + "' is now in processing state!");
+                    }
+                }
+                else if (_txtStatus == "processing")
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Processing to Finished?.", "!", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + _txtID + ";");
+                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)dataRowView.Row[2]).ToString() + "' WHERE (`Item_ID` = '" + _txtID + "');");
+                        MessageBox.Show("The Product '" + _productName + "' is finished!");
+                        Connection.dbCommand("UPDATE `flc`.`production` SET `status` = 'moved to inventory' WHERE `id` = '" + _txtID + "'");
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error!");
+            }
+        }
+
         public void btnProcessing()
         {
             _productionGridSource = Connection.dbTable(
-       "SELECT `id`," +
+        "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
+                "`size` as `Size`," +
+                "`unit` as `Unit`," +
+                "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production where status = 'processing'");
+                "FROM flc.production where `Status` = 'processing'");
             NotifyOfPropertyChange(null);
             _selectedStatus = "Processing";
             clear();
@@ -135,12 +184,15 @@ namespace BLM.ViewModels.Production
         public void btnRefresh()
         {
             _productionGridSource = Connection.dbTable(
-                 "SELECT `id`," +
+               "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
+                "`size` as `Size`," +
+                "`unit` as `Unit`," +
+                "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production");
+                "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
             NotifyOfPropertyChange(() => productionGridSource);
             _txtSearch = string.Empty;
             _selectedStatus = "All";
@@ -210,7 +262,7 @@ namespace BLM.ViewModels.Production
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production");
+                "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
 
             NotifyOfPropertyChange(() => productionGridSource);
             _selectedStatus = "All";
@@ -225,55 +277,6 @@ namespace BLM.ViewModels.Production
             _txtTheoreticalYield = string.Empty;
             _txtID = string.Empty;
             NotifyOfPropertyChange(null);
-        }
-
-        private string _productName;
-
-
-    public void btnProceed()
-        {
-            try
-            {
-                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                _productName = dataRowView.Row[1].ToString();
-                _txtStatus = dataRowView.Row[3].ToString();
-
-
-                if (_txtStatus == "pending")
-                {
-                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Pending to Processing?.", "!", MessageBoxButton.YesNo);
-                    if (dialogResult == MessageBoxResult.Yes)
-                    {
-                        _txtID = dataRowView.Row[0].ToString();
-                        Connection.dbCommand(@"UPDATE `flc`.`production` SET `Status` = 'processing' WHERE `id` = '" + _txtID + "'");
-                        _txtID = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("{Please check if you click any of those list");
-                    } 
-                }
-                else if (_txtStatus == "processing")
-                {
-                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Processing to Finished?.", "!", MessageBoxButton.YesNo);
-                    if (dialogResult == MessageBoxResult.Yes)
-                    {
-                       
-                            _txtID = dataRowView.Row[0].ToString();
-                            Connection.dbCommand(@"UPDATE `flc`.`inventory` SET `Supplier_ID` = '3', `Name` = '"+ dataRowView.Row[1].ToString() + "', `Category` = 'Finished Product', `Quantity` = '"+dataRowView.Row[2].ToString()+"', `Size` = '"+ dataRowView.Row[3].ToString() + "', `Unit` = '"+dataRowView.Row[4].ToString()+ "', `Weight` = '100', `Critical_Level` = '8' WHERE `Item_ID` = '" + dataRowView.Row[0].ToString() + "';");
-                            _txtID = "";
-                        
-                    }
-                    else
-                    {
-                        MessageBox.Show("{Please check if you click any of those list");
-                    }
-                }
-            }
-            catch 
-            {
-                MessageBox.Show("Error!");
-            }
         }
     }
 }
