@@ -254,7 +254,7 @@
                             Height="35"
                             Margin="5,0"
                             Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Receive RawMat</Label>
+                        <Label Margin="5,0" Foreground="White">Create M.O.</Label>
                     </StackPanel>
                 </Button>
             </Grid>
