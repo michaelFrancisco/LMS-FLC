@@ -28,7 +28,7 @@ namespace BLM.Views.Production
         {
             switch (e.Column.Header.ToString())
             {
-                case "THEORETICAL":
+                case "id":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
             }
