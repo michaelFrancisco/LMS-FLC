@@ -60,13 +60,13 @@ namespace BLM.ViewModels.Production
                 else
                 {
                     _productionGridSource = Connection.dbTable(
-           "SELECT `id`," +
+              "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
                 "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
                     NotifyOfPropertyChange(() => productionGridSource);
@@ -95,13 +95,13 @@ namespace BLM.ViewModels.Production
         public void btnFinished()
         {
             _productionGridSource = Connection.dbTable(
-               "SELECT `id`," +
+                 "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
                 "FROM flc.production where `Status` = 'moved to inventory'");
             NotifyOfPropertyChange(null);
@@ -115,10 +115,10 @@ namespace BLM.ViewModels.Production
                 "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
                 "FROM flc.production where `Status` = 'pending'");
 
@@ -167,13 +167,13 @@ namespace BLM.ViewModels.Production
         public void btnProcessing()
         {
             _productionGridSource = Connection.dbTable(
-        "SELECT `id`," +
+       "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
                 "FROM flc.production where `Status` = 'processing'");
             NotifyOfPropertyChange(null);
@@ -184,13 +184,13 @@ namespace BLM.ViewModels.Production
         public void btnRefresh()
         {
             _productionGridSource = Connection.dbTable(
-               "SELECT `id`," +
+                "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
                 "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
             NotifyOfPropertyChange(() => productionGridSource);
@@ -199,20 +199,6 @@ namespace BLM.ViewModels.Production
             clear();
         }
 
-        //private SystemColors _highlightselectedButton;
-
-        //public SystemColors highlightselectedButton
-        //{
-        //    get { return _highlightselectedButton; }
-        //    set {
-        //        _highlightselectedButton = value;
-        //    if (_selectedStatus != null)
-        //        {
-        //            _highlightselectedButton = SystemColors.;
-        //        }
-        //    }
-        //}
-      
         public void print()
         {
             try
@@ -221,17 +207,17 @@ namespace BLM.ViewModels.Production
                 {
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
                     _txtProductName = dataRowView.Row[1].ToString();
-                    _txtTheoreticalYield = dataRowView.Row[2].ToString();
-                    _txtStatus = dataRowView.Row[9].ToString();
+                    _txtTheoreticalYield = dataRowView.Row[6].ToString();
+                    _txtStatus = dataRowView.Row[5].ToString();
                     NotifyOfPropertyChange(null);
                 }
                 else
                 {
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
                     _txtProductName = dataRowView.Row[1].ToString();
-                    _txtTheoreticalYield = dataRowView.Row[2].ToString();
-                    _txtStatus = dataRowView.Row[9].ToString();
-                    _txtID = dataRowView.Row[4].ToString();
+                    _txtTheoreticalYield = dataRowView.Row[6].ToString();
+                    _txtStatus = dataRowView.Row[5].ToString();
+                    _txtID = dataRowView.Row[0].ToString();
                     NotifyOfPropertyChange(null);
                 }
             }
@@ -257,12 +243,12 @@ namespace BLM.ViewModels.Production
                 "SELECT `id`," +
                 "`name` as `Product Name`," +
                 "`qty` as `Quantity`," +
-                "`size` as `Size`," +
                 "`unit` as `Unit`," +
                 "`weight` as `Weight`," +
                 "`status` as `Status`," +
+                "`theoretical_yield` as `Theoretical Yield`," +
                 "`created_date`as`Created Date` " +
-                "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing')");
+                "FROM flc.production WHERE (`Status` = 'pending'&'moved to inventory'&'processing') Order by `Created Date` Desc");
 
             NotifyOfPropertyChange(() => productionGridSource);
             _selectedStatus = "All";
