@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BLM.Views.Shipments.Forms
 {
@@ -22,6 +11,32 @@ namespace BLM.Views.Shipments.Forms
         public EditShipmentView()
         {
             InitializeComponent();
+        }
+
+        private void itemGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "Shipment_Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Category":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Size":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Unit":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
     }
 }

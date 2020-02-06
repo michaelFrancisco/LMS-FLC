@@ -12,7 +12,6 @@ namespace BLM.ViewModels.Inventory.Forms
         private int _txtCriticalLevel;
         private string _txtName;
         private int _txtQuantity;
-        private string _txtRFID;
         private int _txtSize;
         private string _txtUnit;
 
@@ -44,12 +43,6 @@ namespace BLM.ViewModels.Inventory.Forms
         {
             get { return _txtQuantity; }
             set { _txtQuantity = value; }
-        }
-
-        public string txtRFID
-        {
-            get { return _txtRFID; }
-            set { _txtRFID = value; }
         }
 
         public int txtSize

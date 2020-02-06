@@ -196,14 +196,14 @@
                     BorderBrush="Black"
                     BorderThickness="1"
                     CanUserAddRows="False"
-                    ColumnWidth="*"
+                    ColumnWidth="Auto"
                     FontSize="16"
                     Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding inventoryGridSource}"
                     RowBackground="White"
                     SelectedItem="{Binding inventoryGridSelectedItem}"
-                    SelectionMode="Single">
+                    SelectionMode="Single" AutoGeneratingColumn="inventoryGrid_AutoGeneratingColumn">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White" />

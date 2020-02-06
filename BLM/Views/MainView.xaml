@@ -294,6 +294,7 @@
                                 cal:Message.Attach="[Event SelectionChanged] = [Action notificationsGridSelectionChanged]"
                                 AlternatingRowBackground="LightGray"
                                 AlternationCount="2"
+                                AutoGeneratingColumn="notificationsGrid_AutoGeneratingColumn"
                                 Background="White"
                                 BorderBrush="Black"
                                 BorderThickness="1"
@@ -305,7 +306,7 @@
                                 ItemsSource="{Binding notificationGridSource}"
                                 RowBackground="White"
                                 SelectedItem="{Binding notificationSelectedItem}"
-                                SelectionMode="Single" AutoGeneratingColumn="notificationsGrid_AutoGeneratingColumn">
+                                SelectionMode="Single">
                                 <DataGrid.Resources>
                                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="Background" Value="White" />
@@ -318,7 +319,7 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Foreground="{x:Null}">
-                        <Grid Background="#FF51FF00" />
+                        <Grid Width="350" Background="White" />
                     </TabItem>
                     <TabItem
                         Background="{x:Null}"

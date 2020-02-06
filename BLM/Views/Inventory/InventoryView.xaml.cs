@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BLM.Views.Inventory
 {
@@ -22,6 +11,29 @@ namespace BLM.Views.Inventory
         public InventoryView()
         {
             InitializeComponent();
+        }
+
+        private void inventoryGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Supplier_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Weight":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Name":
+                    DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+            }
         }
     }
 }

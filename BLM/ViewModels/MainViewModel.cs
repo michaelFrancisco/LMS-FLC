@@ -5,10 +5,12 @@ using BLM.ViewModels.Scale;
 using BLM.ViewModels.Shipments;
 using BLM.ViewModels.Tracking;
 using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace BLM.ViewModels
 {
@@ -22,13 +24,21 @@ namespace BLM.ViewModels
         private Brush _brushScale;
         private Brush _brushShipments;
         private Brush _brushTracking;
-
         private List<string> _notificationDateComboBox;
         private DataTable _notificationGridSource;
         private string _notificationsDateComboBoxSelectedItem;
+        private object _notificationSelectedItem;
+        private string _notificationsText;
         private int _sidebarSelectedIndex;
-
         private double _sidebarWidth;
+        private DispatcherTimer dt = new DispatcherTimer();
+
+        public MainViewModel()
+        {
+            dt.Tick += new EventHandler(timer_Tick);
+            dt.Interval = new System.TimeSpan(0, 0, 5);
+            dt.Start();
+        }
 
         public Brush brushDashboard
         {
@@ -47,7 +57,6 @@ namespace BLM.ViewModels
             get { return _brushLogs; }
             set { _brushLogs = value; }
         }
-
         public Brush brushOrders
         {
             get { return _brushOrders; }
@@ -106,23 +115,11 @@ namespace BLM.ViewModels
             }
         }
 
-        private object _notificationSelectedItem;
-
         public object notificationSelectedItem
         {
             get { return _notificationSelectedItem; }
             set { _notificationSelectedItem = value; }
         }
-
-        public void notificationsGridSelectionChanged()
-        {
-            DataRowView row = (DataRowView)_notificationSelectedItem;
-            DataTable dt = Connection.dbTable("select Body from system_log where Log_ID = '" + row[0].ToString() + "'");
-            _notificationsText = dt.Rows[0][0].ToString();
-            NotifyOfPropertyChange(() => notificationsText);
-        }
-
-        private string _notificationsText;
 
         public string notificationsText
         {
@@ -259,9 +256,36 @@ namespace BLM.ViewModels
             NotifyOfPropertyChange(null);
         }
 
+        public void notificationsGridSelectionChanged()
+        {
+            try
+            {
+                DataRowView row = (DataRowView)_notificationSelectedItem;
+                DataTable dt = Connection.dbTable("select Body from system_log where Log_ID = '" + row[0].ToString() + "'");
+                _notificationsText = dt.Rows[0][0].ToString();
+                NotifyOfPropertyChange(() => notificationsText);
+            }
+            catch
+            {
+            }
+        }
+
+        public void refreshNotifications()
+        {
+            DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y');");
+            List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
+            _notificationDateComboBox = list;
+            NotifyOfPropertyChange(() => notificationDateComboBox);
+        }
+
         protected override void OnActivate()
         {
             base.OnActivate();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            refreshNotifications();
         }
     }
 }

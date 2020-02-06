@@ -205,7 +205,7 @@
                 ItemsSource="{Binding itemGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding itemGridSelectedItem}"
-                SelectionMode="Single">
+                SelectionMode="Single" AutoGeneratingColumn="itemGrid_AutoGeneratingColumn">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -231,7 +231,7 @@
                 ItemsSource="{Binding shipmentGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding shipmentGridSelectedItem}"
-                SelectionMode="Single">
+                SelectionMode="Single" AutoGeneratingColumn="shipmentGrid_AutoGeneratingColumn">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />

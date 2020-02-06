@@ -24,5 +24,31 @@ namespace BLM.Views.Shipments.Forms
         {
             InitializeComponent();
         }
+
+        private void itemGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "Category":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
+
+        private void shipmentGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "Category":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
     }
 }

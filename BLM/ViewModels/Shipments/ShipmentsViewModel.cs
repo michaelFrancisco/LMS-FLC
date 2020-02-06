@@ -48,11 +48,11 @@ namespace BLM.ViewModels.Shipments
             }
         }
 
-        public void btnAll()
+        public void btnComplete()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Complete' order by Shipment_ID Desc");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "All";
+            _selectedCategory = "Complete";
         }
 
         public void btnCreate()
@@ -64,36 +64,36 @@ namespace BLM.ViewModels.Shipments
         {
         }
 
-        public void btnInbound()
+        public void btnPending()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Inbound'");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Pending' order by Shipment_ID Desc");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "Inbound";
+            _selectedCategory = "Pending";
         }
 
-        public void btnOutbound()
+        public void btnTransit()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Outbound'");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'In Transit' order by Shipment_ID Desc");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "Outbound";
+            _selectedCategory = "Transit";
         }
 
         public void btnRefresh()
         {
             switch (_selectedCategory)
             {
-                case "Inbound":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Inbound'");
+                case "Pending":
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Pending' order by Shipment_ID Desc");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
-                case "Outbound":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where `shipments`.`Category` = 'Outbound'");
+                case "Transit":
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'In Transit' order by Shipment_ID Desc");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
-                case "All":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
+                case "Complete":
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Complete' order by Shipment_ID Desc");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
             }
@@ -118,7 +118,7 @@ namespace BLM.ViewModels.Shipments
 
         protected override void OnActivate()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID`");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` order by Shipment_ID Desc");
             _baseshipmentGridSource = _shipmentsGridSource;
             _selectedCategory = "All";
             NotifyOfPropertyChange(null);

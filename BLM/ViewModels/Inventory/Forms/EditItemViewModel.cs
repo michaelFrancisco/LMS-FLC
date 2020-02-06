@@ -86,7 +86,7 @@ namespace BLM.ViewModels.Inventory.Forms
             {
                 if (areRequiredFieldsComplete())
                 {
-                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Name` = '" + _txtName + "', `Category` = '" + _selectedCategory + "', `Quantity` = '" + _txtQuantity + "', `Size` = '" + _txtSize + "', `Unit` = '" + _txtUnit + "', `Critical_Level` = '" + _txtCriticalLevel + "', `RFID` = '" + _txtRFID + "' WHERE (`Item_ID` = '" + _selectedItemID + "');");
+                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Name` = '" + _txtName + "', `Category` = '" + _selectedCategory + "', `Quantity` = '" + _txtQuantity + "', `Size` = '" + _txtSize + "', `Unit` = '" + _txtUnit + "', `Critical_Level` = '" + _txtCriticalLevel + " WHERE (`Item_ID` = '" + _selectedItemID + "');");
                     TryClose();
                 }
                 else

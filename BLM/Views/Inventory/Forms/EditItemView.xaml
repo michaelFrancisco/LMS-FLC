@@ -113,18 +113,6 @@
             Grid.Column="1"
             Margin="5"
             TextWrapping="Wrap" />
-        <Label
-            Grid.Row="7"
-            Margin="5"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="RFID" />
-        <TextBox
-            x:Name="txtRFID"
-            Grid.Row="7"
-            Grid.Column="1"
-            Margin="5"
-            TextWrapping="Wrap" />
         <StackPanel
             Grid.Row="8"
             Grid.ColumnSpan="2"

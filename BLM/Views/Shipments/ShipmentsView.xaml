@@ -30,47 +30,41 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button
-                    x:Name="btnInbound"
+                    x:Name="btnPending"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-down-arrow-64(1).png" />
+                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
                             VerticalContentAlignment="Center"
                             FontFamily="Roboto"
-                            Foreground="White">
-                            Inbound
-                        </Label>
+                            Foreground="White" Content="Pending"/>
                     </StackPanel>
                 </Button>
                 <Button
-                    x:Name="btnOutbound"
+                    x:Name="btnTransit"
                     Grid.Column="1"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-up-64(1).png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            Outbound
-                        </Label>
+                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                        <Label VerticalContentAlignment="Center" Foreground="White" Content="In Transit"/>
                     </StackPanel>
                 </Button>
                 <Button
-                    x:Name="btnAll"
+                    x:Name="btnComplete"
                     Grid.Column="2"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-show-property-64.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            All
-                        </Label>
+                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
+                        <Label VerticalContentAlignment="Center" Foreground="White" Content="Complete"/>
                     </StackPanel>
                 </Button>
             </Grid>
