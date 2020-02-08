@@ -1,6 +1,7 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Inventory;
 using BLM.ViewModels.Production;
+using BLM.ViewModels.Requests;
 using BLM.ViewModels.Scale;
 using BLM.ViewModels.Shipments;
 using BLM.ViewModels.Tracking;
@@ -19,8 +20,8 @@ namespace BLM.ViewModels
         private Brush _brushDashboard;
         private Brush _brushInventory;
         private Brush _brushLogs;
-        private Brush _brushOrders;
         private Brush _brushProduction;
+        private Brush _brushRequest;
         private Brush _brushScale;
         private Brush _brushShipments;
         private Brush _brushTracking;
@@ -57,16 +58,17 @@ namespace BLM.ViewModels
             get { return _brushLogs; }
             set { _brushLogs = value; }
         }
-        public Brush brushOrders
-        {
-            get { return _brushOrders; }
-            set { _brushOrders = value; }
-        }
 
         public Brush brushProduction
         {
             get { return _brushProduction; }
             set { _brushProduction = value; }
+        }
+
+        public Brush brushRequest
+        {
+            get { return _brushRequest; }
+            set { _brushRequest = value; }
         }
 
         public Brush brushScale
@@ -219,6 +221,14 @@ namespace BLM.ViewModels
             NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
 
+        public void btnRequests()
+        {
+            ActivateItem(new RequestsViewModel());
+            clearColors();
+            _brushRequest = Brushes.DarkTurquoise;
+            NotifyOfPropertyChange(null);
+        }
+
         public void btnScale()
         {
             ActivateItem(new ScaleViewModel());
@@ -248,11 +258,11 @@ namespace BLM.ViewModels
             _brushDashboard = null;
             _brushInventory = null;
             _brushLogs = null;
-            _brushOrders = null;
             _brushProduction = null;
             _brushScale = null;
             _brushShipments = null;
             _brushTracking = null;
+            _brushRequest = null;
             NotifyOfPropertyChange(null);
         }
 

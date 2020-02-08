@@ -1,6 +1,9 @@
 ﻿using BLM.Models;
+using System;
 using System.Data;
+using System.IO.Ports;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace BLM.ViewModels.Shipments.Forms
 {
@@ -21,6 +24,12 @@ namespace BLM.ViewModels.Shipments.Forms
         private string _lblTruck;
         private int _selectedShipmentID;
         private DataTable _shipmentData;
+
+        private double _txtItemCount;
+
+        private double _txtItemWeight;
+
+        private double _txtScaleOutput;
 
         public EditShipmentViewModel(int selectedShipmentID)
         {
@@ -124,6 +133,24 @@ namespace BLM.ViewModels.Shipments.Forms
                 return dt.Rows[0][0].ToString();
             }
             set { _lblTruck = value; }
+        }
+
+        public double txtItemCount
+        {
+            get { return _txtItemCount; }
+            set { _txtItemCount = value; }
+        }
+
+        public double txtItemWeight
+        {
+            get { return _txtItemWeight; }
+            set { _txtItemWeight = value; }
+        }
+
+        public double txtScaleOutput
+        {
+            get { return _txtScaleOutput; }
+            set { _txtScaleOutput = value; }
         }
 
         public void btnCancel()
@@ -250,7 +277,51 @@ namespace BLM.ViewModels.Shipments.Forms
         protected override void OnActivate()
         {
             _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`Item_ID` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
+            try
+            {
+                port.BaudRate = 9600;
+                port.PortName = "COM4";
+                port.Open();
+
+                dt.Tick += new EventHandler(timer_Tick);
+                dt.Interval = new TimeSpan(0, 0, 0);
+                dt.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Please Check the connection of your weighing scale");
+            }
+            NotifyOfPropertyChange(null);
             base.OnActivate();
         }
+
+        public void WeightChanged()
+        {
+            _txtItemCount = _txtScaleOutput / _txtItemWeight;
+            NotifyOfPropertyChange(() => txtItemCount);
+        }
+
+        private SerialPort port = new SerialPort();
+        private DispatcherTimer dt = new DispatcherTimer();
+
+
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Int32.TryParse(port.ReadLine(), out int result);
+                if (result > -1)
+                {
+                    _txtScaleOutput = result;
+                    NotifyOfPropertyChange(() => txtScaleOutput);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
     }
 }

@@ -18,6 +18,18 @@ namespace BLM.ViewModels.Inventory
 
         private string _txtSearch;
 
+        public object inventoryGridSelectedItem
+        {
+            get { return _inventoryGridSelectedItem; }
+            set { _inventoryGridSelectedItem = value; }
+        }
+
+        public DataTable inventoryGridSource
+        {
+            get { return _inventoryGridSource; }
+            set { _inventoryGridSource = value; }
+        }
+
         public string txtSearch
         {
             get { return _txtSearch; }
@@ -29,19 +41,6 @@ namespace BLM.ViewModels.Inventory
                 _inventoryGridSource = dv.ToTable();
                 NotifyOfPropertyChange(null);
             }
-        }
-
-
-        public object inventoryGridSelectedItem
-        {
-            get { return _inventoryGridSelectedItem; }
-            set { _inventoryGridSelectedItem = value; }
-        }
-
-        public DataTable inventoryGridSource
-        {
-            get { return _inventoryGridSource; }
-            set { _inventoryGridSource = value; }
         }
 
         public void btnAll()
@@ -109,6 +108,12 @@ namespace BLM.ViewModels.Inventory
             NotifyOfPropertyChange(null);
         }
 
+        public void btnRequests()
+        {
+            //_inventoryGridSource = Connection.dbTable("SELECT * from inventory where Category = 'Finished Product'");
+            //NotifyOfPropertyChange(null);
+            //_selectedCategory = "Finished Products";
+        }
         public void showItem()
         {
             try

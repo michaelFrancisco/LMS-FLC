@@ -29,6 +29,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnAll"
@@ -52,7 +53,10 @@
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/BLM;component/Resources/Icons/icons8-commodity-64.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
+                        <Label
+                            VerticalContentAlignment="Center"
+                            FontSize="20"
+                            Foreground="White">
                             Raw Materials
                         </Label>
                     </StackPanel>
@@ -80,9 +84,25 @@
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            Finished Products
-                        </Label>
+                        <Label
+                            VerticalContentAlignment="Center"
+                            Content="Finished"
+                            Foreground="White" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnRequests"
+                    Grid.Column="4"
+                    Margin="10,0"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
+                        <Label
+                            VerticalContentAlignment="Center"
+                            Content="Requests"
+                            Foreground="White" />
                     </StackPanel>
                 </Button>
             </Grid>
@@ -192,6 +212,7 @@
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
+                    AutoGeneratingColumn="inventoryGrid_AutoGeneratingColumn"
                     Background="White"
                     BorderBrush="Black"
                     BorderThickness="1"
@@ -203,7 +224,7 @@
                     ItemsSource="{Binding inventoryGridSource}"
                     RowBackground="White"
                     SelectedItem="{Binding inventoryGridSelectedItem}"
-                    SelectionMode="Single" AutoGeneratingColumn="inventoryGrid_AutoGeneratingColumn">
+                    SelectionMode="Single">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White" />

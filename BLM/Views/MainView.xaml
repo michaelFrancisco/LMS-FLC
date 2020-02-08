@@ -125,6 +125,23 @@
                     </StackPanel>
                 </Button>
                 <Button
+                    x:Name="btnRequests"
+                    Margin="0,5"
+                    Padding="1"
+                    HorizontalContentAlignment="Left"
+                    Background="{Binding brushRequest}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="50"
+                            Height="50"
+                            Margin="5,0"
+                            Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
+                        <Label VerticalAlignment="Center" Foreground="White">Request</Label>
+                    </StackPanel>
+                </Button>
+                <Button
                     x:Name="btnProduction"
                     Margin="0,5"
                     Padding="1"

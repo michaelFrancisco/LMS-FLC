@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="BLM.Views.Shipments.ShipmentsView"
+    x:Class="BLM.Views.Requests.RequestsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
@@ -55,7 +55,7 @@
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
                         <Label
                             VerticalContentAlignment="Center"
-                            Content="In Transit"
+                            Content="Processing"
                             Foreground="White" />
                     </StackPanel>
                 </Button>
