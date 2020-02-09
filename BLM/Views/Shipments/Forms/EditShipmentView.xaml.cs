@@ -15,6 +15,7 @@ namespace BLM.Views.Shipments.Forms
 
         private void itemGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
             switch (e.Column.Header.ToString())
             {
                 case "Shipment_Item_ID":
@@ -34,6 +35,20 @@ namespace BLM.Views.Shipments.Forms
                     break;
 
                 case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Name":
+                    width = new DataGridLength(2, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+
+                case "Status":
+                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+
+                case "Weight":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
             }

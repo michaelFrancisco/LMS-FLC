@@ -1,8 +1,10 @@
 ﻿using BLM.Models;
+using BLM.ViewModels.Requests.Forms;
 using BLM.ViewModels.Shipments.Forms;
 using Caliburn.Micro;
 using System;
 using System.Data;
+using System.Windows;
 
 namespace BLM.ViewModels.Requests
 {
@@ -10,21 +12,21 @@ namespace BLM.ViewModels.Requests
     {
         private readonly IWindowManager windowManager = new WindowManager();
         private DataTable _baseshipmentGridSource;
+        private object _requestsGridSelectedItem;
+        private DataTable _requestsGridSource;
         private string _selectedCategory;
-        private object _shipmentsGridSelectedItem;
-        private DataTable _shipmentsGridSource;
         private string _txtSearch;
 
-        public object shipmentsGridSelectedItem
+        public object requestsGridSelectedItem
         {
-            get { return _shipmentsGridSelectedItem; }
-            set { _shipmentsGridSelectedItem = value; }
+            get { return _requestsGridSelectedItem; }
+            set { _requestsGridSelectedItem = value; }
         }
 
-        public DataTable shipmentsGridSource
+        public DataTable requestsGridSource
         {
-            get { return _shipmentsGridSource; }
-            set { _shipmentsGridSource = value; }
+            get { return _requestsGridSource; }
+            set { _requestsGridSource = value; }
         }
 
         public string txtSearch
@@ -35,14 +37,14 @@ namespace BLM.ViewModels.Requests
                 _txtSearch = value;
                 if (!string.IsNullOrEmpty(_txtSearch))
                 {
-                    DataView dv = new DataView(_shipmentsGridSource);
-                    dv.RowFilter = "Origin LIKE '%" + _txtSearch + "%' OR Destination LIKE '%" + _txtSearch + "%' OR Truck LIKE '%" + _txtSearch + "%' OR 'Delivery Agent' LIKE '%" + _txtSearch + "%'";
-                    _shipmentsGridSource = dv.ToTable();
+                    DataView dv = new DataView(_requestsGridSource);
+                    dv.RowFilter = "Name LIKE '%" + _txtSearch + "%'";
+                    _requestsGridSource = dv.ToTable();
                     NotifyOfPropertyChange(null);
                 }
                 else
                 {
-                    _shipmentsGridSource = _baseshipmentGridSource;
+                    _requestsGridSource = _baseshipmentGridSource;
                     NotifyOfPropertyChange(null);
                 }
             }
@@ -50,14 +52,9 @@ namespace BLM.ViewModels.Requests
 
         public void btnComplete()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Complete' order by Shipment_ID Desc");
+            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'complete';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Complete";
-        }
-
-        public void btnCreate()
-        {
-            windowManager.ShowWindow(new NewShipmentViewModel(), null, null);
         }
 
         public void btnExport()
@@ -66,16 +63,16 @@ namespace BLM.ViewModels.Requests
 
         public void btnPending()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Pending' order by Shipment_ID Desc");
+            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield`,`request_production`.`due_date` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Item_ID` where `request_production`.`status` = 'pending';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Pending";
         }
 
-        public void btnTransit()
+        public void btnProcessing()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'In Transit' order by Shipment_ID Desc");
+            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'processing';");
             NotifyOfPropertyChange(null);
-            _selectedCategory = "Transit";
+            _selectedCategory = "Processing";
         }
 
         public void btnRefresh()
@@ -83,32 +80,52 @@ namespace BLM.ViewModels.Requests
             switch (_selectedCategory)
             {
                 case "Pending":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Pending' order by Shipment_ID Desc");
-                    _baseshipmentGridSource = _shipmentsGridSource;
+                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield`,`request_production`.`due_date` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Item_ID` where `request_production`.`status` = 'pending';");
+                    _baseshipmentGridSource = _requestsGridSource;
                     break;
 
-                case "Transit":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'In Transit' order by Shipment_ID Desc");
-                    _baseshipmentGridSource = _shipmentsGridSource;
+                case "Processing":
+                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'processing';");
+                    _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Complete":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`Shipment_ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`User_ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`Truck_ID` where Status = 'Complete' order by Shipment_ID Desc");
-                    _baseshipmentGridSource = _shipmentsGridSource;
+                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'complete';");
+                    _baseshipmentGridSource = _requestsGridSource;
+                    break;
+
+                case "Request":
+                    _requestsGridSource = Connection.dbTable(@"SELECT `inventory`.`Item_ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
+                    _baseshipmentGridSource = _requestsGridSource;
                     break;
             }
             _txtSearch = string.Empty;
             NotifyOfPropertyChange(null);
         }
 
+        public void btnRequest()
+        {
+            _requestsGridSource = Connection.dbTable(@"SELECT `inventory`.`Item_ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
+            NotifyOfPropertyChange(null);
+            _selectedCategory = "Request";
+        }
+
         public void showItem()
         {
             try
             {
-                DataRowView dataRowView = (DataRowView)_shipmentsGridSelectedItem;
-                if (dataRowView.Row["Status"].ToString() == "Pending")
+                DataRowView dataRowView = (DataRowView)_requestsGridSelectedItem;
+                if (_selectedCategory == "Request")
                 {
-                    windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                    windowManager.ShowWindow(new NewRequestViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                }
+                else if (_selectedCategory == "Pending")
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        Connection.dbCommand("DELETE FROM `flc`.`request_production` WHERE (`id` = '" + dataRowView.Row[0].ToString() + "');");
+                    }
                 }
             }
             catch
@@ -118,8 +135,8 @@ namespace BLM.ViewModels.Requests
 
         protected override void OnActivate()
         {
-            _shipmentsGridSource = Connection.dbTable("Select `request_production`.`id`, `request_production`.`theoretical_yield`, `request_production`.`request_date`, `request_production`.`actual_yield`, `request_production`.`percent_yield`, `request_production`.`status`,`inventory`.`Name` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name`;");
-            _baseshipmentGridSource = _shipmentsGridSource;
+            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name`;");
+            _baseshipmentGridSource = _requestsGridSource;
             _selectedCategory = "All";
             NotifyOfPropertyChange(null);
             base.OnActivate();

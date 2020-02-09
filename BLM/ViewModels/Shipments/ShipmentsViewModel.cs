@@ -3,6 +3,7 @@ using BLM.ViewModels.Shipments.Forms;
 using Caliburn.Micro;
 using System;
 using System.Data;
+using System.Windows;
 
 namespace BLM.ViewModels.Shipments
 {
@@ -111,8 +112,9 @@ namespace BLM.ViewModels.Shipments
                     windowManager.ShowWindow(new EditShipmentViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
                 }
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
             }
         }
 

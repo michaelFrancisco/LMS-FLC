@@ -31,6 +31,10 @@ namespace BLM.ViewModels.Shipments.Forms
 
         private double _txtScaleOutput;
 
+        private DispatcherTimer dt = new DispatcherTimer();
+
+        private SerialPort port = new SerialPort();
+
         public EditShipmentViewModel(int selectedShipmentID)
         {
             _selectedShipmentID = selectedShipmentID;
@@ -191,6 +195,24 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        public void btnReconnectScale()
+        {
+            try
+            {
+                port.BaudRate = 9600;
+                port.PortName = "COM4";
+                port.Open();
+
+                dt.Tick += new EventHandler(timer_Tick);
+                dt.Interval = new TimeSpan(0, 0, 0);
+                dt.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Failed to find digital scale");
+            }
+        }
+
         public void btnReturn()
         {
             try
@@ -267,43 +289,14 @@ namespace BLM.ViewModels.Shipments.Forms
                 _lblItemCategory = row[2].ToString();
                 _lblItemSize = row[4].ToString() + row[5].ToString();
                 _lblItemQuantity = row[3].ToString();
+                _txtItemWeight = double.Parse(row[8].ToString());
                 NotifyOfPropertyChange(null);
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
             }
         }
-
-        protected override void OnActivate()
-        {
-            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`Item_ID` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
-            try
-            {
-                port.BaudRate = 9600;
-                port.PortName = "COM4";
-                port.Open();
-
-                dt.Tick += new EventHandler(timer_Tick);
-                dt.Interval = new TimeSpan(0, 0, 0);
-                dt.Start();
-            }
-            catch
-            {
-                MessageBox.Show("Please Check the connection of your weighing scale");
-            }
-            NotifyOfPropertyChange(null);
-            base.OnActivate();
-        }
-
-        public void WeightChanged()
-        {
-            _txtItemCount = _txtScaleOutput / _txtItemWeight;
-            NotifyOfPropertyChange(() => txtItemCount);
-        }
-
-        private SerialPort port = new SerialPort();
-        private DispatcherTimer dt = new DispatcherTimer();
-
 
         public void timer_Tick(object sender, EventArgs e)
         {
@@ -318,10 +311,27 @@ namespace BLM.ViewModels.Shipments.Forms
             }
             catch
             {
-
             }
         }
 
+        public void WeightChanged()
+        {
+            _txtItemCount = _txtScaleOutput / _txtItemWeight;
+            NotifyOfPropertyChange(() => txtItemCount);
+        }
 
+        protected override void OnActivate()
+        {
+            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`Item_ID`,`inventory`.`Weight` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
+            btnReconnectScale();
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            dt.Stop();
+            base.OnDeactivate(close);
+        }
     }
 }

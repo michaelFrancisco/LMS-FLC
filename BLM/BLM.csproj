@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\Production\Forms\EditProductionViewModel.cs" />
     <Compile Include="ViewModels\Production\Forms\NewProductionViewModel.cs" />
     <Compile Include="ViewModels\Production\ProductionViewModel.cs" />
+    <Compile Include="ViewModels\Requests\Forms\NewRequestViewModel.cs" />
     <Compile Include="ViewModels\Requests\RequestsViewModel.cs" />
     <Compile Include="ViewModels\Scale\ScaleViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
@@ -219,6 +220,9 @@
     </Compile>
     <Compile Include="Views\Production\ProductionView.xaml.cs">
       <DependentUpon>ProductionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Requests\Forms\NewRequestView.xaml.cs">
+      <DependentUpon>NewRequestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Requests\RequestsView.xaml.cs">
       <DependentUpon>RequestsView.xaml</DependentUpon>
@@ -310,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Production\ProductionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Requests\Forms\NewRequestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -653,6 +661,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\icons8-checklist-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-add-100%282%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

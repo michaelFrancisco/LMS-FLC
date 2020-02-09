@@ -21,6 +21,7 @@ namespace BLM.ViewModels
         private Brush _brushDashboard;
         private Brush _brushInventory;
         private Brush _brushLogs;
+        private Brush _brushOrders;
         private Brush _brushProduction;
         private Brush _brushRequest;
         private Brush _brushScale;
@@ -174,7 +175,7 @@ namespace BLM.ViewModels
 
         public void btnMessages()
         {
-            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName.ToString();
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
             path += @"\ChatClientCS\bin\Debug\SignalChat.exe";
             AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
             ChatDomain.ExecuteAssembly(path);

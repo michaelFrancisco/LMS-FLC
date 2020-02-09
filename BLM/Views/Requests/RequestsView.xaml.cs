@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BLM.Views.Requests
 {
@@ -22,6 +11,50 @@ namespace BLM.Views.Requests
         public RequestsView()
         {
             InitializeComponent();
+        }
+
+        private void requestsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DataGridLength width = new DataGridLength(2, DataGridLengthUnitType.Star);
+            switch (e.Column.Header.ToString())
+            {
+                case "Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Supplier_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Category":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Size":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Unit":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Weight":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Critical_Level":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "id":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Name":
+                    width = new DataGridLength(2, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+            }
         }
     }
 }

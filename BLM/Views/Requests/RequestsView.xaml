@@ -28,9 +28,30 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button
+                    x:Name="btnRequest"
+                    Margin="10,0"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="45"
+                            Height="45"
+                            Margin="2"
+                            Source="/BLM;component/Resources/Icons/icons8-add-100(2).png" />
+                        <Label
+                            VerticalContentAlignment="Center"
+                            Content="Request"
+                            FontFamily="Roboto"
+                            Foreground="White" />
+                    </StackPanel>
+                </Button>
+                <Button
                     x:Name="btnPending"
+                    Grid.Column="1"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
@@ -45,8 +66,8 @@
                     </StackPanel>
                 </Button>
                 <Button
-                    x:Name="btnTransit"
-                    Grid.Column="1"
+                    x:Name="btnProcessing"
+                    Grid.Column="2"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
@@ -61,7 +82,7 @@
                 </Button>
                 <Button
                     x:Name="btnComplete"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Margin="10,0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
@@ -152,46 +173,28 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <Button
-                    x:Name="btnCreate"
-                    Height="40"
-                    Margin="5,0"
-                    HorizontalAlignment="Right"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource 1}" />
-                    </Button.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="35"
-                            Height="35"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Create New</Label>
-                    </StackPanel>
-                </Button>
             </Grid>
             <Grid Grid.Row="1">
                 <DataGrid
-                    x:Name="shipmentsGrid"
+                    x:Name="requestsGrid"
                     Grid.Row="1"
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
+                    AutoGeneratingColumn="requestsGrid_AutoGeneratingColumn"
                     Background="White"
                     BorderBrush="Black"
                     BorderThickness="1"
                     CanUserAddRows="False"
-                    ColumnWidth="*"
+                    ColumnWidth="Auto"
                     FontSize="16"
                     Foreground="Black"
                     IsReadOnly="True"
-                    ItemsSource="{Binding shipmentsGridSource}"
+                    ItemsSource="{Binding requestsGridSource}"
                     RowBackground="White"
-                    SelectedItem="{Binding shipmentsGridSelectedItem}"
+                    SelectedItem="{Binding requestsGridSelectedItem}"
                     SelectionMode="Single">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
