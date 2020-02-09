@@ -9,6 +9,7 @@ using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -57,6 +58,12 @@ namespace BLM.ViewModels
         {
             get { return _brushLogs; }
             set { _brushLogs = value; }
+        }
+
+        public Brush brushOrders
+        {
+            get { return _brushOrders; }
+            set { _brushOrders = value; }
         }
 
         public Brush brushProduction
@@ -167,18 +174,10 @@ namespace BLM.ViewModels
 
         public void btnMessages()
         {
-            if (_sidebarWidth == 0)
-            {
-                _sidebarWidth = 350;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
-            else
-            {
-                _sidebarWidth = 0;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
-            _sidebarSelectedIndex = 1;
-            NotifyOfPropertyChange(() => sidebarSelectedIndex);
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName.ToString();
+            path += @"\ChatClientCS\bin\Debug\SignalChat.exe";
+            AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
+            ChatDomain.ExecuteAssembly(path);
         }
 
         public void btnNotifications()
