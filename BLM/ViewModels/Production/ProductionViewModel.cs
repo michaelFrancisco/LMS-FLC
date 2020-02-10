@@ -113,6 +113,14 @@ namespace BLM.ViewModels.Production
             set { _txtTheoreticalYield = value; }
         }
 
+        private Visibility _btnCreateVisibility;
+
+        public Visibility btnCreateVisibility
+        {
+            get { return _btnCreateVisibility; }
+            set { _btnCreateVisibility = value; }
+        }
+
         public void btnCreate()
         {
             try
@@ -120,9 +128,9 @@ namespace BLM.ViewModels.Production
                 if (_productionGridSelectedItem != null)
                 {
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                    string nameColumn = dataRowView.Row[1].ToString();
-                    string theoretical = dataRowView.Row[2].ToString();
-                    windowManager.ShowWindow(new NewProductionViewModel("select a.`Name`, b.`item_name`, b.`size` as 'Required Quantity', b.`unit` from flc.inventory as a inner join flc.recipe as b on a.`Item_ID` = b.`inventory_Item_ID` where a.`Name` like '%" + nameColumn + "%'", theoretical), null, null);
+                    string nameColumn = dataRowView.Row[0].ToString();
+                    string theoretical = dataRowView.Row[1].ToString();
+                    windowManager.ShowWindow(new NewProductionViewModel("select a.`Name`, b.`item_name`, b.`id`, b.`size` as 'Required Quantity', b.`unit` from flc.inventory as a inner join flc.recipe as b on a.`Item_ID` = b.`inventory_Item_ID` where a.`Name` like '%" + nameColumn + "%'", theoretical), null, null);
                 }
                 else
                 {
@@ -138,9 +146,9 @@ namespace BLM.ViewModels.Production
         {
             clearColors();
             _brushFinished = Brushes.DarkTurquoise;
+            _btnCreateVisibility = Visibility.Collapsed;
             _productionGridSource = Connection.dbTable(
-          "SELECT a.`id`," +
-                "b.`Name` as `Product Name`," +
+          "SELECT b.`Name` as `Product Name`," +
                 "a.`theoretical_yield` as `Required Quantity`," +
                 "a.`request_date` as `Requested Date`," +
                 "a.`status` as `Status` " +
@@ -157,10 +165,10 @@ namespace BLM.ViewModels.Production
         {
             clearColors();
             _brushRequest = Brushes.DarkTurquoise;
+            _btnCreateVisibility = Visibility. Visible;
             btnProceedVisibility = Visibility.Collapsed;
             _productionGridSource = Connection.dbTable(
-           "SELECT a.`id`," +
-                "b.`Name` as `Product Name`," +
+           "SELECT b.`Name` as `Product Name`," +
                 "a.`theoretical_yield` as `Required Quantity`," +
                 "a.`request_date` as `Requested Date`," +
                 "a.`status` as `Status` " +
@@ -215,10 +223,10 @@ namespace BLM.ViewModels.Production
         {
             clearColors();
             _brushProcessing = Brushes.DarkTurquoise;
+            _btnCreateVisibility = Visibility.Collapsed;
             btnProceedVisibility = Visibility.Visible;
             _productionGridSource = Connection.dbTable(
-"SELECT a.`id`," +
-                "b.`Name` as `Product Name`," +
+"SELECT b.`Name` as `Product Name`," +
                 "a.`theoretical_yield` as `Required Quantity`," +
                 "a.`request_date` as `Requested Date`," +
                 "a.`status` as `Status` " +
@@ -241,11 +249,11 @@ namespace BLM.ViewModels.Production
 
         public void btnRefresh()
         {
-            clearColors();
+            clearColors();  
             _brushRefreshAll = Brushes.DarkTurquoise;
+            _btnCreateVisibility = Visibility.Collapsed;
             _productionGridSource = Connection.dbTable(
-              "SELECT a.`id`," +
-                "b.`Name` as `Product Name`," +
+              "SELECT b.`Name` as `Product Name`," +
                 "a.`theoretical_yield` as `Required Quantity`," +
                 "a.`request_date` as `Requested Date`," +
                 "a.`status` as `Status` " +
@@ -258,25 +266,44 @@ namespace BLM.ViewModels.Production
             _selectedStatus = "All";
             clear();
         }
-
         public void print()
         {
             try
             {
                 if (_selectedStatus == "All,Pending,Processing,Finished")
                 {
+                    DataRowView dataRowView1 = (DataRowView)_productionGridSelectedItem;
+                    string selectedStatus = dataRowView1.Row[3].ToString();
+                    if (selectedStatus == "pending")
+                    {
+                        _btnCreateVisibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        _btnCreateVisibility = Visibility.Collapsed;
+                    }
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                    _txtProductName = dataRowView.Row[1].ToString();
-                    _txtTheoreticalYield = dataRowView.Row[6].ToString();
-                    _txtStatus = dataRowView.Row[5].ToString();
+                    _txtProductName = dataRowView.Row[0].ToString();
+                    _txtTheoreticalYield = dataRowView.Row[1].ToString();
+                    _txtStatus = dataRowView.Row[3].ToString();
                     NotifyOfPropertyChange(null);
                 }
                 else
                 {
+                    DataRowView dataRowView1 = (DataRowView)_productionGridSelectedItem;
+                    string selectedStatus = dataRowView1.Row[3].ToString();
+                    if (selectedStatus == "pending")
+                    {
+                        _btnCreateVisibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        _btnCreateVisibility = Visibility.Collapsed;
+                    }
                     DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                    _txtProductName = dataRowView.Row[1].ToString();
-                    _txtTheoreticalYield = dataRowView.Row[6].ToString();
-                    _txtStatus = dataRowView.Row[5].ToString();
+                    _txtProductName = dataRowView.Row[0].ToString();
+                    _txtTheoreticalYield = dataRowView.Row[1].ToString();
+                    _txtStatus = dataRowView.Row[3].ToString();
                     _txtID = dataRowView.Row[0].ToString();
                     NotifyOfPropertyChange(null);
                 }
@@ -299,18 +326,19 @@ namespace BLM.ViewModels.Production
         }
         protected override void OnActivate()
         {
+            _btnCreateVisibility = Visibility.Collapsed;
             btnProceedVisibility = Visibility.Collapsed;
             _productionGridSource = Connection.dbTable(
-                "SELECT a.`id`," +
-                "b.`Name` as `Product Name`," +
-                "a.`theoretical_yield` as `Required Quantity`," +
-                "a.`request_date` as `Requested Date`," +
-                "a.`status` as `Status` " +
-                "FROM flc.request_production as a " +
-                "INNER JOIN flc.inventory as b " +
-                "ON a.`inventory_Item_ID` = b.`Item_ID` " +
-                "WHERE (`Status` = 'pending'&'moved to inventory'&'processing') Order by `Requested Date` Desc");
+          "SELECT b.`Name`, " +
+          "a.`theoretical_yield` as 'Required Quantity', " +
+          "a.`request_date` as `Requested Date`, " +
+          "a.`status` as 'Status' " +
+          "FROM flc.`request_production` as a " +
+          "inner join flc.`inventory` as b " +
+          "on a.`inventory_Item_ID` = b.`Item_ID` " +
+          "where b.`Item_ID` = a.`inventory_Item_ID`;");
 
+            
             NotifyOfPropertyChange(() => productionGridSource);
             _selectedStatus = "All";
             clear();

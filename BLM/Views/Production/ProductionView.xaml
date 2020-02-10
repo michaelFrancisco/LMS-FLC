@@ -245,7 +245,8 @@
                     Margin="5,0"
                     HorizontalAlignment="Right"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding btnCreateVisibility}">
                     <Button.Background>
                         <SolidColorBrush Color="{DynamicResource 1}" />
                     </Button.Background>
