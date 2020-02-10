@@ -33,6 +33,10 @@ namespace BLM.Views.Inventory
                     DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
                     e.Column.Width = width;
                     break;
+
+                case "Critical_Level":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
             }
         }
     }

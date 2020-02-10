@@ -401,6 +401,13 @@ namespace BLM.ViewModels.Shipments.Forms
                 {
                     Connection.dbCommand(@"INSERT INTO `flc`.`shipment_items` (`Item_ID`, `Shipment_ID`, `Quantity`) VALUES ('" + row[0].ToString() + "', '" + shipmentID + "', '" + row[3].ToString() + "');");
                 }
+                //if (_selectedCategory == "Outbound")
+                //{
+                //    foreach (DataRow row in _shipmentGridSource.Rows)
+                //    {
+                //        Connection.dbCommand("INSERT INTO `flc`.`request_production` (`inventory_Item_ID`, `status`, `theoretical_yield`, `due_date`) VALUES ('" + row[0].ToString() + "', 'pending', '" + _txtQuantity + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "');");
+                //    }
+                //}
                 TryClose();
             }
             else

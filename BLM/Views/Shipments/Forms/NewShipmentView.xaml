@@ -194,6 +194,7 @@
                 cal:Message.Attach="[Event MouseDoubleClick] = [Action addItem]"
                 AlternatingRowBackground="LightGray"
                 AlternationCount="2"
+                AutoGeneratingColumn="itemGrid_AutoGeneratingColumn"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -205,7 +206,7 @@
                 ItemsSource="{Binding itemGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding itemGridSelectedItem}"
-                SelectionMode="Single" AutoGeneratingColumn="itemGrid_AutoGeneratingColumn">
+                SelectionMode="Single">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -220,6 +221,7 @@
                 cal:Message.Attach="[Event MouseDoubleClick] = [Action editItem]"
                 AlternatingRowBackground="LightGray"
                 AlternationCount="2"
+                AutoGeneratingColumn="shipmentGrid_AutoGeneratingColumn"
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -231,7 +233,7 @@
                 ItemsSource="{Binding shipmentGridSource}"
                 RowBackground="White"
                 SelectedItem="{Binding shipmentGridSelectedItem}"
-                SelectionMode="Single" AutoGeneratingColumn="shipmentGrid_AutoGeneratingColumn">
+                SelectionMode="Single">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="White" />
@@ -323,5 +325,7 @@
                 </StackPanel>
             </Border>
         </Grid>
+        <Button Height="25" Grid.Row="9" Content="Test" Click="Button_Click"/>
+
     </Grid>
 </Window>

@@ -14,13 +14,14 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="13*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="23*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <TextBox
             x:Name="txtSearch"
             Margin="0"
-            VerticalContentAlignment="Center">
+            VerticalContentAlignment="Center" KeyDown="txtSearch_KeyDown">
             <TextBox.Style>
                 <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
                     <Style.Resources>
@@ -61,5 +62,21 @@
             MouseWheelZoomEnabled="True"
             MouseWheelZoomType="MousePositionWithoutCenter"
             Zoom="15" />
+        <Button
+                x:Name="btnSave"
+                Width="200"
+                Margin="5" Grid.Row="2" HorizontalAlignment="Right">
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource 1}" />
+            </Button.Background>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
+                <Label
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Foreground="White" Content="Confirm"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

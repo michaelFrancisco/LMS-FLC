@@ -50,5 +50,11 @@ namespace BLM.Views.Shipments.Forms
                     break;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LocationSelectorView win = new LocationSelectorView();
+            win.Show();
+        }
     }
 }

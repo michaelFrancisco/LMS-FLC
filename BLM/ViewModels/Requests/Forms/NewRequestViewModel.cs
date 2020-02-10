@@ -63,7 +63,7 @@ namespace BLM.ViewModels.Requests.Forms
             {
                 if (areRequiredFieldsComplete())
                 {
-                    Connection.dbCommand("INSERT INTO `flc`.`request_production` (`inventory_Item_ID`, `status`, `theoretical_yield`, `due_date`) VALUES ('"+_itemID+"', 'pending', '"+_txtQuantity+"', '"+_dateDue.ToString("yyyy-MM-dd")+"');");
+                    Connection.dbCommand("INSERT INTO `flc`.`request_production` (`inventory_Item_ID`, `status`, `theoretical_yield`, `due_date`) VALUES ('" + _itemID + "', 'pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "');");
                     TryClose();
                 }
                 else

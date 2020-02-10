@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace BLM.Views.Shipments.Forms
 {
@@ -22,6 +15,20 @@ namespace BLM.Views.Shipments.Forms
         public LocationSelectorView()
         {
             InitializeComponent();
+            map.MapProvider = GMapProviders.GoogleMap;
+            GMapProviders.GoogleMap.ApiKey = @"AIzaSyBZPVDnNwV-u7jRFFUJb83p31k3Pjx8hBM";
+            map.MouseWheelZoomType = MouseWheelZoomType.ViewCenter;
+            map.ShowCenter = false;
+            map.MinZoom = 10;
+            map.MaxZoom = 18;
+        }
+
+        private void txtSearch_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                map.GetPositionByKeywords(txtSearch.Text);
+            }
         }
     }
 }
