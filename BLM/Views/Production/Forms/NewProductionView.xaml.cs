@@ -32,55 +32,55 @@ namespace BLM.Views.Production.Forms
         private void itemsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             //Set properties on the columns during auto-generation 
-            switch (e.Column.Header.ToString())
-            {
+            //switch (e.Column.Header.ToString())
+            //{
                 
-                case "ACTUAL":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;  
-                case "THEORETICAL":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "PERCENT":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "STATUS":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "RFID":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "product_name":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-            }
+            //    case "ACTUAL":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;  
+            //    case "THEORETICAL":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "PERCENT":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "STATUS":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "RFID":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "product_name":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //}
         }
 
         private void receivedGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             //Set properties on the columns during auto-generation 
-            switch (e.Column.Header.ToString())
-            {
+            //switch (e.Column.Header.ToString())
+            //{
 
-                case "ACTUAL":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "THEORETICAL":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "PERCENT":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "STATUS":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "RFID":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "product_name":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-            }
+            //    case "ACTUAL":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "THEORETICAL":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "PERCENT":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "STATUS":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "RFID":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //    case "product_name":
+            //        e.Column.Visibility = Visibility.Collapsed;
+            //        break;
+            //}
         }
     }
 }

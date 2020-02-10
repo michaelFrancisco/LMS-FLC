@@ -36,9 +36,8 @@
                 <Button
                     x:Name="btnPending"
                     Margin="10,0"
-                    Background="{x:Null}"
+                    Background="{Binding brushRequest}"
                     BorderBrush="{x:Null}"
-                    Command="{Binding highlightselectedButton}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
@@ -51,7 +50,7 @@
                     x:Name="btnProcessing"
                     Grid.Column="1"
                     Margin="10,0"
-                    Background="{x:Null}"
+                    Background="{Binding brushProcessing}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
@@ -65,7 +64,7 @@
                     x:Name="btnFinished"
                     Grid.Column="2"
                     Margin="10,0"
-                    Background="{x:Null}"
+                    Background="{Binding brushFinished}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
@@ -79,7 +78,7 @@
                     x:Name="btnRefresh"
                     Grid.Column="3"
                     Margin="10,0"
-                    Background="{x:Null}"
+                    Background="{Binding brushRefreshAll}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
@@ -211,7 +210,9 @@
                         x:Name="btnProceed"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
-                        Foreground="White">
+                        Foreground="White"
+                        Visibility="{Binding btnProceedVisibility}">
+
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
@@ -244,7 +245,8 @@
                     Margin="5,0"
                     HorizontalAlignment="Right"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding btnCreateVisibility}">
                     <Button.Background>
                         <SolidColorBrush Color="{DynamicResource 1}" />
                     </Button.Background>
@@ -254,7 +256,7 @@
                             Height="35"
                             Margin="5,0"
                             Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Receive RawMat</Label>
+                        <Label Margin="5,0" Foreground="White">Create M.O.</Label>
                     </StackPanel>
                 </Button>
             </Grid>
