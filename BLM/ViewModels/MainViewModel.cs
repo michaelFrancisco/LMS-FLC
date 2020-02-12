@@ -420,7 +420,7 @@ namespace BLM.ViewModels
             _notificationDateComboBox = list;
             NotifyOfPropertyChange(() => notificationDateComboBox);
             dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID+ ");");
-            if (dt.Rows.Count > 0)
+            if (dt.Rows.Count != 0)
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
                 _notifVisibility = Visibility.Visible;
@@ -430,6 +430,7 @@ namespace BLM.ViewModels
             else
             {
                 _notifVisibility = Visibility.Hidden;
+                NotifyOfPropertyChange(() => notifVisibility);
             }
         }
 
