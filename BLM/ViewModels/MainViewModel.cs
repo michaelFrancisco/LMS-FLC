@@ -250,7 +250,7 @@ namespace BLM.ViewModels
         public void btnMessages()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
-            path += @"\ChatClientCS\bin\Debug\SignalChat.exe";
+            path += @"\BLM\ChatClientCS\bin\Debug\SignalChat.exe";
             AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
             ChatDomain.ExecuteAssembly(path);
         }
@@ -401,6 +401,12 @@ namespace BLM.ViewModels
                 DataTable dt = Connection.dbTable("select Body from system_log where Log_ID = '" + row[0].ToString() + "'");
                 _notificationsText = dt.Rows[0][0].ToString();
                 NotifyOfPropertyChange(() => notificationsText);
+                dt = Connection.dbTable("SELECT * FROM flc.system_log_read where System_Log_ID = " + row[0].ToString() + " AND User_ID = " + CurrentUser.User_ID + ";");
+                if (dt.Rows.Count == 0)
+                {
+                    Connection.dbCommand("INSERT INTO `flc`.`system_log_read` (`System_Log_ID`, `User_ID`) VALUES ('" + row[0].ToString() + "', '" + CurrentUser.User_ID + "');");
+                    refreshNotifications();
+                }
             }
             catch
             {
@@ -413,6 +419,19 @@ namespace BLM.ViewModels
             List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
             _notificationDateComboBox = list;
             NotifyOfPropertyChange(() => notificationDateComboBox);
+            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = 1);");
+            if (dt.Rows.Count > 0)
+            {
+                _txtNotifCount = dt.Rows.Count.ToString();
+                _notifVisibility = Visibility.Visible;
+                NotifyOfPropertyChange(() => txtNotifCount);
+                NotifyOfPropertyChange(() => notifVisibility);
+            }
+            else
+            {
+                _notifVisibility = Visibility.Hidden;
+            }
+
         }
 
         protected override void OnActivate()
@@ -420,7 +439,7 @@ namespace BLM.ViewModels
             dt.Tick += new EventHandler(timer_Tick);
             dt.Interval = new TimeSpan(0, 0, 25);
             dt.Start();
-
+            refreshNotifications();
             initializeSidebar();
             base.OnActivate();
         }

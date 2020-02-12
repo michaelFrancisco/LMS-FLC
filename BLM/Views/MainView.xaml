@@ -59,9 +59,22 @@
                         <StackPanel>
                             <Grid>
                                 <Image Source="/BLM;component/Resources/Icons/icons8-notification-100.png" />
-                                <Grid Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding notifVisibility}">
-                                    <Ellipse Fill="Red"/>
-                                    <Label x:Name="txtNotifCount" FontSize="14" Foreground="White" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Arial"/>
+                                <Grid
+                                    Width="25"
+                                    Height="25"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Visibility="{Binding notifVisibility}">
+                                    <Ellipse Fill="Red" />
+                                    <Label
+                                        x:Name="txtNotifCount"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Content="1"
+                                        FontFamily="Arial"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Foreground="White" />
                                 </Grid>
                             </Grid>
                         </StackPanel>
