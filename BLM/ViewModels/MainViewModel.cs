@@ -419,7 +419,7 @@ namespace BLM.ViewModels
             List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
             _notificationDateComboBox = list;
             NotifyOfPropertyChange(() => notificationDateComboBox);
-            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = 1);");
+            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
             if (dt.Rows.Count > 0)
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
@@ -431,7 +431,6 @@ namespace BLM.ViewModels
             {
                 _notifVisibility = Visibility.Hidden;
             }
-
         }
 
         protected override void OnActivate()
