@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -18,6 +19,7 @@ namespace BLM.ViewModels
 {
     internal class MainViewModel : Conductor<Screen>
     {
+        private readonly IWindowManager windowManager = new WindowManager();
         private Brush _brushDashboard;
         private Brush _brushInventory;
         private Brush _brushLogs;
@@ -27,13 +29,23 @@ namespace BLM.ViewModels
         private Brush _brushScale;
         private Brush _brushShipments;
         private Brush _brushTracking;
+        private Visibility _dashboardVisibility;
+        private Visibility _inventoryVisibility;
+        private Visibility _logsVisibility;
         private List<string> _notificationDateComboBox;
         private DataTable _notificationGridSource;
         private string _notificationsDateComboBoxSelectedItem;
         private object _notificationSelectedItem;
         private string _notificationsText;
+        private Visibility _notifVisibility;
+        private Visibility _productionVisibility;
+        private Visibility _requestsVisibility;
+        private Visibility _scaleVisibility;
+        private Visibility _shipmentsVisibility;
         private int _sidebarSelectedIndex;
         private double _sidebarWidth;
+        private Visibility _trackingVisibility;
+        private string _txtNotifCount;
         private DispatcherTimer dt = new DispatcherTimer();
 
         public MainViewModel()
@@ -97,6 +109,24 @@ namespace BLM.ViewModels
             set { _brushTracking = value; }
         }
 
+        public Visibility dashboardVisibility
+        {
+            get { return _dashboardVisibility; }
+            set { _dashboardVisibility = value; }
+        }
+
+        public Visibility inventoryVisibility
+        {
+            get { return _inventoryVisibility; }
+            set { _inventoryVisibility = value; }
+        }
+
+        public Visibility logsVisibility
+        {
+            get { return _logsVisibility; }
+            set { _logsVisibility = value; }
+        }
+
         public List<string> notificationDateComboBox
         {
             get
@@ -137,6 +167,36 @@ namespace BLM.ViewModels
             set { _notificationsText = value; }
         }
 
+        public Visibility notifVisibility
+        {
+            get { return _notifVisibility; }
+            set { _notifVisibility = value; }
+        }
+
+        public Visibility productionVisibility
+        {
+            get { return _productionVisibility; }
+            set { _productionVisibility = value; }
+        }
+
+        public Visibility requestsVisibility
+        {
+            get { return _requestsVisibility; }
+            set { _requestsVisibility = value; }
+        }
+
+        public Visibility scaleVisibility
+        {
+            get { return _scaleVisibility; }
+            set { _scaleVisibility = value; }
+        }
+
+        public Visibility shipmentsVisibility
+        {
+            get { return _shipmentsVisibility; }
+            set { _shipmentsVisibility = value; }
+        }
+
         public int sidebarSelectedIndex
         {
             get { return _sidebarSelectedIndex; }
@@ -147,6 +207,18 @@ namespace BLM.ViewModels
         {
             get { return _sidebarWidth; }
             set { _sidebarWidth = value; }
+        }
+
+        public Visibility trackingVisibility
+        {
+            get { return _trackingVisibility; }
+            set { _trackingVisibility = value; }
+        }
+
+        public string txtNotifCount
+        {
+            get { return _txtNotifCount; }
+            set { _txtNotifCount = value; }
         }
 
         public void btnDashboard()
@@ -167,6 +239,8 @@ namespace BLM.ViewModels
 
         public void btnLogout()
         {
+            windowManager.ShowWindow(new LoginViewModel(), null, null);
+            TryClose();
         }
 
         public void btnLogs()
@@ -266,6 +340,59 @@ namespace BLM.ViewModels
             NotifyOfPropertyChange(null);
         }
 
+        public void initializeSidebar()
+        {
+            switch (CurrentUser.user_level)
+            {
+                case "Dispensing Officer":
+                    _dashboardVisibility = Visibility.Collapsed;
+                    _inventoryVisibility = Visibility.Visible;
+                    _requestsVisibility = Visibility.Collapsed;
+                    _productionVisibility = Visibility.Collapsed;
+                    _trackingVisibility = Visibility.Collapsed;
+                    _shipmentsVisibility = Visibility.Collapsed;
+                    _logsVisibility = Visibility.Collapsed;
+                    _scaleVisibility = Visibility.Visible;
+                    ActivateItem(new InventoryViewModel());
+                    break;
+
+                case "Dispatching Officer":
+                    _dashboardVisibility = Visibility.Collapsed;
+                    _inventoryVisibility = Visibility.Collapsed;
+                    _requestsVisibility = Visibility.Visible;
+                    _productionVisibility = Visibility.Collapsed;
+                    _trackingVisibility = Visibility.Visible;
+                    _shipmentsVisibility = Visibility.Visible;
+                    _logsVisibility = Visibility.Collapsed;
+                    _scaleVisibility = Visibility.Visible;
+                    ActivateItem(new ShipmentsViewModel());
+                    break;
+
+                case "Production Officer":
+                    _dashboardVisibility = Visibility.Collapsed;
+                    _inventoryVisibility = Visibility.Collapsed;
+                    _requestsVisibility = Visibility.Collapsed;
+                    _productionVisibility = Visibility.Visible;
+                    _trackingVisibility = Visibility.Collapsed;
+                    _shipmentsVisibility = Visibility.Collapsed;
+                    _logsVisibility = Visibility.Collapsed;
+                    _scaleVisibility = Visibility.Visible;
+                    ActivateItem(new ProductionViewModel());
+                    break;
+
+                case "IT Admin":
+                    _dashboardVisibility = Visibility.Visible;
+                    _inventoryVisibility = Visibility.Visible;
+                    _requestsVisibility = Visibility.Visible;
+                    _productionVisibility = Visibility.Visible;
+                    _trackingVisibility = Visibility.Visible;
+                    _shipmentsVisibility = Visibility.Visible;
+                    _logsVisibility = Visibility.Visible;
+                    _scaleVisibility = Visibility.Visible;
+                    break;
+            }
+        }
+
         public void notificationsGridSelectionChanged()
         {
             try
@@ -290,6 +417,11 @@ namespace BLM.ViewModels
 
         protected override void OnActivate()
         {
+            dt.Tick += new EventHandler(timer_Tick);
+            dt.Interval = new TimeSpan(0, 0, 25);
+            dt.Start();
+
+            initializeSidebar();
             base.OnActivate();
         }
 

@@ -10,6 +10,7 @@ namespace BLM.ViewModels.Production.Forms
         private bool _btnOkIsClicked;
         private DataTable _itemGridSource;
         private Visibility _newproductionviewVisibility;
+        private object _productionGridSelectedItem;
         private Visibility _QuantityBoxVisibility;
         private DataTable _receivedGridSource;
         private DataTable _tempoTable;
@@ -18,8 +19,13 @@ namespace BLM.ViewModels.Production.Forms
         private string _txtRFID;
         private string _txtTheoreticalYield;
 
-
-       
+        public NewProductionViewModel(string nameColumn, string theoretical)
+        {
+            _itemGridSource = Connection.dbTable(nameColumn);
+            _txtProductName = _itemGridSource.Rows[0][0].ToString();
+            _txtTheoreticalYield = theoretical;
+            NotifyOfPropertyChange(null);
+        }
 
         public bool btnOkIsClicked
         {
@@ -37,6 +43,12 @@ namespace BLM.ViewModels.Production.Forms
         {
             get { return _newproductionviewVisibility; }
             set { _newproductionviewVisibility = value; }
+        }
+
+        public object productionGridSelectedItem
+        {
+            get { return _productionGridSelectedItem; }
+            set { _productionGridSelectedItem = value; }
         }
 
         public Visibility QuantityBoxVisibility
@@ -69,8 +81,7 @@ namespace BLM.ViewModels.Production.Forms
             set
             {
                 _txtProductName = value;
-            
-                }
+            }
         }
 
         public string txtRFID
@@ -87,10 +98,14 @@ namespace BLM.ViewModels.Production.Forms
             get { return _txtTheoreticalYield; }
             set
             {
-                _txtTheoreticalYield = value; 
-            
-              
+                _txtTheoreticalYield = value;
             }
+        }
+
+        public void btnCancel()
+        {
+            TryClose();
+            NotifyOfPropertyChange(null);
         }
 
         public void btnConfirm()
@@ -118,21 +133,7 @@ namespace BLM.ViewModels.Production.Forms
 
         public void btnOK()
         {
-            _itemGridSource = Connection.dbTable(
-                "SELECT item_name as 'NAME'," +
-                "category as 'CATEGORY'," +
-                "theoretical_yield as 'THEORETICAL'," +
-                "actual_yield as 'ACTUAL'," +
-                "percent_yield as 'PERCENT'," +
-                "quantity as 'QUANTITY'," +
-                "weight as 'WEIGHT'," +
-                "size as 'SIZE'," +
-                "unit as 'UNIT'," +
-                "status as 'STATUS'," +
-                "rfid as 'RFID'," +
-                "product_name " +
-                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
-
+            _itemGridSource = Connection.dbTable("SELECT item_name as 'NAME', category as 'CATEGORY', theoretical_yield as 'THEORETICAL', actual_yield as 'ACTUAL', percent_yield as 'PERCENT', quantity as 'QUANTITY', weight as 'WEIGHT', size as 'SIZE', unit as 'UNIT', status as 'STATUS', rfid as 'RFID', product_name FROM request_production WHERE status = 'pending';");
             _txtID = _txtRFID;
             //putting Product Name in textbox
             _txtProductName = _itemGridSource.Rows[0][11].ToString();
@@ -178,23 +179,9 @@ namespace BLM.ViewModels.Production.Forms
             NotifyOfPropertyChange(() => itemGridSource);
             btnConfirm();
         }
-        private object _productionGridSelectedItem;
 
-        public object productionGridSelectedItem
-        {
-            get { return _productionGridSelectedItem; }
-            set { _productionGridSelectedItem = value; }
-        }
-        public NewProductionViewModel(string nameColumn, string theoretical)
-        {
-            _itemGridSource = Connection.dbTable(nameColumn);
-                 _txtProductName = _itemGridSource.Rows[0][0].ToString();
-            _txtTheoreticalYield = theoretical;
-            NotifyOfPropertyChange(null);
-        }
         protected override void OnActivate()
         {
-
             foreach (DataRow row in _itemGridSource.Rows)
             {
                 // string requiredQuantity = row.Row[2].ToString();
@@ -205,12 +192,6 @@ namespace BLM.ViewModels.Production.Forms
             }
             NotifyOfPropertyChange(null);
             base.OnActivate();
-        }
-
-        public void btnCancel()
-        {
-            TryClose();
-            NotifyOfPropertyChange(null);
         }
     }
 }

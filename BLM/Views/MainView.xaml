@@ -57,7 +57,13 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}">
                         <StackPanel>
-                            <Image Source="/BLM;component/Resources/Icons/icons8-notification-100.png" />
+                            <Grid>
+                                <Image Source="/BLM;component/Resources/Icons/icons8-notification-100.png" />
+                                <Grid Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding notifVisibility}">
+                                    <Ellipse Fill="Red"/>
+                                    <Label x:Name="txtNotifCount" FontSize="14" Foreground="White" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Arial"/>
+                                </Grid>
+                            </Grid>
                         </StackPanel>
                     </Button>
                     <Button
@@ -89,7 +95,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource 2}" />
             </Grid.Background>
-            <StackPanel Margin="0,20,0,0" Orientation="Vertical">
+            <StackPanel Orientation="Vertical">
                 <Button
                     x:Name="btnDashboard"
                     Margin="0,5"
@@ -97,7 +103,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushDashboard}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding dashboardVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -114,7 +121,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushInventory}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding inventoryVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -131,7 +139,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushRequest}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding requestsVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -148,7 +157,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushProduction}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding productionVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -182,7 +192,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushShipments}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding shipmentsVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -199,7 +210,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushTracking}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding trackingVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -216,7 +228,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushScale}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding scaleVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -233,7 +246,8 @@
                     HorizontalContentAlignment="Left"
                     Background="{Binding brushLogs}"
                     BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Foreground="White"
+                    Visibility="{Binding logsVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="50"
@@ -253,9 +267,9 @@
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image
-                            Width="50"
-                            Height="50"
-                            Margin="5,0"
+                            Width="40"
+                            Height="40"
+                            Margin="5"
                             Source="/BLM;component/Resources/Icons/icons8-logout-rounded-left-100(1).png" />
                         <Label VerticalAlignment="Center" Foreground="White">Logout</Label>
                     </StackPanel>

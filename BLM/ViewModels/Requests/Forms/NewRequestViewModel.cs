@@ -9,11 +9,11 @@ namespace BLM.ViewModels.Requests.Forms
     internal class NewRequestViewModel : Screen
     {
         private DateTime _dateDue;
+        private int _itemID;
         private DateTime _selecteddateDue;
         private string _txtName;
 
         private int _txtQuantity;
-        private int _itemID;
 
         public NewRequestViewModel(int itemID)
         {
@@ -64,6 +64,7 @@ namespace BLM.ViewModels.Requests.Forms
                 if (areRequiredFieldsComplete())
                 {
                     Connection.dbCommand("INSERT INTO `flc`.`request_production` (`inventory_Item_ID`, `status`, `theoretical_yield`, `due_date`) VALUES ('" + _itemID + "', 'pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "');");
+                    Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
                     TryClose();
                 }
                 else
@@ -79,7 +80,7 @@ namespace BLM.ViewModels.Requests.Forms
 
         private bool areRequiredFieldsComplete()
         {
-            if (string.IsNullOrEmpty(_txtQuantity.ToString()))
+            if (string.IsNullOrEmpty(_txtQuantity.ToString()) || _txtQuantity < 1)
                 return false;
             else
                 return true;
