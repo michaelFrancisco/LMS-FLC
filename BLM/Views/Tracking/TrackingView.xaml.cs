@@ -20,14 +20,13 @@ namespace BLM.Views.Tracking
         private static ImageBrush brushC = new ImageBrush();
         private int _currentTruck;
         private IFirebaseClient client;
-        private DispatcherTimer dt = new DispatcherTimer();
-
         private IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "0UZRAqH7hUK7nvXBGMzrCvOVUDG1n1hA9zTQqlAq",
             BasePath = "https://blm-transportation-tracker.firebaseio.com/"
         };
 
+        private DispatcherTimer dt = new DispatcherTimer();
         private Ellipse mapMarkerIconA = new Ellipse
         {
             Width = 12,
@@ -60,8 +59,9 @@ namespace BLM.Views.Tracking
             dt.Start();
 
             map.MapProvider = GMapProviders.GoogleMap;
-            GMapProviders.GoogleMap.ApiKey = @"AIzaSyBZPVDnNwV-u7jRFFUJb83p31k3Pjx8hBM";
+            GMapProviders.GoogleMap.ApiKey = @"AIzaSyClpd29eOFZU_cb0joEX0yji2Ei9OzUq7o";
             map.MouseWheelZoomType = MouseWheelZoomType.ViewCenter;
+            map.DragButton = System.Windows.Input.MouseButton.Left;
             map.ShowCenter = false;
             map.MinZoom = 10;
             map.MaxZoom = 18;

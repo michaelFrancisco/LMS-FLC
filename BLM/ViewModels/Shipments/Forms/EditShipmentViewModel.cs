@@ -249,7 +249,7 @@ namespace BLM.ViewModels.Shipments.Forms
                     {
                         DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + row[7].ToString() + ";");
                         Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)row[3]).ToString() + "' WHERE (`Item_ID` = '" + row[0].ToString() + "');");
-                        Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(" + row[3].ToString() + ") was added to inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(" + row[3].ToString() + ") was added to inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                        Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(x" + row[3].ToString() + ") was added to inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(x" + row[3].ToString() + ") was added to inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                     }
                 }
             }
@@ -273,7 +273,7 @@ namespace BLM.ViewModels.Shipments.Forms
                     {
                         DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + row[7].ToString() + ";");
                         Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[3]).ToString() + "' WHERE (`Item_ID` = '" + row[0].ToString() + "');");
-                        Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(" + row[3].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(" + row[3].ToString() + ") was reduced from inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                        Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(x" + row[3].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(x" + row[3].ToString() + ") was reduced from inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                     }
                 }
             }

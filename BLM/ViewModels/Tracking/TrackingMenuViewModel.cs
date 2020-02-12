@@ -18,5 +18,11 @@ namespace BLM.ViewModels.Tracking
         {
             ActivateItem(new TruckInfoViewModel());
         }
+
+        protected override void OnActivate()
+        {
+            ActivateItem(new TrackingViewModel());
+            base.OnActivate();
+        }
     }
 }
