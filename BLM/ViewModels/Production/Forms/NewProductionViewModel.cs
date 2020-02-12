@@ -1,5 +1,6 @@
 ﻿using BLM.Models;
 using Caliburn.Micro;
+using System;
 using System.Data;
 using System.Windows;
 
@@ -15,17 +16,23 @@ namespace BLM.ViewModels.Production.Forms
         private DataTable _receivedGridSource;
         private DataTable _tempoTable;
         private string _txtID;
+        private string _txtMO;
         private string _txtProductName;
         private string _txtRFID;
         private string _txtTheoreticalYield;
 
-        public NewProductionViewModel(string nameColumn, string theoretical)
+     
+
+        public NewProductionViewModel(string nameColumn, string theoretical, string id, string Item_ID, string Name)
         {
             _itemGridSource = Connection.dbTable(nameColumn);
-            _txtProductName = _itemGridSource.Rows[0][0].ToString();
+            _txtProductName = Name.ToString();
             _txtTheoreticalYield = theoretical;
+            _id = id;
             NotifyOfPropertyChange(null);
         }
+
+        public string _id { get; set; }
 
         public bool btnOkIsClicked
         {
@@ -73,6 +80,12 @@ namespace BLM.ViewModels.Production.Forms
         {
             get { return _txtID; }
             set { _txtID = value; }
+        }
+
+        public string txtMO
+        {
+            get { return _txtMO; }
+            set { _txtMO = value; }
         }
 
         public string txtProductName
@@ -179,15 +192,44 @@ namespace BLM.ViewModels.Production.Forms
             NotifyOfPropertyChange(() => itemGridSource);
             btnConfirm();
         }
+        public void btnSend()
+        {
 
+            Connection.dbCommand(
+"INSERT INTO `flc`.`manufacturing_order` " +
+"(`request_production_id`) VALUES ('" + _id + "');");
+
+            foreach (DataRow row in _itemGridSource.Rows)
+            {
+                DataTable recipe_id = Connection.dbTable(
+                    "select a.`id` as 'Recipe_id', " +
+                    "a.`item_name`, " +
+                    "c.`id`, " +
+                    "c.`request_production_id` " +
+                    "from flc.recipe as a " +
+                    "inner join mo_recipe as b " +
+                    "on a.id = b.recipe_id " +
+                    "inner join manufacturing_order as c " +
+                    "inner join request_production as d " +
+                    "on c.request_production_id = d.id " +
+                    "inner join inventory as e " +
+                    "on d.inventory_Item_ID = e.Item_ID " +
+                    "where a.inventory_Item_ID = '"+ row[4] +"' " +
+                    "and request_production_id = '"+ _id +"';");
+
+                Connection.dbCommand(
+                    "INSERT INTO `flc`.`mo_recipe` " +
+                    "(`manufacturing_order_id`, `recipe_id`, `quantity`) " +
+                    "VALUES ('"+ Int32.Parse(_txtMO) +"', '"+ recipe_id.Rows[0][0] +"', '"+ row[2] +"');");
+            }
+        
+        }
         protected override void OnActivate()
         {
             foreach (DataRow row in _itemGridSource.Rows)
             {
-                // string requiredQuantity = row.Row[2].ToString();
-                //                    DataTable currentQuantity = Connection.dbTable("SELECT `Required Quantity` FROM flc.recipe where name = " + row.Rows[2].ToString() + ";");
-                _itemGridSource = Connection.dbTable("select a.`Name`, b.`item_name`, b.`size` * '" + _txtTheoreticalYield + "' as 'Required Quantity', b.`unit` from flc.inventory as a inner join flc.recipe as b on a.`Item_ID` = b.`inventory_Item_ID` where a.`Name` like '%" + _txtProductName + "%'");
-
+                DataTable txtMO = Connection.dbTable("select max(`id`) + 1 from flc.`manufacturing_order`;");
+                _txtMO = txtMO.Rows[0][0].ToString();
                 NotifyOfPropertyChange(null);
             }
             NotifyOfPropertyChange(null);
