@@ -250,7 +250,7 @@ namespace BLM.ViewModels
         public void btnMessages()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
-            path += @"\BLM\ChatClientCS\bin\Debug\SignalChat.exe";
+            path += @"342sd BLM\ChatClientCS\bin\Debug\SignalChat.exe";
             AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
             ChatDomain.ExecuteAssembly(path);
         }
@@ -405,8 +405,8 @@ namespace BLM.ViewModels
                 if (dt.Rows.Count == 0)
                 {
                     Connection.dbCommand("INSERT INTO `flc`.`system_log_read` (`System_Log_ID`, `User_ID`) VALUES ('" + row[0].ToString() + "', '" + CurrentUser.User_ID + "');");
-                    refreshNotifications();
                 }
+                refreshNotifications();
             }
             catch
             {
@@ -419,7 +419,7 @@ namespace BLM.ViewModels
             List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
             _notificationDateComboBox = list;
             NotifyOfPropertyChange(() => notificationDateComboBox);
-            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID+ ");");
             if (dt.Rows.Count > 0)
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
