@@ -250,7 +250,7 @@ namespace BLM.ViewModels
         public void btnMessages()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
-            path += @"342sd BLM\ChatClientCS\bin\Debug\SignalChat.exe";
+            path += @"\BLM\ChatClientCS\bin\Debug\SignalChat.exe";
             AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
             ChatDomain.ExecuteAssembly(path);
         }

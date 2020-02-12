@@ -21,8 +21,6 @@ namespace BLM.ViewModels.Production.Forms
         private string _txtRFID;
         private string _txtTheoreticalYield;
 
-     
-
         public NewProductionViewModel(string nameColumn, string theoretical, string id, string Item_ID, string Name)
         {
             _itemGridSource = Connection.dbTable(nameColumn);
@@ -192,9 +190,9 @@ namespace BLM.ViewModels.Production.Forms
             NotifyOfPropertyChange(() => itemGridSource);
             btnConfirm();
         }
+
         public void btnSend()
         {
-
             Connection.dbCommand(
 "INSERT INTO `flc`.`manufacturing_order` " +
 "(`request_production_id`) VALUES ('" + _id + "');");
@@ -214,16 +212,16 @@ namespace BLM.ViewModels.Production.Forms
                     "on c.request_production_id = d.id " +
                     "inner join inventory as e " +
                     "on d.inventory_Item_ID = e.Item_ID " +
-                    "where a.inventory_Item_ID = '"+ row[4] +"' " +
-                    "and request_production_id = '"+ _id +"';");
+                    "where a.inventory_Item_ID = '" + row[4] + "' " +
+                    "and request_production_id = '" + _id + "';");
 
                 Connection.dbCommand(
                     "INSERT INTO `flc`.`mo_recipe` " +
                     "(`manufacturing_order_id`, `recipe_id`, `quantity`) " +
-                    "VALUES ('"+ Int32.Parse(_txtMO) +"', '"+ recipe_id.Rows[0][0] +"', '"+ row[2] +"');");
+                    "VALUES ('" + Int32.Parse(_txtMO) + "', '" + recipe_id.Rows[0][0] + "', '" + row[2] + "');");
             }
-        
         }
+
         protected override void OnActivate()
         {
             foreach (DataRow row in _itemGridSource.Rows)
