@@ -195,6 +195,7 @@
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Inventory\Forms\EditItemViewModel.cs" />
     <Compile Include="ViewModels\Inventory\Forms\NewItemViewModel.cs" />
+    <Compile Include="ViewModels\Inventory\Forms\RequestViewModel.cs" />
     <Compile Include="ViewModels\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -218,6 +219,9 @@
     </Compile>
     <Compile Include="Views\Inventory\Forms\NewItemView.xaml.cs">
       <DependentUpon>NewItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventory\Forms\RequestView.xaml.cs">
+      <DependentUpon>RequestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Inventory\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
@@ -306,6 +310,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Inventory\Forms\NewItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventory\Forms\RequestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,13 +37,10 @@ namespace BLM.Views.Inventory
                 case "Critical_Level":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
-
-                case "rp_id":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "mo_id":
-                    e.Column.Visibility = Visibility.Collapsed;
+                
+                case "Manufacturing Order Number":
+                    DataGridLength width1 = new DataGridLength(2, DataGridLengthUnitType.Star);
+                    e.Column.Width = width1;
                     break;
             }
         }

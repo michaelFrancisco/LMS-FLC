@@ -26,12 +26,19 @@ namespace BLM.Views.Production
 
         private void productionGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            //switch (e.Column.Header.ToString())
-            //{
-            //    case "id":
-            //        e.Column.Visibility = Visibility.Collapsed;
-            //        break;
-            //}
+            switch (e.Column.Header.ToString())
+            {
+                case "id":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "Name":
+                    DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+                case "inventory_Item_ID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
     }
 }
