@@ -45,8 +45,6 @@ namespace BLM.Views.Inventory
                 case "mo_id":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
-
-
             }
         }
     }
