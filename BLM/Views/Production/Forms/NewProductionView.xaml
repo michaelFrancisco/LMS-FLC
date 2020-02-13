@@ -165,23 +165,7 @@
                     </Label>
                 </StackPanel>
             </Button>
-            <Button
-                x:Name="btnReceive"
-                Width="200"
-                Margin="10,0,5,0">
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White">
-                        Receive
-                    </Label>
-                </StackPanel>
-            </Button>
+           
             <Button
                 x:Name="btnSend"
                 Width="200"

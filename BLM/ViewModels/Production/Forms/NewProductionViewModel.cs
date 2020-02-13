@@ -117,31 +117,31 @@ namespace BLM.ViewModels.Production.Forms
 
         public void btnCancel()
         {
-            TryClose();
+           this.TryClose();
             NotifyOfPropertyChange(null);
         }
 
         public void btnConfirm()
         {
-            foreach (DataRow row in _receivedGridSource.Rows)
-            {
-                Connection.dbCommand("INSERT INTO `flc`.`production` (`item_name`, `category`, `theoretical_yield`, `actual_yield`, `percent_yield`, `qty`, `received_weight`, `size`, `unit`, `status`, `rfid`, `name`)" +
-                    "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
-            }
-            _receivedGridSource = Connection.dbTable(
-                "SELECT item_name as 'NAME'," +
-                "category as 'CATEGORY'," +
-                "theoretical_yield as 'THEORETICAL'," +
-                "actual_yield as 'ACTUAL'," +
-                "percent_yield as 'PERCENT'," +
-                "quantity as 'QUANTITY'," +
-                "weight as 'WEIGHT'," +
-                "size as 'SIZE'," +
-                "unit as 'UNIT'," +
-                "status as 'STATUS'," +
-                "rfid as 'RFID'," +
-                "product_name " +
-                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+            //foreach (DataRow row in _receivedGridSource.Rows)
+            //{
+            //    Connection.dbCommand("INSERT INTO `flc`.`production` (`item_name`, `category`, `theoretical_yield`, `actual_yield`, `percent_yield`, `qty`, `received_weight`, `size`, `unit`, `status`, `rfid`, `name`)" +
+            //        "VALUES('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "', '" + row[11] + "');");
+            //}
+            //_receivedGridSource = Connection.dbTable(
+            //    "SELECT item_name as 'NAME'," +
+            //    "category as 'CATEGORY'," +
+            //    "theoretical_yield as 'THEORETICAL'," +
+            //    "actual_yield as 'ACTUAL'," +
+            //    "percent_yield as 'PERCENT'," +
+            //    "quantity as 'QUANTITY'," +
+            //    "weight as 'WEIGHT'," +
+            //    "size as 'SIZE'," +
+            //    "unit as 'UNIT'," +
+            //    "status as 'STATUS'," +
+            //    "rfid as 'RFID'," +
+            //    "product_name " +
+            //    "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
         }
 
         public void btnOK()
@@ -157,72 +157,80 @@ namespace BLM.ViewModels.Production.Forms
 
         public void btnReceive()
         {
-            _receivedGridSource = Connection.dbTable(
-                "SELECT item_name as 'NAME'," +
-                "category as 'CATEGORY'," +
-                "theoretical_yield as 'THEORETICAL'," +
-                "actual_yield as 'ACTUAL'," +
-                "percent_yield as 'PERCENT'," +
-                "quantity as 'QUANTITY'," +
-                "weight as 'WEIGHT'," +
-                "size as 'SIZE'," +
-                "unit as 'UNIT'," +
-                "status as 'STATUS'," +
-                "rfid as 'RFID'," +
-                "product_name " +
-                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
-            NotifyOfPropertyChange(() => receivedGridSource);
+        //    _receivedGridSource = Connection.dbTable(
+        //        "SELECT item_name as 'NAME'," +
+        //        "category as 'CATEGORY'," +
+        //        "theoretical_yield as 'THEORETICAL'," +
+        //        "actual_yield as 'ACTUAL'," +
+        //        "percent_yield as 'PERCENT'," +
+        //        "quantity as 'QUANTITY'," +
+        //        "weight as 'WEIGHT'," +
+        //        "size as 'SIZE'," +
+        //        "unit as 'UNIT'," +
+        //        "status as 'STATUS'," +
+        //        "rfid as 'RFID'," +
+        //        "product_name " +
+        //        "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+        //    NotifyOfPropertyChange(() => receivedGridSource);
 
-            Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
+        //    Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'received' WHERE(`rfid` = '" + _txtRFID + "');");
 
-            _itemGridSource = Connection.dbTable(
-                "SELECT item_name as 'NAME'," +
-                "category as 'CATEGORY'," +
-                "theoretical_yield as 'THEORETICAL'," +
-                "actual_yield as 'ACTUAL'," +
-                "percent_yield as 'PERCENT'," +
-                "quantity as 'QUANTITY'," +
-                "weight as 'WEIGHT'," +
-                "size as 'SIZE'," +
-                "unit as 'UNIT'," +
-                "status as 'STATUS'," +
-                "rfid as 'RFID'," +
-                "product_name " +
-                "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
-            NotifyOfPropertyChange(() => itemGridSource);
-            btnConfirm();
+        //    _itemGridSource = Connection.dbTable(
+        //        "SELECT item_name as 'NAME'," +
+        //        "category as 'CATEGORY'," +
+        //        "theoretical_yield as 'THEORETICAL'," +
+        //        "actual_yield as 'ACTUAL'," +
+        //        "percent_yield as 'PERCENT'," +
+        //        "quantity as 'QUANTITY'," +
+        //        "weight as 'WEIGHT'," +
+        //        "size as 'SIZE'," +
+        //        "unit as 'UNIT'," +
+        //        "status as 'STATUS'," +
+        //        "rfid as 'RFID'," +
+        //        "product_name " +
+        //        "FROM request_production WHERE status = 'pending' and rfid = " + _txtRFID + "");
+        //    NotifyOfPropertyChange(() => itemGridSource);
+        //    btnConfirm();
         }
         public void btnSend()
         {
 
-            Connection.dbCommand(
-"INSERT INTO `flc`.`manufacturing_order` " +
-"(`request_production_id`) VALUES ('" + _id + "');");
-
-            foreach (DataRow row in _itemGridSource.Rows)
+            try
             {
-                DataTable recipe_id = Connection.dbTable(
-                    "select a.`id` as 'Recipe_id', " +
-                    "a.`item_name`, " +
-                    "c.`id`, " +
-                    "c.`request_production_id` " +
-                    "from flc.recipe as a " +
-                    "inner join mo_recipe as b " +
-                    "on a.id = b.recipe_id " +
-                    "inner join manufacturing_order as c " +
-                    "inner join request_production as d " +
-                    "on c.request_production_id = d.id " +
-                    "inner join inventory as e " +
-                    "on d.inventory_Item_ID = e.Item_ID " +
-                    "where a.inventory_Item_ID = '"+ row[4] +"' " +
-                    "and request_production_id = '"+ _id +"';");
-
                 Connection.dbCommand(
-                    "INSERT INTO `flc`.`mo_recipe` " +
-                    "(`manufacturing_order_id`, `recipe_id`, `quantity`) " +
-                    "VALUES ('"+ Int32.Parse(_txtMO) +"', '"+ recipe_id.Rows[0][0] +"', '"+ row[2] +"');");
+   "INSERT INTO `flc`.`manufacturing_order` " +
+   "(`request_production_id`) VALUES ('" + _id + "');");
+
+                foreach (DataRow row in _itemGridSource.Rows)
+                {
+                    DataTable recipe_id = Connection.dbTable(
+                        "select a.`id` as 'Recipe_id', " +
+                        "a.`item_name`, " +
+                        "c.`id`, " +
+                        "c.`request_production_id` " +
+                        "from flc.recipe as a " +
+                        "inner join mo_recipe as b " +
+                        "on a.id = b.recipe_id " +
+                        "inner join manufacturing_order as c " +
+                        "inner join request_production as d " +
+                        "on c.request_production_id = d.id " +
+                        "inner join inventory as e " +
+                        "on d.inventory_Item_ID = e.Item_ID " +
+                        "where a.inventory_Item_ID = '" + row[4] + "' " +
+                        "and request_production_id = '" + _id + "';");
+
+                    Connection.dbCommand(
+                        "INSERT INTO `flc`.`mo_recipe` " +
+                        "(`manufacturing_order_id`, `recipe_id`, `quantity`) " +
+                        "VALUES ('" + Int32.Parse(_txtMO) + "', '" + recipe_id.Rows[0][0] + "', '" + row[2] + "');");
+                }
+                MessageBox.Show("Manufacturing Order Successfully Created!");
+                this.TryClose();
             }
-        
+            catch (Exception)
+            {
+                MessageBox.Show("The product recipe for ('"+ _txtProductName +"') is no longer exist.");
+            }
         }
         protected override void OnActivate()
         {

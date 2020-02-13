@@ -223,21 +223,7 @@
                             </Label>
                         </StackPanel>
                     </Button>
-                    <Button
-                        x:Name="btnFifth"
-                        Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
-                            <Label Margin="5,0" Foreground="White">
-                                Export
-                            </Label>
-                        </StackPanel>
-                    </Button>
+                   
                 </StackPanel>
                 <Button
                     x:Name="btnCreate"

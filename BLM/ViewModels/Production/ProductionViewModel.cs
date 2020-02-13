@@ -198,21 +198,11 @@ namespace BLM.ViewModels.Production
             try
             {
                 DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                _productName = dataRowView.Row[1].ToString();
+                _productName = dataRowView.Row[2].ToString();
                 _txtStatus = dataRowView.Row[6].ToString();
-                _txtID = dataRowView.Row[0].ToString();
+                _txtID = dataRowView.Row[1].ToString();
 
-                if (_txtStatus == "pending")
-                {
-                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Pending to Processing?.", "!", MessageBoxButton.YesNo);
-                    if (dialogResult == MessageBoxResult.Yes)
-                    {
-                        _txtID = dataRowView.Row[0].ToString();
-                        Connection.dbCommand(@"UPDATE `flc`.`production` SET `status` = 'processing' WHERE `id` = '" + _txtID + "'");
-                        MessageBox.Show("The Product '" + _productName + "' is now in processing state!");
-                    }
-                }
-                else if (_txtStatus == "processing")
+                if (_txtStatus == "processing")
                 {
                     MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Processing to Finished?.", "!", MessageBoxButton.YesNo);
                     if (dialogResult == MessageBoxResult.Yes)
@@ -220,7 +210,7 @@ namespace BLM.ViewModels.Production
                         DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + _txtID + ";");
                         Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)dataRowView.Row[2]).ToString() + "' WHERE (`Item_ID` = '" + _txtID + "');");
                         MessageBox.Show("The Product '" + _productName + "' is finished!");
-                        Connection.dbCommand("UPDATE `flc`.`production` SET `status` = 'moved to inventory' WHERE `id` = '" + _txtID + "'");
+                        Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'moved to inventory' WHERE `id` = '" + _txtID + "'");
                     }
                 }
             }
@@ -245,8 +235,10 @@ namespace BLM.ViewModels.Production
                 "INNER JOIN flc.inventory as b " +
                 "ON a.`inventory_Item_ID` = b.`Item_ID` " +
                 "WHERE (`Status` = 'processing') Order by `Requested Date` Desc");
-            NotifyOfPropertyChange(null);
+           
             _selectedStatus = "Processing";
+            _txtStatus = "processing";
+                 NotifyOfPropertyChange(null);
             clear();
         }
 
@@ -315,7 +307,6 @@ namespace BLM.ViewModels.Production
                     _txtProductName = dataRowView.Row[2].ToString();
                     _txtTheoreticalYield = dataRowView.Row[3].ToString();
                     _txtStatus = dataRowView.Row[5].ToString();
-                  //  _txtID = dataRowView.Row[0].ToString();
                     NotifyOfPropertyChange(null);
                 }
             }
