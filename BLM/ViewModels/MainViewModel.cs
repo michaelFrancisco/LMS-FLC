@@ -133,6 +133,7 @@ namespace BLM.ViewModels
             {
                 DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y');");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
+                list.Insert(0, "Unread Notifications");
                 return list;
             }
             set { _notificationDateComboBox = value; }
@@ -150,8 +151,17 @@ namespace BLM.ViewModels
             set
             {
                 _notificationsDateComboBoxSelectedItem = value;
-                _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where date_format(Timestamp, '%c/%d/%Y') = '" + notificationsDateComboBoxSelectedItem + "';");
-                NotifyOfPropertyChange(() => notificationGridSource);
+                if (_notificationsDateComboBoxSelectedItem == "Unread Notifications")
+                {
+                    _notificationGridSource = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+                    NotifyOfPropertyChange(() => notificationGridSource);
+
+                }
+                else
+                {
+                    _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where date_format(Timestamp, '%c/%d/%Y') = '" + notificationsDateComboBoxSelectedItem + "';");
+                    NotifyOfPropertyChange(() => notificationGridSource);
+                }
             }
         }
 

@@ -6,6 +6,7 @@ using System.Data;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace BLM.ViewModels.Scale
@@ -14,36 +15,16 @@ namespace BLM.ViewModels.Scale
     {
         private List<string> _cbItems;
         private string _cbSelectedItem;
+        private decimal _txtActualYield;
         private int _txtEnteredWeight1;
-        private int _txtTareWeight1;
         private int _txtNetWeight1;
-
+        private decimal _txtPercentYield;
+        private int _txtTareWeight1;
+        private decimal _txtTheoreticalYield;
         private DispatcherTimer dt = new DispatcherTimer();
 
         private SerialPort port = new SerialPort();
-
-        private decimal _txtTheoreticalYield;
-
-        public decimal txtTheoreticalYield
-        {
-            get { return _txtTheoreticalYield; }
-            set { _txtTheoreticalYield = value; }
-        }
-        private decimal _txtActualYield;
-
-        public decimal txtActualYield
-        {
-            get { return _txtActualYield; }
-            set { _txtActualYield = value; }
-        }
-
-        private decimal _txtPercentYield;
-
-        public decimal txtPercentYield
-        {
-            get { return _txtPercentYield; }
-            set { _txtPercentYield = value; }
-        }
+        private int read;
 
         public List<string> cbItems
         {
@@ -74,16 +55,16 @@ namespace BLM.ViewModels.Scale
             }
         }
 
+        public decimal txtActualYield
+        {
+            get { return _txtActualYield; }
+            set { _txtActualYield = value; }
+        }
+
         public int txtEnteredWeight1
         {
             get { return _txtEnteredWeight1; }
             set { _txtEnteredWeight1 = value; }
-        }
-
-        public int txtTareWeight1
-        {
-            get { return _txtTareWeight1; }
-            set { _txtTareWeight1 = value; }
         }
 
         public int txtNetWeight1
@@ -92,6 +73,36 @@ namespace BLM.ViewModels.Scale
             set { _txtNetWeight1 = value; }
         }
 
+        public decimal txtPercentYield
+        {
+            get { return _txtPercentYield; }
+            set { _txtPercentYield = value; }
+        }
+
+        public int txtTareWeight1
+        {
+            get { return _txtTareWeight1; }
+            set { _txtTareWeight1 = value; }
+        }
+
+        public decimal txtTheoreticalYield
+        {
+            get { return _txtTheoreticalYield; }
+            set { _txtTheoreticalYield = value; }
+        }
+        public void btnGetWeight()
+        {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            int average = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                average += read;
+            }
+            average /= 100;
+            _txtEnteredWeight1 = average;
+            NotifyOfPropertyChange(() => txtEnteredWeight1);
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+        }
         public void timer_Tick(object sender, EventArgs e)
         {
             try
@@ -99,8 +110,7 @@ namespace BLM.ViewModels.Scale
                 Int32.TryParse(port.ReadLine(), out int result);
                 if (result > -1)
                 {
-                    _txtEnteredWeight1 = result;
-                    NotifyOfPropertyChange(() => txtEnteredWeight1);
+                    read = result;
                 }
             }
             catch
@@ -133,7 +143,7 @@ namespace BLM.ViewModels.Scale
             }
             catch
             {
-               MessageBox.Show("Please Check the connection of your weighing scale");
+                MessageBox.Show("Please Check the connection of your weighing scale");
             }
             NotifyOfPropertyChange(null);
             base.OnActivate();

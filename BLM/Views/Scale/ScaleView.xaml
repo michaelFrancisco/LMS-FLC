@@ -25,7 +25,6 @@
             Margin="0,60,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            cal:Message.Attach="[Event TextChanged]=[Action EnteredWeight]"
             Background="Black"
             FlowDirection="RightToLeft"
             FontFamily="Digital-7"
@@ -250,6 +249,13 @@
                 Foreground="White"
                 Text="Percent Yield" />
         </Grid>
-
+        <Button
+            x:Name="btnGetWeight"
+            Width="250"
+            Height="100"
+            Margin="10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Content="Get Weight" />
     </Grid>
 </UserControl>
