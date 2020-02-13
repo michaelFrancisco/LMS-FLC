@@ -37,6 +37,16 @@ namespace BLM.Views.Inventory
                 case "Critical_Level":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
+
+                case "rp_id":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "mo_id":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+
             }
         }
     }

@@ -194,8 +194,8 @@ namespace BLM.ViewModels.Production.Forms
         public void btnSend()
         {
             Connection.dbCommand(
-"INSERT INTO `flc`.`manufacturing_order` " +
-"(`request_production_id`) VALUES ('" + _id + "');");
+            "INSERT INTO `flc`.`manufacturing_order` " +
+            "(`request_production_id`) VALUES ('" + _id + "');");
 
             foreach (DataRow row in _itemGridSource.Rows)
             {

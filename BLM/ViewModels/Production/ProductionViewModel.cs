@@ -2,10 +2,10 @@
 using BLM.ViewModels.Production.Forms;
 using Caliburn.Micro;
 using System.Data;
+
 //using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
-
 
 namespace BLM.ViewModels.Production
 {
@@ -126,22 +126,22 @@ namespace BLM.ViewModels.Production
             {
                 if (_productionGridSelectedItem != null)
                 {
-                    DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                    string nameColumn = dataRowView.Row[2].ToString();
-                    string theoretical = dataRowView.Row[3].ToString();
-                    string id = dataRowView.Row[0].ToString();
-                    string Item_ID = dataRowView.Row[1].ToString();
-                   string Name = dataRowView.Row[2].ToString();
-                    windowManager.ShowWindow(new NewProductionViewModel(
-                        "select b.`item_name`, " +
-                        "b.`id` as 'Recipe ID', " +
-                        "b.`size` * '"+theoretical+"' as 'Required Quantity', " +
-                        "b.`unit`, " +
-                        "b.`inventory_Item_ID` " +
-                        "from flc.inventory as a " +
-                        "inner join flc.recipe as b " +
-                        "on a.`Item_ID` = b.`inventory_Item_ID` " +
-                        "where a.`Name` like '%" + nameColumn + "%'", theoretical, id, Item_ID, Name), null, null);
+                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+                string nameColumn = dataRowView.Row[2].ToString();
+                string theoretical = dataRowView.Row[3].ToString();
+                string id = dataRowView.Row[0].ToString();
+                string Item_ID = dataRowView.Row[1].ToString();
+                string Name = dataRowView.Row[2].ToString();
+                windowManager.ShowWindow(new NewProductionViewModel(
+                "select b.`item_name`, " +
+                "b.`id` as 'Recipe ID', " +
+                "b.`size` * '"+theoretical+"' as 'Required Quantity', " +
+                "b.`unit`, " +
+                "b.`inventory_Item_ID` " +
+                "from flc.inventory as a " +
+                "inner join flc.recipe as b " +
+                "on a.`Item_ID` = b.`inventory_Item_ID` " +
+                "where a.`Name` like '%" + nameColumn + "%'", theoretical, id, Item_ID, Name), null, null);
                 }
                 else
                 {
@@ -260,7 +260,7 @@ namespace BLM.ViewModels.Production
 
         public void btnRefresh()
         {
-            clearColors();  
+            clearColors();
             _brushRefreshAll = Brushes.DarkTurquoise;
             _btnCreateVisibility = Visibility.Collapsed;
             _productionGridSource = Connection.dbTable(
@@ -277,6 +277,7 @@ namespace BLM.ViewModels.Production
             _selectedStatus = "All";
             clear();
         }
+
         public void print()
         {
             try
@@ -335,6 +336,7 @@ namespace BLM.ViewModels.Production
             {
             }
         }
+
         protected override void OnActivate()
         {
             _btnCreateVisibility = Visibility.Collapsed;
@@ -349,12 +351,12 @@ namespace BLM.ViewModels.Production
           "on a.`inventory_Item_ID` = b.`Item_ID` " +
           "where b.`Item_ID` = a.`inventory_Item_ID`;");
 
-            
             NotifyOfPropertyChange(() => productionGridSource);
             _selectedStatus = "All";
             clear();
             base.OnActivate();
         }
+
         private void clear()
         {
             _txtProductName = string.Empty;

@@ -2,7 +2,6 @@
 using BLM.ViewModels.Inventory.Forms;
 using Caliburn.Micro;
 using System;
-using System.ComponentModel;
 using System.Data;
 
 namespace BLM.ViewModels.Inventory
@@ -33,7 +32,7 @@ namespace BLM.ViewModels.Inventory
         public string txtSearch
         {
             get { return _txtSearch; }
-            set 
+            set
             {
                 _txtSearch = value;
                 DataView dv = new DataView(_inventoryGridSource);
@@ -103,6 +102,11 @@ namespace BLM.ViewModels.Inventory
                     _inventoryGridSource = Connection.dbTable("SELECT * from inventory");
                     NotifyOfPropertyChange(null);
                     break;
+
+                case "Requests":
+                    _inventoryGridSource = Connection.dbTable("SELECT `request_production`.`id` AS rp_id, `mo_recipe`.`id` AS mo_id, `recipe`.`item_name`, `mo_recipe`.`quantity`, `manufacturing_order`.`status` AS mo_status, `request_production`.`status` AS rp_status FROM flc.mo_recipe INNER JOIN flc.manufacturing_order ON flc.mo_recipe.manufacturing_order_id = flc.manufacturing_order.id INNER JOIN flc.recipe ON flc.mo_recipe.recipe_id = flc.recipe.id INNER JOIN flc.request_production ON flc.manufacturing_order.request_production_id = flc.request_production.id WHERE `manufacturing_order`.`status` = 'pending' AND `request_production`.`status` = 'pending'");
+                    NotifyOfPropertyChange(null);
+                    break;
             }
             _txtSearch = string.Empty;
             NotifyOfPropertyChange(null);
@@ -110,10 +114,11 @@ namespace BLM.ViewModels.Inventory
 
         public void btnRequests()
         {
-            //_inventoryGridSource = Connection.dbTable("SELECT * from inventory where Category = 'Finished Product'");
-            //NotifyOfPropertyChange(null);
-            //_selectedCategory = "Finished Products";
+            _inventoryGridSource = Connection.dbTable("SELECT `request_production`.`id` AS rp_id, `mo_recipe`.`id` AS mo_id, `recipe`.`item_name`, `mo_recipe`.`quantity`, `manufacturing_order`.`status` AS mo_status, `request_production`.`status` AS rp_status FROM flc.mo_recipe INNER JOIN flc.manufacturing_order ON flc.mo_recipe.manufacturing_order_id = flc.manufacturing_order.id INNER JOIN flc.recipe ON flc.mo_recipe.recipe_id = flc.recipe.id INNER JOIN flc.request_production ON flc.manufacturing_order.request_production_id = flc.request_production.id WHERE `manufacturing_order`.`status` = 'pending' AND `request_production`.`status` = 'pending'");
+            NotifyOfPropertyChange(null);
+            _selectedCategory = "Requests";
         }
+
         public void showItem()
         {
             try
