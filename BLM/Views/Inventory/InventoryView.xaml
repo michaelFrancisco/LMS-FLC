@@ -168,7 +168,7 @@
                         </StackPanel>
                     </Button>
                     <Button
-                        x:Name="btnExport"
+                        x:Name="btnShowSelectedRequestItem"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
                         Foreground="White">
@@ -178,7 +178,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
                             <Label Margin="5,0" Foreground="White">
-                                Export
+                                Show Selected Request Item
                             </Label>
                         </StackPanel>
                     </Button>

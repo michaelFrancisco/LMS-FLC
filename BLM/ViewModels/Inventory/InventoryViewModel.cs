@@ -49,7 +49,15 @@ namespace BLM.ViewModels.Inventory
             NotifyOfPropertyChange(null);
             _selectedCategory = "All Products";
         }
-
+        public void btnShowSelectedRequestItem()
+        {
+            if (_inventoryGridSelectedItem != null)
+            {
+                DataRowView DataRow = (DataRowView)_inventoryGridSelectedItem;
+                string MO_ID = DataRow.Row[0].ToString();
+                windowManager.ShowWindow(new RequestViewModel(MO_ID), null, null);
+            }
+        }
         public void btnCreate()
         {
             windowManager.ShowWindow(new NewItemViewModel(), null, null);
@@ -110,10 +118,16 @@ namespace BLM.ViewModels.Inventory
 
         public void btnRequests()
         {
-            //_inventoryGridSource = Connection.dbTable("SELECT * from inventory where Category = 'Finished Product'");
-            //NotifyOfPropertyChange(null);
-            //_selectedCategory = "Finished Products";
+            DataTable dataTable = Connection.dbTable("select id as 'Manufacturing Order Number', " +
+                "created_at as 'Request Date', " +
+                "approved_at as 'Approved Date' " +
+                "from flc.manufacturing_order " +
+                "where `status` = 'pending';");
+
+            _inventoryGridSource = dataTable;
+            NotifyOfPropertyChange(null);
         }
+     
         public void showItem()
         {
             try
