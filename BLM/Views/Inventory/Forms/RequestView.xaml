@@ -132,7 +132,8 @@
             Margin="15,15,15,15"
             HorizontalAlignment="Stretch"
             AlternatingRowBackground="LightGray"
-            AlternationCount="2" 
+            AlternationCount="2"
+            AutoGeneratingColumn="itemsGrid_AutoGeneratingColumn"
             Background="White"
             BorderBrush="Black"
             BorderThickness="1"
@@ -143,7 +144,7 @@
             IsReadOnly="True"
             ItemsSource="{Binding requestGridSource}"
             RowBackground="White"
-            SelectionMode="Single" AutoGeneratingColumn="itemsGrid_AutoGeneratingColumn">
+            SelectionMode="Single">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="White" />
