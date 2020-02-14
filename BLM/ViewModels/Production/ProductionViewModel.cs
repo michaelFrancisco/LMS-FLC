@@ -1,6 +1,7 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Production.Forms;
 using Caliburn.Micro;
+using System;
 using System.Data;
 
 //using System.Drawing;
@@ -199,20 +200,27 @@ namespace BLM.ViewModels.Production
             {
                 DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
                 _productName = dataRowView.Row[2].ToString();
-                _txtStatus = dataRowView.Row[6].ToString();
-                _txtID = dataRowView.Row[1].ToString();
+                _txtStatus = dataRowView.Row[5].ToString();
+                _txtID = dataRowView.Row[0].ToString();
 
                 if (_txtStatus == "processing")
                 {
                     MessageBoxResult dialogResult = MessageBox.Show("Do you want to change the status of '" + _productName + "' from Processing to Finished?.", "!", MessageBoxButton.YesNo);
                     if (dialogResult == MessageBoxResult.Yes)
                     {
-                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + _txtID + ";");
-                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)dataRowView.Row[2]).ToString() + "' WHERE (`Item_ID` = '" + _txtID + "');");
-                        MessageBox.Show("The Product '" + _productName + "' is finished!");
+                    DataTable tblCurrentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + _txtID + ";");
+
+                    int currentQuantity = int.Parse(tblCurrentQuantity.Rows[0][0].ToString());
+                    int newQuantity = int.Parse(dataRowView.Row[3].ToString());
+                    currentQuantity += newQuantity;
+
+                         Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + currentQuantity + "' WHERE `Item_ID` = '" + _txtID + "';");
+                        MessageBox.Show("The Product '" + _productName + "' is now finished!");
                         Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'moved to inventory' WHERE `id` = '" + _txtID + "'");
-                    }
+                    Connection.dbCommand("INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`) VALUES ('" + CurrentUser.User_ID + "', '" + _productName + "(" + newQuantity + ") was added to inventory',' The current total of " + _productName + " from inventory is now (" + currentQuantity + "). And added by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "');");
+                    btnProcessing();
                 }
+            }
             }
             catch
             {

@@ -28,9 +28,9 @@ namespace BLM.Views.Production
         {
             switch (e.Column.Header.ToString())
             {
-                case "id":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
+                //case "id":
+                //    e.Column.Visibility = Visibility.Collapsed;
+                //    break;
                 case "Name":
                     DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
                     e.Column.Width = width;
