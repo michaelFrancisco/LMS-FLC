@@ -55,7 +55,7 @@ namespace BLM.Views.Tracking
             _currentTruck = 1;
 
             dt.Tick += new EventHandler(timer_Tick);
-            dt.Interval = new TimeSpan(0, 0, 10);
+            dt.Interval = new TimeSpan(0, 0, 5);
             dt.Start();
 
             map.MapProvider = GMapProviders.GoogleMap;

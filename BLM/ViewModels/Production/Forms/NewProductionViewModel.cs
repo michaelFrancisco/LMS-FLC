@@ -203,8 +203,6 @@ namespace BLM.ViewModels.Production.Forms
     "c.`id`, " +
     "c.`request_production_id` " +
     "from flc.recipe as a " +
-    "inner join mo_recipe as b " +
-    "on a.id = b.recipe_id " +
     "inner join manufacturing_order as c " +
     "inner join request_production as d " +
     "on c.request_production_id = d.id " +
