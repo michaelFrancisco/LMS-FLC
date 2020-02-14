@@ -153,7 +153,7 @@ namespace BLM.ViewModels
                 _notificationsDateComboBoxSelectedItem = value;
                 if (_notificationsDateComboBoxSelectedItem == "Unread Notifications")
                 {
-                    _notificationGridSource = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+                    _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
                     NotifyOfPropertyChange(() => notificationGridSource);
                 }
                 else
