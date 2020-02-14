@@ -1,0 +1,18 @@
+﻿<Application
+    x:Class="BLM.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:BLM">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:Bootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="3">#FF003459</Color>
+            <Color x:Key="2">#FF00171F</Color>
+            <Color x:Key="1">#FF007EA7</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
