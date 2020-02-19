@@ -18,7 +18,7 @@ namespace BLM.ViewModels.Requests.Forms
         public NewRequestViewModel(int itemID)
         {
             _itemID = itemID;
-            DataTable dt = Connection.dbTable("Select Name from Inventory where Item_ID = '" + _itemID + "'");
+            DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
             _txtName = dt.Rows[0][0].ToString();
             _dateDue = DateTime.Now;
             NotifyOfPropertyChange(null);

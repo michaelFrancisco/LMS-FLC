@@ -17,31 +17,31 @@ namespace BLM.Views.Inventory
         {
             switch (e.Column.Header.ToString())
             {
-                case "Item_ID":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
+                //case "Item_ID":
+                //    e.Column.Visibility = Visibility.Collapsed;
+                //    break;
 
-                case "Supplier_ID":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
+                //case "Supplier_ID":
+                //    e.Column.Visibility = Visibility.Collapsed;
+                //    break;
 
-                case "Weight":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
+                //case "Weight":
+                //    e.Column.Visibility = Visibility.Collapsed;
+                //    break;
 
-                case "Name":
-                    DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
-                    e.Column.Width = width;
-                    break;
+                //case "Name":
+                //    DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                //    e.Column.Width = width;
+                //    break;
 
-                case "Critical_Level":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
+                //case "Critical_Level":
+                //    e.Column.Visibility = Visibility.Collapsed;
+                //    break;
                 
-                case "Manufacturing Order Number":
-                    DataGridLength width1 = new DataGridLength(2, DataGridLengthUnitType.Star);
-                    e.Column.Width = width1;
-                    break;
+                //case "Manufacturing Order Number":
+                //    DataGridLength width1 = new DataGridLength(2, DataGridLengthUnitType.Star);
+                //    e.Column.Width = width1;
+                //    break;
             }
         }
     }

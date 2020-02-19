@@ -34,7 +34,7 @@ namespace BLM.ViewModels
 
         public void loginasadmin()
         {
-            DataTable dt = Connection.dbTable("select User_ID,Name, User_Level from users where Username = 'admin' AND Password = 'admin';");
+            DataTable dt = Connection.dbTable("select ID,Name, User_Level from users where Username = 'admin' AND Password = 'admin';");
             CurrentUser.name = dt.Rows[0][1].ToString();
             CurrentUser.user_level = dt.Rows[0][2].ToString();
             CurrentUser.User_ID = dt.Rows[0][0].ToString();
@@ -44,7 +44,7 @@ namespace BLM.ViewModels
 
         public void getUserCredentials()
         {
-            DataTable dt = Connection.dbTable("select User_ID,Name, User_Level from users where Username = '" + _username + "' AND Password = '" + _password + "';");
+            DataTable dt = Connection.dbTable("select ID,Name, User_Level from users where Username = '" + _username + "' AND Password = '" + _password + "';");
             CurrentUser.name = dt.Rows[0][1].ToString();
             CurrentUser.user_level = dt.Rows[0][2].ToString();
             CurrentUser.User_ID = dt.Rows[0][0].ToString();

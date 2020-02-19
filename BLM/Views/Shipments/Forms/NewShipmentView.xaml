@@ -325,7 +325,11 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Button Height="25" Grid.Row="9" Content="Test" Click="Button_Click"/>
+        <Button
+            Grid.Row="9"
+            Height="25"
+            Click="Button_Click"
+            Content="Test" />
 
     </Grid>
 </Window>

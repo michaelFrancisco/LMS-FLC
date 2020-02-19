@@ -23,7 +23,7 @@ namespace ChatClientCS.Services
 
         private IHubProxy hubProxy;
         private HubConnection connection;
-        private string url = "http://192.168.1.2:8080/signalchat";
+        private string url = "http://localhost:8080/signalchat";
 
         public async Task ConnectAsync()
         {

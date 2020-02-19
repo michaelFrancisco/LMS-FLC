@@ -38,7 +38,7 @@ namespace BLM.ViewModels.Shipments.Forms
         public EditShipmentViewModel(int selectedShipmentID)
         {
             _selectedShipmentID = selectedShipmentID;
-            _shipmentData = Connection.dbTable("Select * from shipments WHERE Shipment_ID = '" + _selectedShipmentID + "';");
+            _shipmentData = Connection.dbTable("Select * from shipments WHERE ID = '" + _selectedShipmentID + "';");
         }
 
         public System.Int32 itemGridSelectedIndex
@@ -81,7 +81,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from users where User_ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblDeliveryAgent = value; }
@@ -133,7 +133,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from trucks where Truck_ID = '" + _shipmentData.Rows[0][1].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from trucks where ID = '" + _shipmentData.Rows[0][2].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblTruck = value; }
@@ -233,22 +233,22 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 foreach (DataRow row in _itemGridSource.Rows)
                 {
-                    Connection.dbCommand(@"UPDATE `flc`.`shipment_items` SET `Status` = '" + row[6].ToString() + "' WHERE (`Shipment_Item_ID` = '" + row[0].ToString() + "');");
+                    Connection.dbCommand(@"UPDATE `flc`.`shipment_items` SET `Status` = '" + row[6].ToString() + "' WHERE (`ID` = '" + row[0].ToString() + "');");
                 }
-                DataTable markedforReturn = Connection.dbTable("Select * from shipment_items where `Shipment_ID` = '" + _selectedShipmentID + "' and Status = 'For Return'");
-                DataTable markedasIncomplete = Connection.dbTable("Select * from shipment_items where `Shipment_ID` = '" + _selectedShipmentID + "' and Status = 'Incomplete'");
+                DataTable markedforReturn = Connection.dbTable("Select * from shipment_items where `ID` = '" + _selectedShipmentID + "' and Status = 'For Return'");
+                DataTable markedasIncomplete = Connection.dbTable("Select * from shipment_items where `ID` = '" + _selectedShipmentID + "' and Status = 'Incomplete'");
                 if (markedforReturn.Rows.Count > 0 || markedasIncomplete.Rows.Count > 0)
                 {
                     System.Windows.MessageBox.Show("Some items are marked as INCOMPLETE or FOR RETURN, this shipment will be marked as PENDING");
-                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Pending' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
+                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Pending' WHERE (`ID` = '" + _selectedShipmentID + "');");
                 }
                 else
                 {
-                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Complete' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
+                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Complete' WHERE (`ID` = '" + _selectedShipmentID + "');");
                     foreach (DataRow row in _itemGridSource.Rows)
                     {
-                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + row[7].ToString() + ";");
-                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)row[3]).ToString() + "' WHERE (`Item_ID` = '" + row[0].ToString() + "');");
+                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + row[7].ToString() + ";");
+                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)row[3]).ToString() + "' WHERE (`ID` = '" + row[0].ToString() + "');");
                         Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(x" + row[3].ToString() + ") was added to inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(x" + row[3].ToString() + ") was added to inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                     }
                 }
@@ -257,22 +257,22 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 foreach (DataRow row in _itemGridSource.Rows)
                 {
-                    Connection.dbCommand(@"UPDATE `flc`.`shipment_items` SET `Status` = '" + row[6].ToString() + "' WHERE (`Shipment_Item_ID` = '" + row[0].ToString() + "');");
+                    Connection.dbCommand(@"UPDATE `flc`.`shipment_items` SET `Status` = '" + row[6].ToString() + "' WHERE (`ID` = '" + row[0].ToString() + "');");
                 }
-                DataTable markedforReturn = Connection.dbTable("Select * from shipment_items where `Shipment_ID` = '" + _selectedShipmentID + "' and Status = 'For Return'");
-                DataTable markedasIncomplete = Connection.dbTable("Select * from shipment_items where `Shipment_ID` = '" + _selectedShipmentID + "' and Status = 'Incomplete'");
+                DataTable markedforReturn = Connection.dbTable("Select * from shipment_items where `ID` = '" + _selectedShipmentID + "' and Status = 'For Return'");
+                DataTable markedasIncomplete = Connection.dbTable("Select * from shipment_items where `ID` = '" + _selectedShipmentID + "' and Status = 'Incomplete'");
                 if (markedforReturn.Rows.Count > 0 || markedasIncomplete.Rows.Count > 0)
                 {
                     System.Windows.MessageBox.Show("Some items are marked as INCOMPLETE or FOR RETURN, this shipment will be marked as PENDING");
-                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Pending' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
+                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Pending' WHERE (`ID` = '" + _selectedShipmentID + "');");
                 }
                 else
                 {
-                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Complete' WHERE (`Shipment_ID` = '" + _selectedShipmentID + "');");
+                    Connection.dbCommand("UPDATE `flc`.`shipments` SET `Status` = 'Complete' WHERE (`ID` = '" + _selectedShipmentID + "');");
                     foreach (DataRow row in _itemGridSource.Rows)
                     {
-                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where Item_ID = " + row[7].ToString() + ";");
-                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[3]).ToString() + "' WHERE (`Item_ID` = '" + row[0].ToString() + "');");
+                        DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + row[7].ToString() + ";");
+                        Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[3]).ToString() + "' WHERE (`ID` = '" + row[0].ToString() + "');");
                         Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[1].ToString() + "(x" + row[3].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[1].ToString() + "(x" + row[3].ToString() + ") was reduced from inventory from Shipment no." + _selectedShipmentID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                     }
                 }
@@ -322,7 +322,7 @@ namespace BLM.ViewModels.Shipments.Forms
 
         protected override void OnActivate()
         {
-            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`Shipment_Item_ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`Item_ID`,`inventory`.`Weight` FROM flc.inventory inner join flc.shipment_items on flc.inventory.Item_ID = flc.shipment_items.Item_ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
+            _itemGridSource = Connection.dbTable("SELECT `shipment_items`.`ID`, `inventory`.`Name`,`inventory`.`Category`,`shipment_items`.`Quantity`,`inventory`.`Size`,`inventory`.`Unit`,`shipment_items`.`Status` ,`inventory`.`ID`,`inventory`.`Weight` FROM flc.inventory inner join flc.shipment_items on flc.inventory.ID = flc.shipment_items.ID where flc.shipment_items.Shipment_ID = '" + _selectedShipmentID + "';");
             btnReconnectScale();
             NotifyOfPropertyChange(null);
             base.OnActivate();

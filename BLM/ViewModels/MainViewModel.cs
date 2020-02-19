@@ -153,12 +153,12 @@ namespace BLM.ViewModels
                 _notificationsDateComboBoxSelectedItem = value;
                 if (_notificationsDateComboBoxSelectedItem == "Unread Notifications")
                 {
-                    _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+                    _notificationGridSource = Connection.dbTable("select ID,Subject from system_log where ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
                     NotifyOfPropertyChange(() => notificationGridSource);
                 }
                 else
                 {
-                    _notificationGridSource = Connection.dbTable("select Log_ID,Subject from system_log where date_format(Timestamp, '%c/%d/%Y') = '" + notificationsDateComboBoxSelectedItem + "';");
+                    _notificationGridSource = Connection.dbTable("select ID,Subject from system_log where date_format(Timestamp, '%c/%d/%Y') = '" + notificationsDateComboBoxSelectedItem + "';");
                     NotifyOfPropertyChange(() => notificationGridSource);
                 }
             }
@@ -407,7 +407,7 @@ namespace BLM.ViewModels
             try
             {
                 DataRowView row = (DataRowView)_notificationSelectedItem;
-                DataTable dt = Connection.dbTable("select Body from system_log where Log_ID = '" + row[0].ToString() + "'");
+                DataTable dt = Connection.dbTable("select Body from system_log where ID = '" + row[0].ToString() + "'");
                 _notificationsText = dt.Rows[0][0].ToString();
                 NotifyOfPropertyChange(() => notificationsText);
                 dt = Connection.dbTable("SELECT * FROM flc.system_log_read where System_Log_ID = " + row[0].ToString() + " AND User_ID = " + CurrentUser.User_ID + ";");
@@ -428,7 +428,7 @@ namespace BLM.ViewModels
             List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
             _notificationDateComboBox = list;
             NotifyOfPropertyChange(() => notificationDateComboBox);
-            dt = Connection.dbTable("select * from system_log where Log_ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+            dt = Connection.dbTable("select * from system_log where ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
             if (dt.Rows.Count != 0)
             {
                 _txtNotifCount = dt.Rows.Count.ToString();

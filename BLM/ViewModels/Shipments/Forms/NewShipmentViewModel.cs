@@ -3,8 +3,8 @@ using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -47,7 +47,6 @@ namespace BLM.ViewModels.Shipments.Forms
         private DispatcherTimer dt1 = new DispatcherTimer();
         private SerialPort port1 = new SerialPort();
 
-
         public bool btnOKisEnabled
         {
             get { return _btnOKisEnabled; }
@@ -86,16 +85,16 @@ namespace BLM.ViewModels.Shipments.Forms
                 _selectedCategory = value;
                 if (selectedCategory == "Inbound")
                 {
-                    _itemGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where `inventory`.`Category` = 'Raw Material' OR `inventory`.`Category` = 'Packaging';");
-                    _shipmentGridSource = Connection.dbTable("select `inventory`.`Item_ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Supplier_Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`Supplier_ID` where null;");
+                    _itemGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where `inventory`.`Category` = 'Raw Material' OR `inventory`.`Category` = 'Packaging';");
+                    _shipmentGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where null;");
                     _baseitemGridSource = itemGridSource;
                     NotifyOfPropertyChange(() => itemGridSource);
                     NotifyOfPropertyChange(() => shipmentGridSource);
                 }
                 else if (selectedCategory == "Outbound")
                 {
-                    _itemGridSource = Connection.dbTable("SELECT Item_ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where Quantity > 0 and `Category` = 'Finished Product';");
-                    _shipmentGridSource = Connection.dbTable("SELECT Item_ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where null;");
+                    _itemGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where Quantity > 0 and `Category` = 'Finished Product';");
+                    _shipmentGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where null;");
                     _baseitemGridSource = itemGridSource;
                     NotifyOfPropertyChange(() => itemGridSource);
                     NotifyOfPropertyChange(() => shipmentGridSource);
@@ -393,9 +392,9 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             if (fieldsareComplete() && gridhasItems())
             {
-                DataTable _deliveryagentID = Connection.dbTable("select User_ID from users where Name = '" + _selectedDeliveryAgent + "'");
-                DataTable _truckID = Connection.dbTable("select Truck_ID from trucks where Name = '" + _selectedTruck + "'");
-                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Origin`, `Destination`, `Truck_ID`, `Delivery_Agent_ID`, `Date_Due`) VALUES ('" + _selectedCategory + "', 'Pending', '" + _selectedOrigin + "', '" + _selectedDestination + "', '" + _truckID.Rows[0][0].ToString() + "', '" + _deliveryagentID.Rows[0][0].ToString() + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "');");
+                DataTable _deliveryagentID = Connection.dbTable("select ID from users where Name = '" + _selectedDeliveryAgent + "'");
+                DataTable _truckID = Connection.dbTable("select ID from trucks where Name = '" + _selectedTruck + "'");
+                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Origin`, `Destination`, `Truck_ID`, `Delivery_Agent_ID`, `Date_Due`, `Created_By`) VALUES ('" + _selectedCategory + "', 'Pending', '" + _selectedOrigin + "', '" + _selectedDestination + "', '" + _truckID.Rows[0][0].ToString() + "', '" + _deliveryagentID.Rows[0][0].ToString() + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
                 int shipmentID = getShipmentID();
                 foreach (DataRow row in _shipmentGridSource.Rows)
                 {
@@ -530,38 +529,6 @@ namespace BLM.ViewModels.Shipments.Forms
             NotifyOfPropertyChange(null);
         }
 
-        protected override void OnActivate()
-        {
-            _tempo = "notClicked";
-            _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
-            _btnOKisEnabled = true;
-            _txtQuantity = 1;
-            _selectedDate = DateTime.Now;
-            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
-
-            NotifyOfPropertyChange(null);
-            base.OnActivate();
-        }
-
-        private int getShipmentID()
-        {
-            DataTable dt = Connection.dbTable("SELECT max(Shipment_ID) FROM flc.shipments;;");
-            return Convert.ToInt32(dt.Rows[0][0].ToString());
-        }
-
-        private bool gridhasItems()
-        {
-            if (_shipmentGridSource.Rows.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
         public void timer_Tick(object sender, EventArgs e)
         {
             try
@@ -589,10 +556,41 @@ namespace BLM.ViewModels.Shipments.Forms
             }
         }
 
+        protected override void OnActivate()
+        {
+            _tempo = "notClicked";
+            _QuantityBoxVisibility = System.Windows.Visibility.Collapsed;
+            _btnOKisEnabled = true;
+            _txtQuantity = 1;
+            _selectedDate = DateTime.Now;
+            _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
+
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
+        }
+
         protected override void OnDeactivate(bool close)
         {
             dt1.Stop();
             base.OnDeactivate(close);
+        }
+
+        private int getShipmentID()
+        {
+            DataTable dt = Connection.dbTable("SELECT max(ID) FROM flc.shipments;;");
+            return Convert.ToInt32(dt.Rows[0][0].ToString());
+        }
+
+        private bool gridhasItems()
+        {
+            if (_shipmentGridSource.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
