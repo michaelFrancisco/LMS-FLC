@@ -1,6 +1,9 @@
-﻿using System.Data;
+﻿using MimeKit;
+using System.Data;
 using System.Data.Odbc;
-//Hello World
+using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace BLM.Models
 {
@@ -39,6 +42,34 @@ namespace BLM.Models
             }
             else
                 return false;
+        }
+
+        public static void sendEmail(string subject, string body, string name, string email)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("flc.email.bot", "flc.email.bot@gmail.com"));
+            message.To.Add(new MailboxAddress(name, email));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = body
+            };
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587);
+
+                // Note: since we don't have an OAuth2 token, disable
+                // the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate("flc.email.bot@gmail.com", "capstoning");
+
+                client.Send(message);
+                client.Disconnect(true);
+            }
         }
     }
 }
