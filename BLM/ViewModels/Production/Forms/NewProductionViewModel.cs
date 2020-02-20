@@ -197,12 +197,31 @@ namespace BLM.ViewModels.Production.Forms
         {
             try
             {
-                DataTable recipe_id = Connection.dbTable( "select a.`id` as 'Recipe_id', " + "a.`item_name`, " + "c.`id`, " + "c.`request_production_id` " + "from flc.recipe as a " + "inner join manufacturing_order as c " + "inner join request_production as d " + "on c.request_production_id = d.id " + "inner join inventory as e " + "on d.inventory_Item_ID = e.Item_ID " + "where a.inventory_Item_ID = '" + _Item_ID + "' " + "and request_production_id = '" + _id + "' " + "group by a.id;");
-                Connection.dbCommand( "INSERT INTO `flc`.`manufacturing_order` " + "(`request_production_id`) VALUES ('" + _id + "');"); 
+                DataTable recipe_id = Connection.dbTable(
+    "select a.`id` as 'Recipe_id', " +
+    "a.`item_name`, " +
+    "c.`id`, " +
+    "c.`request_production_id` " +
+    "from flc.recipe as a " +
+    "inner join manufacturing_order as c " +
+    "inner join request_production as d " +
+    "on c.request_production_id = d.id " +
+    "inner join inventory as e " +
+    "on d.inventory_Item_ID = e.Item_ID " +
+    "where a.inventory_Item_ID = '" + _Item_ID + "' " +
+    "and request_production_id = '" + _id + "' " +
+    "group by a.id;");
+                Connection.dbCommand(
+   "INSERT INTO `flc`.`manufacturing_order` " +
+   "(`request_production_id`) VALUES ('" + _id + "');");
+                
                 int i = 0;
                 foreach (DataRow row in _itemGridSource.Rows)
                 {
-                    Connection.dbCommand( "INSERT INTO `flc`.`mo_recipe` " + "(`manufacturing_order_id`, `recipe_id`, `quantity`) " + "VALUES ('" + Int32.Parse(_txtMO) + "', '" + recipe_id.Rows[i][0] + "', '" + row[2] + "');");
+                    Connection.dbCommand(
+                        "INSERT INTO `flc`.`mo_recipe` " +
+                        "(`manufacturing_order_id`, `recipe_id`, `quantity`) " +
+                        "VALUES ('" + Int32.Parse(_txtMO) + "', '" + recipe_id.Rows[i][0] + "', '" + row[2] + "');");
                     i++;
                 }
                 MessageBox.Show("Manufacturing Order Successfully Created!");

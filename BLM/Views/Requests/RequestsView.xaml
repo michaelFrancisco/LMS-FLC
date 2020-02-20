@@ -25,10 +25,10 @@
             </Grid.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="258*" />
-                    <ColumnDefinition Width="258*" />
-                    <ColumnDefinition Width="257*" />
-                    <ColumnDefinition Width="257*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnRequest"
@@ -44,7 +44,7 @@
                             Source="/BLM;component/Resources/Icons/icons8-add-100(2).png" />
                         <Label
                             VerticalContentAlignment="Center"
-                            Content="Request Production"
+                            Content="Request"
                             FontFamily="Roboto"
                             Foreground="White" />
                     </StackPanel>
