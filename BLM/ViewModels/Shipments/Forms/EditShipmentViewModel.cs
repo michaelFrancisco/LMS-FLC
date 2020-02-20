@@ -63,7 +63,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                return _shipmentData.Rows[0][2].ToString();
+                return _shipmentData.Rows[0][1].ToString();
             }
             set { _lblCategory = value; }
         }
@@ -72,7 +72,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                return _shipmentData.Rows[0][9].ToString();
+                return _shipmentData.Rows[0][10].ToString();
             }
             set { _lblDateDue = value; }
         }
@@ -81,7 +81,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0][7].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0][8].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblDeliveryAgent = value; }
@@ -91,7 +91,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                return _shipmentData.Rows[0][5].ToString();
+                return _shipmentData.Rows[0][6].ToString();
             }
             set { _lblDestination = value; }
         }
@@ -124,7 +124,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                return _shipmentData.Rows[0][4].ToString();
+                return _shipmentData.Rows[0][5].ToString();
             }
             set { _lblOrigin = value; }
         }

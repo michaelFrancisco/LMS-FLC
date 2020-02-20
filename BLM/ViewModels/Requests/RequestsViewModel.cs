@@ -52,7 +52,7 @@ namespace BLM.ViewModels.Requests
 
         public void btnComplete()
         {
-            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'complete';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Complete";
         }
@@ -63,14 +63,14 @@ namespace BLM.ViewModels.Requests
 
         public void btnPending()
         {
-            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield`,`request_production`.`due_date` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Item_ID` where `request_production`.`status` = 'pending';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Pending";
         }
 
         public void btnProcessing()
         {
-            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'processing';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Processing";
         }
@@ -80,22 +80,22 @@ namespace BLM.ViewModels.Requests
             switch (_selectedCategory)
             {
                 case "Pending":
-                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield`,`request_production`.`due_date` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Item_ID` where `request_production`.`status` = 'pending';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Processing":
-                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'processing';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Complete":
-                    _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name` WHERE `request_production`.`status` = 'complete';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Request":
-                    _requestsGridSource = Connection.dbTable(@"SELECT `inventory`.`Item_ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
+                    _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
             }
@@ -105,7 +105,7 @@ namespace BLM.ViewModels.Requests
 
         public void btnRequest()
         {
-            _requestsGridSource = Connection.dbTable(@"SELECT `inventory`.`Item_ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
+            _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Request";
         }
@@ -124,7 +124,7 @@ namespace BLM.ViewModels.Requests
                     MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
                     if (dialogResult == MessageBoxResult.Yes)
                     {
-                        Connection.dbCommand("DELETE FROM `flc`.`request_production` WHERE (`id` = '" + dataRowView.Row[0].ToString() + "');");
+                        Connection.dbCommand("DELETE FROM `flc`.`production_requests` WHERE (`id` = '" + dataRowView.Row[0].ToString() + "');");
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace BLM.ViewModels.Requests
 
         protected override void OnActivate()
         {
-            _requestsGridSource = Connection.dbTable("Select `request_production`.`id`,`inventory`.`Name`,`request_production`.`status`, `request_production`.`theoretical_yield` from `flc`.`request_production` inner join `flc`.`inventory` on `flc`.`request_production`.`inventory_Item_ID` = `flc`.`inventory`.`Name`;");
+            _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
             _baseshipmentGridSource = _requestsGridSource;
             _selectedCategory = "All";
             NotifyOfPropertyChange(null);

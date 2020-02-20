@@ -32,7 +32,7 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnRequest"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -52,7 +52,7 @@
                 <Button
                     x:Name="btnPending"
                     Grid.Column="1"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -68,7 +68,7 @@
                 <Button
                     x:Name="btnProcessing"
                     Grid.Column="2"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -83,7 +83,7 @@
                 <Button
                     x:Name="btnComplete"
                     Grid.Column="3"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
