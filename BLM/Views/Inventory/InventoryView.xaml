@@ -200,7 +200,8 @@
                         x:Name="btnPrint"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
-                        Foreground="White" Click="btnPrint_Click">
+                        Click="btnPrint_Click"
+                        Foreground="White">
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
@@ -261,11 +262,11 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
-
                 <my:CrystalReportsViewer
-                    Name="crystalReportsViewer1"
-                    Width="500"
-                    Height="500"
+                     x:Name="crystalReportsViewer1"
+                    Width="765"
+                    Height="366"
+                    Margin="149,-54,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top" />
 

@@ -53,13 +53,13 @@ namespace BLM.Views.Inventory
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
 
-            crystalReportsViewer1.Owner = Window.GetWindow(this);
+            //crystalReportsViewer1.Owner = Window.GetWindow(this);
 
-            ReportDocument report = new ReportDocument();
-            string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\InventoryReport.rpt";
+            //ReportDocument report = new ReportDocument();
+            //string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\InventoryReport.rpt";
 
-            report.Load(path);
-            crystalReportsViewer1.ViewerCore.ReportSource = report;
+            //report.Load(path);
+            //crystalReportsViewer1.ViewerCore.ReportSource = report;
 
 
 
@@ -70,6 +70,11 @@ namespace BLM.Views.Inventory
             //report.Load(path);
 
             //crystalReportsViewer1.ViewerCore.ReportSource = report;
+
+            InventoryReport obj = new InventoryReport();
+            obj.Load(@"InventoryReport");
+            crystalReportsViewer1.ViewerCore.ReportSource = obj;
+
         }
     }
 }
