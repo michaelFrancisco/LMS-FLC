@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BLM.Views.Inventory"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
     d:DesignHeight="645"
     d:DesignWidth="1030"
     FontFamily="Roboto"
@@ -20,6 +21,7 @@
             <SolidColorBrush Color="White" />
         </Grid.Background>
         <Grid>
+
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource 3}" />
             </Grid.Background>
@@ -31,6 +33,9 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
+
+
                 <Button
                     x:Name="btnAll"
                     Margin="10,0"
@@ -167,6 +172,9 @@
                             </Label>
                         </StackPanel>
                     </Button>
+
+
+
                     <Button
                         x:Name="btnShowSelectedRequestItem"
                         Margin="5,0"
@@ -177,11 +185,33 @@
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
-                            <Label Margin="5,0" Foreground="White">
+                            <Label
+                                Margin="5,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="White">
                                 Show Selected Request Item
                             </Label>
                         </StackPanel>
                     </Button>
+
+                    <Button
+                        x:Name="btnPrint"
+                        Margin="5,0"
+                        BorderBrush="{x:Null}"
+                        Foreground="White" Click="btnPrint_Click">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
+                            <Label Foreground="White">
+                                Print
+                            </Label>
+                        </StackPanel>
+                    </Button>
+
                 </StackPanel>
                 <Button
                     x:Name="btnCreate"
@@ -231,6 +261,14 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
+
+                <my:CrystalReportsViewer
+                    Name="crystalReportsViewer1"
+                    Width="500"
+                    Height="500"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+
             </Grid>
         </Grid>
     </Grid>

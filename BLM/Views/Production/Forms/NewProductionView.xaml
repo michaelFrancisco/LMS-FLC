@@ -165,7 +165,7 @@
                     </Label>
                 </StackPanel>
             </Button>
-           
+
             <Button
                 x:Name="btnSend"
                 Width="200"

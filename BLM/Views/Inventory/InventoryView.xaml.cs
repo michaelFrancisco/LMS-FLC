@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BLM.Views.Inventory
@@ -11,7 +13,10 @@ namespace BLM.Views.Inventory
         public InventoryView()
         {
             InitializeComponent();
+
         }
+
+
 
         private void inventoryGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -43,6 +48,28 @@ namespace BLM.Views.Inventory
                 //    e.Column.Width = width1;
                 //    break;
             }
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+
+            crystalReportsViewer1.Owner = Window.GetWindow(this);
+
+            ReportDocument report = new ReportDocument();
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\InventoryReport.rpt";
+
+            report.Load(path);
+            crystalReportsViewer1.ViewerCore.ReportSource = report;
+
+
+
+            //crystalReportsViewer1.Owner = Window.GetWindow(this);
+            //ReportDocument report = new ReportDocument();
+            //string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
+            //path += @"\BLM\BLM\Reports\InventoryReport.rpt";
+            //report.Load(path);
+
+            //crystalReportsViewer1.ViewerCore.ReportSource = report;
         }
     }
 }

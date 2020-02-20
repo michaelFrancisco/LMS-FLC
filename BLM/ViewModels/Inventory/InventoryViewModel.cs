@@ -3,6 +3,10 @@ using BLM.ViewModels.Inventory.Forms;
 using Caliburn.Micro;
 using System;
 using System.Data;
+using CrystalDecisions.CrystalReports.Engine;
+using System.Windows;
+using SAPBusinessObjects.WPF.Viewer;
+using System.IO;
 
 namespace BLM.ViewModels.Inventory
 {
@@ -145,6 +149,33 @@ namespace BLM.ViewModels.Inventory
             _selectedCategory = "All Products";
             NotifyOfPropertyChange(null);
             base.OnActivate();
+        }
+        private CrystalReportsViewer _crystalReportsViewer1;
+
+        public CrystalReportsViewer crystalReportsViewer1
+        {
+            get { return _crystalReportsViewer1; }
+            set { _crystalReportsViewer1 = value; }
+        }
+
+        public void btnPrint()
+        {
+            //reportViewer.Owner = this;
+
+            //ReportDocument report = new ReportDocument();
+            //string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\inventoryReport.rpt";
+
+            //report.Load(path);
+            //reportViewer.ViewerCore.ReportSource = report;
+
+            //ReportDocument report = new ReportDocument();
+            //report.Load("../../inventoryReport.rpt");
+
+            //crystalReportsViewer1.ViewerCore.ReportSource = report;
+
+
+
+            NotifyOfPropertyChange(() => crystalReportsViewer1);
         }
     }
 }

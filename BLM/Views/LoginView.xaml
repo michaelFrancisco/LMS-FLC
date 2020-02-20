@@ -16,20 +16,19 @@
     </Window.Background>
     <Grid>
         <Grid
+            Width="420"
+            Height="200"
             Margin="0"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center" Width="420" Height="200">
+            VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions />
             <Grid Margin="10" Background="White">
-                <TextBox
-                    x:Name="username"
-                    VerticalContentAlignment="Center">
+                <TextBox x:Name="username" VerticalContentAlignment="Center">
                     <TextBox.Style>
                         <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
                             <Style.Resources>
@@ -40,14 +39,17 @@
                                     Stretch="None">
                                     <VisualBrush.Visual>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="/BLM;component/Resources/Icons/icons8-person-64.png" Width="25" Height="26"/>
+                                            <Image
+                                                Width="25"
+                                                Height="26"
+                                                Source="/BLM;component/Resources/Icons/icons8-person-64.png" />
                                             <Label
-                                            Content="Username"
-                                            FontFamily="Roboto"
-                                            FontSize="20"
-                                            Foreground="#FF7E7E7E" />
+                                                Content="Username"
+                                                FontFamily="Roboto"
+                                                FontSize="20"
+                                                Foreground="#FF7E7E7E" />
                                         </StackPanel>
-                                        
+
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </Style.Resources>
@@ -72,7 +74,8 @@
                 Background="White">
                 <TextBox
                     x:Name="password"
-                    VerticalContentAlignment="Center" FontFamily="Segoe MDL2 Assets">
+                    VerticalContentAlignment="Center"
+                    FontFamily="Segoe MDL2 Assets">
                     <TextBox.Style>
                         <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
                             <Style.Resources>
@@ -83,12 +86,15 @@
                                     Stretch="None">
                                     <VisualBrush.Visual>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="/BLM;component/Resources/Icons/icons8-password-48.png" Width="25" Height="25"/>
+                                            <Image
+                                                Width="25"
+                                                Height="25"
+                                                Source="/BLM;component/Resources/Icons/icons8-password-48.png" />
                                             <Label
-                                            Content="Password"
-                                            FontFamily="Roboto"
-                                            FontSize="20"
-                                            Foreground="#FF838383" />
+                                                Content="Password"
+                                                FontFamily="Roboto"
+                                                FontSize="20"
+                                                Foreground="#FF838383" />
                                         </StackPanel>
                                     </VisualBrush.Visual>
                                 </VisualBrush>
