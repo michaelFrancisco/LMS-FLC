@@ -1,6 +1,5 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Requests.Forms;
-using BLM.ViewModels.Shipments.Forms;
 using Caliburn.Micro;
 using System;
 using System.Data;
@@ -52,7 +51,7 @@ namespace BLM.ViewModels.Requests
 
         public void btnComplete()
         {
-            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Complete";
         }
@@ -63,14 +62,14 @@ namespace BLM.ViewModels.Requests
 
         public void btnPending()
         {
-            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Pending";
         }
 
         public void btnProcessing()
         {
-            _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Processing";
         }
@@ -80,17 +79,17 @@ namespace BLM.ViewModels.Requests
             switch (_selectedCategory)
             {
                 case "Pending":
-                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Processing":
-                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Complete":
-                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`id`,`inventory`.`Name`,`production_requests`.`status`, `production_requests`.`theoretical_yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
@@ -115,17 +114,19 @@ namespace BLM.ViewModels.Requests
             try
             {
                 DataRowView dataRowView = (DataRowView)_requestsGridSelectedItem;
-                if (_selectedCategory == "Request")
+                switch (_selectedCategory)
                 {
-                    windowManager.ShowWindow(new NewRequestViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
-                }
-                else if (_selectedCategory == "Pending")
-                {
-                    MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
-                    if (dialogResult == MessageBoxResult.Yes)
-                    {
-                        Connection.dbCommand("DELETE FROM `flc`.`production_requests` WHERE (`id` = '" + dataRowView.Row[0].ToString() + "');");
-                    }
+                    case "Request":
+                        windowManager.ShowWindow(new NewRequestViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                        break;
+
+                    case "Pending":
+                        MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
+                        if (dialogResult == MessageBoxResult.Yes)
+                        {
+                            Connection.dbCommand("DELETE FROM `flc`.`production_requests` WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
+                        }
+                        break;
                 }
             }
             catch
@@ -137,7 +138,7 @@ namespace BLM.ViewModels.Requests
         {
             _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
             _baseshipmentGridSource = _requestsGridSource;
-            _selectedCategory = "All";
+            _selectedCategory = "Request";
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

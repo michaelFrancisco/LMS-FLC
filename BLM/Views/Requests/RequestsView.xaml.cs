@@ -18,7 +18,7 @@ namespace BLM.Views.Requests
             DataGridLength width = new DataGridLength(2, DataGridLengthUnitType.Star);
             switch (e.Column.Header.ToString())
             {
-                case "Item_ID":
+                case "ID":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
 
@@ -51,7 +51,7 @@ namespace BLM.Views.Requests
                     break;
 
                 case "Name":
-                    width = new DataGridLength(2, DataGridLengthUnitType.Star);
+                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
                     e.Column.Width = width;
                     break;
             }

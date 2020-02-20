@@ -10,6 +10,8 @@ namespace BLM.ViewModels.Requests.Forms
     {
         private DateTime _dateDue;
         private int _itemID;
+        private object _materialsGridSelectedItem;
+        private DataTable _materialsGridSource;
         private DateTime _selecteddateDue;
         private string _txtName;
 
@@ -20,6 +22,8 @@ namespace BLM.ViewModels.Requests.Forms
             _itemID = itemID;
             DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
             _txtName = dt.Rows[0][0].ToString();
+            dt = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "'");
+            _materialsGridSource = dt;
             _dateDue = DateTime.Now;
             NotifyOfPropertyChange(null);
         }
@@ -28,6 +32,18 @@ namespace BLM.ViewModels.Requests.Forms
         {
             get { return _dateDue; }
             set { _dateDue = value; }
+        }
+
+        public object materialsGridSelectedItem
+        {
+            get { return _materialsGridSelectedItem; }
+            set { _materialsGridSelectedItem = value; }
+        }
+
+        public DataTable materialsGridSource
+        {
+            get { return _materialsGridSource; }
+            set { _materialsGridSource = value; }
         }
 
         public DateTime selecteddateDue
