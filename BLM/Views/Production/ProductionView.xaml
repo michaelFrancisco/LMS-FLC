@@ -14,9 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.Background>
             <SolidColorBrush Color="White" />
@@ -27,29 +25,28 @@
             </Grid.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="343*" />
+                    <ColumnDefinition Width="344*" />
+                    <ColumnDefinition Width="343*" />
                 </Grid.ColumnDefinitions>
-                <!--  Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"  -->
                 <Button
                     x:Name="btnPending"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{Binding brushRequest}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            Request/s
-                        </Label>
+                        <Label
+                            VerticalContentAlignment="Center"
+                            Content="Pending"
+                            Foreground="White" />
                     </StackPanel>
                 </Button>
                 <Button
                     x:Name="btnProcessing"
                     Grid.Column="1"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{Binding brushProcessing}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -63,7 +60,7 @@
                 <Button
                     x:Name="btnFinished"
                     Grid.Column="2"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{Binding brushFinished}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -74,99 +71,14 @@
                         </Label>
                     </StackPanel>
                 </Button>
-                <Button
-                    x:Name="btnRefresh"
-                    Grid.Column="3"
-                    Margin="10,0"
-                    Background="{Binding brushRefreshAll}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            Refresh All
-                        </Label>
-                    </StackPanel>
-                </Button>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Label
-                x:Name="s3"
-                Margin="5,4.6,5,4.8"
-                Content="Product Name"
-                FontSize="24" />
-            <Label
-                x:Name="s2"
-                Grid.Row="1"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Content="Theoretical Yield"
-                FontSize="24" />
-            <Label
-                x:Name="s1"
-                Grid.Row="1"
-                Grid.Column="2"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Content="Date Created"
-                FontSize="24" />
-            <TextBox
-                x:Name="txtProductName"
-                Grid.Column="1"
-                Grid.ColumnSpan="23"
-                Height="40"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                FontSize="18"
-                IsReadOnly="True"
-                Text=""
-                TextWrapping="Wrap" />
-            <TextBox
-                x:Name="txtTheoreticalYield"
-                Grid.Row="1"
-                Grid.Column="1"
-                Height="40"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                FontSize="26"
-                IsReadOnly="True"
-                TextWrapping="Wrap" />
-
-            <TextBox
-                x:Name="txtRFID"
-                Grid.Row="1"
-                Grid.Column="3"
-                Height="40"
-                Margin="5,4.6,5,4.8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                FontSize="26"
-                IsReadOnly="True"
-                TextWrapping="Wrap" />
-        </Grid>
-
-        <Grid Grid.Row="3" Background="White">
+        <Grid Grid.Row="1" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid Margin="0">
                 <StackPanel
                     Margin="5"
                     HorizontalAlignment="Left"
@@ -212,46 +124,24 @@
                         BorderBrush="{x:Null}"
                         Foreground="White"
                         Visibility="{Binding btnProceedVisibility}">
-
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
-                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-ok-64.png" />
-                            <Label Foreground="White">
-                                Proceed
-                            </Label>
+                            <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
+                            <Label
+                                x:Name="lblButton"
+                                Content="Proceed"
+                                Foreground="White" />
                         </StackPanel>
                     </Button>
-                   
                 </StackPanel>
-                <Button
-                    x:Name="btnCreate"
-                    Height="40"
-                    Margin="5,0"
-                    HorizontalAlignment="Right"
-                    BorderBrush="{x:Null}"
-                    Foreground="White"
-                    Visibility="{Binding btnCreateVisibility}">
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource 1}" />
-                    </Button.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="35"
-                            Height="35"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Create M.O.</Label>
-                    </StackPanel>
-                </Button>
             </Grid>
             <Grid Grid.Row="1">
                 <DataGrid
                     x:Name="productionGrid"
-                    Margin="10,10,0.4,-0.2"
+                    Margin="5,0,5,5"
                     HorizontalAlignment="Stretch"
-                    cal:Message.Attach="[Event SelectionChanged] = [Action print]"
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
                     AutoGeneratingColumn="productionGrid_AutoGeneratingColumn"
@@ -277,5 +167,3 @@
         </Grid>
     </Grid>
 </UserControl>
-<!--  cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"  -->
-

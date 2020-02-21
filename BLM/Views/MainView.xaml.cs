@@ -29,7 +29,7 @@ namespace BLM.Views
         {
             switch (e.Column.Header.ToString())
             {
-                case "Log_ID":
+                case "ID":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
             }

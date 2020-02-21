@@ -25,10 +25,10 @@
             </Grid.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="258*" />
-                    <ColumnDefinition Width="258*" />
-                    <ColumnDefinition Width="257*" />
-                    <ColumnDefinition Width="257*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnRequest"
@@ -154,21 +154,6 @@
                             <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                             <Label Foreground="White">
                                 Refresh
-                            </Label>
-                        </StackPanel>
-                    </Button>
-                    <Button
-                        x:Name="btnExport"
-                        Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
-                            <Label Margin="5,0" Foreground="White">
-                                Export
                             </Label>
                         </StackPanel>
                     </Button>

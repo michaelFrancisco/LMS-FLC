@@ -38,7 +38,8 @@
 
                 <Button
                     x:Name="btnAll"
-                    Margin="10,0"
+                    Grid.Column="4"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -69,7 +70,7 @@
                 <Button
                     x:Name="btnPackaging"
                     Grid.Column="2"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -83,7 +84,7 @@
                 <Button
                     x:Name="btnFinished"
                     Grid.Column="3"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -97,8 +98,7 @@
                 </Button>
                 <Button
                     x:Name="btnRequests"
-                    Grid.Column="4"
-                    Margin="10,0"
+                    Margin="0"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -112,7 +112,10 @@
                 </Button>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Background="White">
+        <Grid
+            Grid.Row="1"
+            Margin="5,0"
+            Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition />
@@ -173,29 +176,6 @@
                         </StackPanel>
                     </Button>
 
-
-
-                    <Button
-                        x:Name="btnShowSelectedRequestItem"
-                        Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
-                            <Label
-                                Margin="5,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="15"
-                                Foreground="White">
-                                Show Selected Request Item
-                            </Label>
-                        </StackPanel>
-                    </Button>
-
                     <Button
                         x:Name="btnPrint"
                         Margin="5,0"
@@ -216,8 +196,7 @@
                 </StackPanel>
                 <Button
                     x:Name="btnCreate"
-                    Height="40"
-                    Margin="5,0"
+                    Margin="5"
                     HorizontalAlignment="Right"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -238,7 +217,7 @@
                 <DataGrid
                     x:Name="inventoryGrid"
                     Grid.Row="1"
-                    Margin="5"
+                    Margin="5,0,5,5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AlternatingRowBackground="LightGray"
@@ -262,14 +241,6 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
-                <my:CrystalReportsViewer
-                     x:Name="crystalReportsViewer1"
-                    Width="765"
-                    Height="366"
-                    Margin="149,-54,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top" />
-
             </Grid>
         </Grid>
     </Grid>

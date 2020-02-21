@@ -1,12 +1,8 @@
 ﻿using BLM.Models;
 using Caliburn.Micro;
-using MailKit.Net.Smtp;
-using MimeKit;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Windows;
 
 namespace BLM.ViewModels.Requests.Forms
@@ -22,10 +18,15 @@ namespace BLM.ViewModels.Requests.Forms
         private int _txtQuantity;
         private string _txtRequest;
         private Visibility _warningVisibility;
+        private readonly IWindowManager windowManager = new WindowManager();
 
         public NewRequestViewModel(int itemID)
         {
             _itemID = itemID;
+        }
+
+        protected override void OnActivate()
+        {
             DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
             _txtName = dt.Rows[0][0].ToString();
             _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';");
@@ -34,6 +35,7 @@ namespace BLM.ViewModels.Requests.Forms
             _txtRequest = "Request Production";
             raiseWarningIfNotEnoughMaterials();
             NotifyOfPropertyChange(null);
+            base.OnActivate();
         }
 
         public DateTime dateDue
@@ -105,27 +107,20 @@ namespace BLM.ViewModels.Requests.Forms
 
         public void btnSave()
         {
-            try
+            if (areRequiredFieldsComplete() && hasEnoughItems())
             {
-                if (areRequiredFieldsComplete() && hasEnoughItems())
-                {
-                    Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
-                    Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
-                    TryClose();
-                }
-                else if (!hasEnoughItems())
-                {
-                    emailSuppliers();
-                    TryClose();
-                }
-                else if (!areRequiredFieldsComplete())
-                {
-                    MessageBox.Show("Please fill required fields");
-                }
+                Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'Pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
+                Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
+                TryClose();
             }
-            catch (System.Exception e)
+            else if (!hasEnoughItems())
             {
-                MessageBox.Show(e.Message);
+                windowManager.ShowWindow(new EmailPreviewViewModel(GetListOfMissingMaterials()), null, null);
+                TryClose();
+            }
+            else if (!areRequiredFieldsComplete())
+            {
+                MessageBox.Show("Please fill required fields");
             }
         }
 
@@ -182,30 +177,6 @@ namespace BLM.ViewModels.Requests.Forms
             NotifyOfPropertyChange(() => txtRequest);
             NotifyOfPropertyChange(() => warningVisibility);
         }
-
-        private void emailSuppliers()
-        {
-            var emailGroups = from MissingMaterial in GetListOfMissingMaterials() group MissingMaterial by MissingMaterial.Email;
-            ArrayList materials = new ArrayList();
-            foreach (var group in emailGroups)
-            {
-                string subject = "Request for materials";
-                string email = group.Key;
-                string name = "";
-                string body = @"We would like to request the following materials: ";
-                foreach(var material in group)
-                {
-                    name = material.SupplierName;
-                    body += System.Environment.NewLine + material.MaterialName + "(x" + material.RequiredQuantity + ")";
-                }
-                body += System.Environment.NewLine + "We hope to receive your reply as soon as possible.";
-                body += System.Environment.NewLine + "Thank you.";
-                body += System.Environment.NewLine + "[THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]";
-                Connection.sendEmail(subject, body, name, email);
-            }
-        }
-
-        
 
         public class MissingMaterial
         {

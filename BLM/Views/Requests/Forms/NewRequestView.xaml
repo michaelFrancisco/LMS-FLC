@@ -106,8 +106,17 @@
                 </Button.Background>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                    <TextBlock x:Name="txtRequest"
-                        Foreground="White" Text="Request Production" FontSize="16" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="142" MaxHeight="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock
+                        x:Name="txtRequest"
+                        MaxWidth="142"
+                        MaxHeight="36"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Foreground="White"
+                        Text="Request Production"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -127,6 +136,7 @@
             cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
             AlternatingRowBackground="LightGray"
             AlternationCount="2"
+            AutoGeneratingColumn="materialsGrid_AutoGeneratingColumn"
             Background="White"
             BorderBrush="Black"
             BorderThickness="1"
@@ -138,7 +148,7 @@
             ItemsSource="{Binding materialsGridSource}"
             RowBackground="White"
             SelectedItem="{Binding materialsGridSelectedItem}"
-            SelectionMode="Single" AutoGeneratingColumn="materialsGrid_AutoGeneratingColumn">
+            SelectionMode="Single">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="White" />

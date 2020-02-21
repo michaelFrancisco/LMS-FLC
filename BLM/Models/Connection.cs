@@ -3,8 +3,6 @@ using System.Data;
 using System.Data.Odbc;
 using System.Net.Mail;
 using MailKit.Net.Smtp;
-using MimeKit;
-
 namespace BLM.Models
 {
     internal class Connection
@@ -59,14 +57,8 @@ namespace BLM.Models
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587);
-
-                // Note: since we don't have an OAuth2 token, disable
-                // the XOAUTH2 authentication mechanism.
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-
-                // Note: only needed if the SMTP server requires authentication
                 client.Authenticate("flc.email.bot@gmail.com", "capstoning");
-
                 client.Send(message);
                 client.Disconnect(true);
             }
