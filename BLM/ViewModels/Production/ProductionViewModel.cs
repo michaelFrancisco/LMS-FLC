@@ -11,17 +11,10 @@ namespace BLM.ViewModels.Production
     internal class ProductionViewModel : Screen
     {
         private readonly IWindowManager windowManager = new WindowManager();
+        private Visibility _btnProceedVisibility;
         private string _lblButton;
         private object _productionGridSelectedItem;
         private DataTable _productionGridSource;
-
-        public string lblButton
-        {
-            get { return _lblButton; }
-            set { _lblButton = value; }
-        }
-
-        private Visibility _btnProceedVisibility;
 
         public Visibility btnProceedVisibility
         {
@@ -29,6 +22,11 @@ namespace BLM.ViewModels.Production
             set { _btnProceedVisibility = value; }
         }
 
+        public string lblButton
+        {
+            get { return _lblButton; }
+            set { _lblButton = value; }
+        }
         public object productionGridSelectedItem
         {
             get { return _productionGridSelectedItem; }
