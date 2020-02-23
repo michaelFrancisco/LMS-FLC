@@ -25,9 +25,9 @@
             </Grid.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="343*" />
-                    <ColumnDefinition Width="344*" />
-                    <ColumnDefinition Width="343*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnPending"

@@ -27,6 +27,7 @@ namespace BLM.ViewModels.Production
             get { return _lblButton; }
             set { _lblButton = value; }
         }
+
         public object productionGridSelectedItem
         {
             get { return _productionGridSelectedItem; }
