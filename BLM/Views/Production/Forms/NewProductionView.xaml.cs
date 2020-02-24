@@ -82,5 +82,10 @@ namespace BLM.Views.Production.Forms
             //        break;
             //}
         }
+
+        private void materialsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+        }
     }
 }
