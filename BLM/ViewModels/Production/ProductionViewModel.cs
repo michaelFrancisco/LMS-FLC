@@ -1,6 +1,7 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Production.Forms;
 using Caliburn.Micro;
+using System;
 using System.Data;
 using System.Windows;
 
@@ -57,27 +58,21 @@ namespace BLM.ViewModels.Production
 
         public void btnProceed()
         {
-            try
+            DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
+            switch (_lblButton)
             {
-                DataRowView dataRowView = (DataRowView)_productionGridSelectedItem;
-                switch (_lblButton)
-                {
-                    case "Accept Raw Materials From Inventory":
-                        windowManager.ShowWindow(new NewProductionViewModel((int)dataRowView.Row[0]), null, null);
-                        break;
+                case "Accept Raw Materials From Inventory":
+                    windowManager.ShowWindow(new NewProductionViewModel(Int32.Parse(dataRowView.Row[0].ToString())), null, null);
+                    break;
 
-                    case "Mark Request as Finished":
-                        MessageBoxResult dialogResult = MessageBox.Show("Mark this request as finished?", "!", MessageBoxButton.YesNo);
-                        if (dialogResult == MessageBoxResult.Yes)
-                        {
-                            Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Finished' WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
-                            MessageBox.Show("Dispensing Officer has been notified, please prepare items for physical inspection");
-                        }
-                        break;
-                }
-            }
-            catch
-            {
+                case "Mark Request as Finished":
+                    MessageBoxResult dialogResult = MessageBox.Show("Mark this request as finished?", "!", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Finished' WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
+                        MessageBox.Show("Dispensing Officer has been notified, please prepare items for physical inspection");
+                    }
+                    break;
             }
         }
 

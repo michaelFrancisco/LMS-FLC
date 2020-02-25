@@ -1,6 +1,6 @@
 ﻿<Window
     x:Class="BLM.Views.Production.Forms.NewProductionView"
-   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -35,7 +35,7 @@
             <Label
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Content="Request Production"
+                Content="Confirm Items from Inventory"
                 Foreground="White" />
         </Grid>
         <Label
@@ -50,6 +50,7 @@
             Grid.Column="1"
             Margin="5"
             IsReadOnly="True"
+            IsReadOnlyCaretVisible="True"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="2"
@@ -62,6 +63,7 @@
             Grid.Row="2"
             Grid.Column="1"
             Margin="5"
+            IsReadOnlyCaretVisible="True"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="3"
@@ -106,16 +108,7 @@
                 </Button.Background>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                    <TextBlock
-                        x:Name="txtRequest"
-                        MaxWidth="142"
-                        MaxHeight="36"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White"
-                        Text="Confirm"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
+                    <Label Content="Confirm" Foreground="White" />
                 </StackPanel>
             </Button>
         </StackPanel>

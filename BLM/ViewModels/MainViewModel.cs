@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -277,6 +278,7 @@ namespace BLM.ViewModels
                 NotifyOfPropertyChange(() => sidebarWidth);
             }
             _sidebarSelectedIndex = 0;
+            refreshNotifications();
             NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
 
@@ -433,6 +435,7 @@ namespace BLM.ViewModels
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
                 _notifVisibility = Visibility.Visible;
+                SystemSounds.Beep.Play();
                 NotifyOfPropertyChange(() => txtNotifCount);
                 NotifyOfPropertyChange(() => notifVisibility);
             }

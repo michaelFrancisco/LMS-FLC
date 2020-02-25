@@ -8,14 +8,15 @@ namespace BLM.ViewModels.Production.Forms
 {
     internal class NewProductionViewModel : Screen
     {
-        private DataTable _materialsGridSource;
+        private readonly IWindowManager windowManager = new WindowManager();
         private DateTime _dateDue;
+        private object _materialsGridSelectedItem;
+        private DataTable _materialsGridSource;
+        private int _recipeID;
         private DateTime _selecteddateDue;
         private int _selectedRequestID;
-        private int _txtQuantity;
-        private object _materialsGridSelectedItem;
-        private readonly IWindowManager windowManager = new WindowManager();
         private string _txtName;
+        private int _txtQuantity;
         private string _txtRequest;
 
         public NewProductionViewModel(int selectedRequestID)
@@ -76,18 +77,32 @@ namespace BLM.ViewModels.Production.Forms
 
         public void btnSave()
         {
-            //Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'Pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
-            //Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
-            TryClose();
+            MessageBoxResult dialogResult = MessageBox.Show("All raw materials are complete and in good condition?", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Processing' WHERE (`ID` = '" + _selectedRequestID + "');");
+                foreach (DataRow row in _materialsGridSource.Rows)
+                {
+                    DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + row[2].ToString() + ";");
+                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[1]).ToString() + "' WHERE (`ID` = '" + row[2].ToString() + "');");
+                    Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory from Request no." + _selectedRequestID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                }
+                TryClose();
+            }
         }
 
         protected override void OnActivate()
         {
-            DataTable dt = Connection.dbTable("SELECT `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Due_Date` FROM `flc`.`inventory` INNER JOIN `flc`.`production_requests` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`ID` = '" + _selectedRequestID + "'; ");
+            DataTable dt = Connection.dbTable("SELECT `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Due_Date`,`production_requests`.`Recipe_ID` FROM `flc`.`inventory` INNER JOIN `flc`.`production_requests` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`ID` = '" + _selectedRequestID + "'; ");
             _txtName = dt.Rows[0][0].ToString();
             _txtQuantity = (int)dt.Rows[0][1];
             _dateDue = (DateTime)dt.Rows[0][2];
-            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`ID`, `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` INNER JOIN `flc`.`supplier` ON `supplier`.`ID` = `inventory`.`Supplier_ID` WHERE `inventory`.`ID` = '" + dt.Rows[0][3].ToString() + "'");
+            _recipeID = Int32.Parse(dt.Rows[0][3].ToString());
+            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity',`inventory`.`ID` FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + dt.Rows[0][3] + "'");
+            foreach (DataRow row in _materialsGridSource.Rows)
+            {
+                row[1] = int.Parse(row[1].ToString()) * _txtQuantity;
+            }
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
