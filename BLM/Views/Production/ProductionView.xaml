@@ -119,6 +119,21 @@
                         </TextBox.Style>
                     </TextBox>
                     <Button
+                        x:Name="btnRefresh"
+                        Margin="5,0"
+                        BorderBrush="{x:Null}"
+                        Foreground="White">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
+                            <Label Foreground="White">
+                                Refresh
+                            </Label>
+                        </StackPanel>
+                    </Button>
+                    <Button
                         x:Name="btnProceed"
                         Margin="5,0"
                         BorderBrush="{x:Null}"

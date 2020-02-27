@@ -80,7 +80,7 @@ namespace BLM.ViewModels.Production.Forms
             MessageBoxResult dialogResult = MessageBox.Show("All raw materials are complete and in good condition?", "!", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Processing' WHERE (`ID` = '" + _selectedRequestID + "');");
+                Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Currently being processed by the Production Team' WHERE (`ID` = '" + _selectedRequestID + "');");
                 foreach (DataRow row in _materialsGridSource.Rows)
                 {
                     DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + row[2].ToString() + ";");

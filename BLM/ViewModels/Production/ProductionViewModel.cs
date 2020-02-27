@@ -52,7 +52,7 @@ namespace BLM.ViewModels.Production
         {
             _btnProceedVisibility = Visibility.Visible;
             _lblButton = "Accept Raw Materials From Inventory";
-            _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID`where `production_requests`.`Status` = 'Pending'; ");
+            _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID`where `production_requests`.`Status` = 'Raw Materials delivered to Production team. Awaiting confirmation'; ");
             NotifyOfPropertyChange(null);
         }
 
@@ -69,7 +69,7 @@ namespace BLM.ViewModels.Production
                     MessageBoxResult dialogResult = MessageBox.Show("Mark this request as finished?", "!", MessageBoxButton.YesNo);
                     if (dialogResult == MessageBoxResult.Yes)
                     {
-                        Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Finished' WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
+                        Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.' WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
                         MessageBox.Show("Dispensing Officer has been notified, please prepare items for physical inspection");
                     }
                     break;
@@ -80,10 +80,13 @@ namespace BLM.ViewModels.Production
         {
             _btnProceedVisibility = Visibility.Visible;
             _lblButton = "Mark Request as Finished";
-            _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Processing'; ");
+            _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Currently being processed by the Production Team'; ");
             NotifyOfPropertyChange(null);
         }
 
+        public void btnRefresh()
+        {
+        }
         protected override void OnActivate()
         {
             base.OnActivate();

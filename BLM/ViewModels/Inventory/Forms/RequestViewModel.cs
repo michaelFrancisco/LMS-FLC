@@ -8,62 +8,103 @@ namespace BLM.ViewModels.Inventory.Forms
 {
     internal class RequestViewModel : Screen
     {
-        private DataTable _requestGridSource;
-        private string _txtMO;
+        private readonly IWindowManager windowManager = new WindowManager();
+        private DateTime _dateDue;
+        private object _materialsGridSelectedItem;
+        private DataTable _materialsGridSource;
+        private int _recipeID;
+        private DateTime _selecteddateDue;
+        private int _selectedRequestID;
+        private string _txtName;
+        private int _txtQuantity;
+        private string _txtRequest;
 
-        public RequestViewModel(string MO_ID)
+        public RequestViewModel(int selectedRequestID)
         {
-            _txtMO = MO_ID.ToString();
-            _requestGridSource = Connection.dbTable("SELECT b.inventory_Item_ID, b.item_name, a.recipe_id, a.quantity, c.request_production_id FROM mo_recipe AS a INNER JOIN recipe AS b ON a.recipe_id = b.id inner join manufacturing_order as c on a.manufacturing_order_id = c.id where a.manufacturing_order_id = '" + MO_ID + "';");
+            _selectedRequestID = selectedRequestID;
+        }
 
+        public DateTime dateDue
+        {
+            get { return _dateDue; }
+            set { _dateDue = value; }
+        }
+
+        public object materialsGridSelectedItem
+        {
+            get { return _materialsGridSelectedItem; }
+            set { _materialsGridSelectedItem = value; }
+        }
+
+        public DataTable materialsGridSource
+        {
+            get { return _materialsGridSource; }
+            set { _materialsGridSource = value; }
+        }
+
+        public DateTime selecteddateDue
+        {
+            get { return _selecteddateDue; }
+            set { _selecteddateDue = value; }
+        }
+
+        public string txtName
+        {
+            get { return _txtName; }
+            set { _txtName = value; }
+        }
+
+        public int txtQuantity
+        {
+            get { return _txtQuantity; }
+            set { _txtQuantity = value; }
+        }
+
+        public string txtRequest
+        {
+            get { return _txtRequest; }
+            set { _txtRequest = value; }
+        }
+
+        public void btnCancel()
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("Are you sure? Unsaved changes will be lost.", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                TryClose();
+            }
+        }
+
+        public void btnSave()
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("All raw materials are complete and in good condition?", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Raw Materials delivered to Production team. Awaiting confirmation' WHERE (`ID` = '" + _selectedRequestID + "');");
+                foreach (DataRow row in _materialsGridSource.Rows)
+                {
+                    DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + row[2].ToString() + ";");
+                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[1]).ToString() + "' WHERE (`ID` = '" + row[2].ToString() + "');");
+                    Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory from Request no." + _selectedRequestID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                }
+                TryClose();
+            }
+        }
+
+        protected override void OnActivate()
+        {
+            DataTable dt = Connection.dbTable("SELECT `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Due_Date`,`production_requests`.`Recipe_ID` FROM `flc`.`inventory` INNER JOIN `flc`.`production_requests` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`ID` = '" + _selectedRequestID + "'; ");
+            _txtName = dt.Rows[0][0].ToString();
+            _txtQuantity = (int)dt.Rows[0][1];
+            _dateDue = (DateTime)dt.Rows[0][2];
+            _recipeID = Int32.Parse(dt.Rows[0][3].ToString());
+            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity',`inventory`.`ID` FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + dt.Rows[0][3] + "'");
+            foreach (DataRow row in _materialsGridSource.Rows)
+            {
+                row[1] = int.Parse(row[1].ToString()) * _txtQuantity;
+            }
             NotifyOfPropertyChange(null);
-        }
-
-        public DataTable requestGridSource
-        {
-            get { return _requestGridSource; }
-            set { _requestGridSource = value; }
-        }
-
-        public string txtMO
-        {
-            get { return _txtMO; }
-            set { _txtMO = value; }
-        }
-
-        public void btnApprove()
-        {
-            bool hasEnoughItems = true;
-            foreach (DataRow row in _requestGridSource.Rows)
-            {
-                DataTable dt = Connection.dbTable("select `inventory`.`Item_ID`,`inventory`.`Quantity` from `flc`.`inventory` where `inventory`.`Name` = '" + row[1].ToString() + "';");
-                int currentQuantity = (int)dt.Rows[0][1];
-                int requestedQuantity = int.Parse(row[3].ToString());
-                int itemID = int.Parse(dt.Rows[0][0].ToString());
-                currentQuantity -= requestedQuantity;
-                if (currentQuantity < 0)
-                {
-                    hasEnoughItems = false;
-                }
-            }
-            if (hasEnoughItems)
-            {
-                foreach (DataRow row in _requestGridSource.Rows)
-                {
-                    DataTable dt = Connection.dbTable("select `inventory`.`Item_ID`,`inventory`.`Quantity` from `flc`.`inventory` where `inventory`.`Name` = '" + row[1].ToString() + "';");
-                    int currentQuantity = (int)dt.Rows[0][1];
-                    int requestedQuantity = int.Parse(row[3].ToString());
-                    int itemID = int.Parse(dt.Rows[0][0].ToString());
-                    Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (currentQuantity - requestedQuantity) + "' WHERE (`Item_ID` = '" + itemID + "');");
-                    Connection.dbCommand("INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`) VALUES ('" + CurrentUser.User_ID + "', '" + row[1].ToString() + "(" + requestedQuantity + ") was reduced from inventory', '" + row[1].ToString() + "(" + requestedQuantity + ") was reduced from inventory from Manufacturing Order no." + _txtMO + " and approved by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "');");
-                }
-                Connection.dbCommand("UPDATE `flc`.`manufacturing_order` SET `status` = 'processing' WHERE (`id` = '" + _txtMO + "');");
-                Connection.dbCommand("UPDATE `flc`.`request_production` SET `status` = 'processing' WHERE (`id` = '" + _requestGridSource.Rows[0][4] + "');");
-            }
-            else
-            {
-                MessageBox.Show("Not enough items!");
-            }
+            base.OnActivate();
         }
     }
 }

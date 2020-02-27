@@ -141,7 +141,7 @@
             BorderBrush="Black"
             BorderThickness="1"
             CanUserAddRows="False"
-            ColumnWidth="*"
+            ColumnWidth="Auto"
             FontSize="16"
             Foreground="Black"
             IsReadOnly="True"

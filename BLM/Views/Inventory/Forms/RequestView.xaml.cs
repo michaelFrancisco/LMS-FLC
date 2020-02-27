@@ -34,5 +34,10 @@ namespace BLM.Views.Inventory.Forms
                     break;
             }
         }
+
+        private void materialsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+        }
     }
 }

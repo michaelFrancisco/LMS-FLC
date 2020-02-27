@@ -435,7 +435,6 @@ namespace BLM.ViewModels
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
                 _notifVisibility = Visibility.Visible;
-                SystemSounds.Beep.Play();
                 NotifyOfPropertyChange(() => txtNotifCount);
                 NotifyOfPropertyChange(() => notifVisibility);
             }

@@ -3,10 +3,7 @@ using BLM.ViewModels.Inventory.Forms;
 using Caliburn.Micro;
 using System;
 using System.Data;
-using CrystalDecisions.CrystalReports.Engine;
 using System.Windows;
-using SAPBusinessObjects.WPF.Viewer;
-using System.IO;
 
 namespace BLM.ViewModels.Inventory
 {
@@ -52,15 +49,7 @@ namespace BLM.ViewModels.Inventory
             NotifyOfPropertyChange(null);
             _selectedCategory = "All Products";
         }
-        public void btnShowSelectedRequestItem()
-        {
-            if (_inventoryGridSelectedItem != null)
-            {
-                DataRowView DataRow = (DataRowView)_inventoryGridSelectedItem;
-                string MO_ID = DataRow.Row[0].ToString();
-                windowManager.ShowWindow(new RequestViewModel(MO_ID), null, null);
-            }
-        }
+
         public void btnCreate()
         {
             windowManager.ShowWindow(new NewItemViewModel(), null, null);
@@ -116,7 +105,7 @@ namespace BLM.ViewModels.Inventory
                     break;
 
                 case "Requests":
-                    _inventoryGridSource = Connection.dbTable("Select * from production_requests_items");
+                    _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.'");
                     NotifyOfPropertyChange(null);
                     break;
             }
@@ -126,7 +115,7 @@ namespace BLM.ViewModels.Inventory
 
         public void btnRequests()
         {
-            _inventoryGridSource = Connection.dbTable("Select * from production_requests_items");
+            _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.'");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Requests";
         }
@@ -136,7 +125,31 @@ namespace BLM.ViewModels.Inventory
             try
             {
                 DataRowView dataRowView = (DataRowView)_inventoryGridSelectedItem;
-                windowManager.ShowWindow(new EditItemViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                switch (_selectedCategory)
+                {
+                    case "Requests":
+                        if (dataRowView.Row[3].ToString() == "Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.")
+                        {
+                            MessageBoxResult dialogResult = MessageBox.Show("Move finished products to inventory?", "!", MessageBoxButton.YesNo);
+                            if (dialogResult == MessageBoxResult.Yes)
+                            {
+                                Connection.dbCommand("UPDATE `flc`.`production_requests` SET `Status` = 'Finished' WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
+                                DataTable currentQuantity = Connection.dbTable("SELECT Quantity FROM flc.inventory where ID = " + dataRowView.Row[5].ToString() + ";");
+                                Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) + (int)dataRowView.Row[2]).ToString() + "' WHERE (`ID` = '" + dataRowView.Row[5].ToString() + "');");
+                                Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + dataRowView.Row[1].ToString() + "(x" + dataRowView.Row[2].ToString() + ") was added to inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + dataRowView.Row[1].ToString() + "(x" + dataRowView.Row[2].ToString() + ") was added to inventory from Request no." + dataRowView.Row[0].ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
+                            }
+                        }
+                        else
+                        {
+                            windowManager.ShowWindow(new RequestViewModel(Int32.Parse(dataRowView.Row[0].ToString())), null, null);
+                        }
+                        break;
+
+                    default:
+                        windowManager.ShowWindow(new EditItemViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+                        break;
+                }
+                NotifyOfPropertyChange(null);
             }
             catch (Exception)
             {
@@ -150,32 +163,9 @@ namespace BLM.ViewModels.Inventory
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }
-        private CrystalReportsViewer _crystalReportsViewer1;
-
-        public CrystalReportsViewer crystalReportsViewer1
-        {
-            get { return _crystalReportsViewer1; }
-            set { _crystalReportsViewer1 = value; }
-        }
 
         public void btnPrint()
         {
-            //reportViewer.Owner = this;
-
-            //ReportDocument report = new ReportDocument();
-            //string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\inventoryReport.rpt";
-
-            //report.Load(path);
-            //reportViewer.ViewerCore.ReportSource = report;
-
-            //ReportDocument report = new ReportDocument();
-            //report.Load("../../inventoryReport.rpt");
-
-            //crystalReportsViewer1.ViewerCore.ReportSource = report;
-
-
-
-            NotifyOfPropertyChange(() => crystalReportsViewer1);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace BLM.ViewModels.Requests.Forms
         {
             DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
             _txtName = dt.Rows[0][0].ToString();
-            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';");
+            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` as 'Supplier Name' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';");
             _dateDue = DateTime.Now;
             _warningVisibility = Visibility.Hidden;
             _txtRequest = "Request Production";
@@ -74,7 +74,7 @@ namespace BLM.ViewModels.Requests.Forms
             set
             {
                 _txtQuantity = value;
-                _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';; ");
+                _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` as 'Supplier Name' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';; ");
                 foreach (DataRow row in _materialsGridSource.Rows)
                 {
                     row[1] = int.Parse(row[1].ToString()) * _txtQuantity;
@@ -109,7 +109,7 @@ namespace BLM.ViewModels.Requests.Forms
         {
             if (areRequiredFieldsComplete() && hasEnoughItems())
             {
-                Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'Pending', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
+                Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `Status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'Waiting for Raw Materials', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
                 Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
                 TryClose();
             }
