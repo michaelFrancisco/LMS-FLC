@@ -5,11 +5,16 @@
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BLM.Views.Inventory"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="645"
     d:DesignWidth="1030"
-    FontFamily="Roboto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     FontSize="22"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -32,10 +37,9 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="btnRequest"
+                    Height="Auto"
                     Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image
                             Width="45"
@@ -52,10 +56,9 @@
                 <Button
                     x:Name="btnPending"
                     Grid.Column="1"
+                    Height="Auto"
                     Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
@@ -68,10 +71,9 @@
                 <Button
                     x:Name="btnProcessing"
                     Grid.Column="2"
+                    Height="Auto"
                     Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
                         <Label
@@ -83,10 +85,9 @@
                 <Button
                     x:Name="btnComplete"
                     Grid.Column="3"
+                    Height="Auto"
                     Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                         <Label
@@ -109,42 +110,17 @@
                     Orientation="Horizontal">
                     <TextBox
                         x:Name="txtSearch"
-                        Width="300"
-                        VerticalContentAlignment="Center">
-                        <TextBox.Style>
-                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-                                <Style.Resources>
-                                    <VisualBrush
-                                        x:Key="CueBannerBrush"
-                                        AlignmentX="Left"
-                                        AlignmentY="Center"
-                                        Stretch="None">
-                                        <VisualBrush.Visual>
-                                            <Label
-                                                Content="Search"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Foreground="LightGray" />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Style.Resources>
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="White" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        Width="250"
+                        Margin="5,0,0,0"
+                        Padding="5,0,0,0"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Search"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <Button
                         x:Name="btnRefresh"
+                        Height="Auto"
                         Margin="5,0"
+                        HorizontalContentAlignment="Center"
                         BorderBrush="{x:Null}"
                         Foreground="White">
                         <Button.Background>
@@ -152,41 +128,30 @@
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
-                            <Label Foreground="White">
+                            <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White">
                                 Refresh
                             </Label>
                         </StackPanel>
                     </Button>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="5">
                 <DataGrid
                     x:Name="requestsGrid"
                     Grid.Row="1"
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
-                    AlternatingRowBackground="LightGray"
-                    AlternationCount="2"
                     AutoGeneratingColumn="requestsGrid_AutoGeneratingColumn"
-                    Background="White"
-                    BorderBrush="Black"
-                    BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="Auto"
-                    FontSize="16"
-                    Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding requestsGridSource}"
-                    RowBackground="White"
                     SelectedItem="{Binding requestsGridSelectedItem}"
-                    SelectionMode="Single">
-                    <DataGrid.Resources>
-                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="White" />
-                        </Style>
-                    </DataGrid.Resources>
-                </DataGrid>
+                    SelectionMode="Single" />
             </Grid>
         </Grid>
     </Grid>

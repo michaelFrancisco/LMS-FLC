@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -21,15 +20,6 @@ namespace BLM.ViewModels
     internal class MainViewModel : Conductor<Screen>
     {
         private readonly IWindowManager windowManager = new WindowManager();
-        private Brush _brushDashboard;
-        private Brush _brushInventory;
-        private Brush _brushLogs;
-        private Brush _brushOrders;
-        private Brush _brushProduction;
-        private Brush _brushRequest;
-        private Brush _brushScale;
-        private Brush _brushShipments;
-        private Brush _brushTracking;
         private Visibility _dashboardVisibility;
         private Visibility _inventoryVisibility;
         private Visibility _logsVisibility;
@@ -38,7 +28,7 @@ namespace BLM.ViewModels
         private string _notificationsDateComboBoxSelectedItem;
         private object _notificationSelectedItem;
         private string _notificationsText;
-        private Visibility _notifVisibility;
+        private Visibility _notificationsVisibility;
         private Visibility _productionVisibility;
         private Visibility _requestsVisibility;
         private Visibility _scaleVisibility;
@@ -54,60 +44,6 @@ namespace BLM.ViewModels
             dt.Tick += new EventHandler(timer_Tick);
             dt.Interval = new System.TimeSpan(0, 0, 5);
             dt.Start();
-        }
-
-        public Brush brushDashboard
-        {
-            get { return _brushDashboard; }
-            set { _brushDashboard = value; }
-        }
-
-        public Brush brushInventory
-        {
-            get { return _brushInventory; }
-            set { _brushInventory = value; }
-        }
-
-        public Brush brushLogs
-        {
-            get { return _brushLogs; }
-            set { _brushLogs = value; }
-        }
-
-        public Brush brushOrders
-        {
-            get { return _brushOrders; }
-            set { _brushOrders = value; }
-        }
-
-        public Brush brushProduction
-        {
-            get { return _brushProduction; }
-            set { _brushProduction = value; }
-        }
-
-        public Brush brushRequest
-        {
-            get { return _brushRequest; }
-            set { _brushRequest = value; }
-        }
-
-        public Brush brushScale
-        {
-            get { return _brushScale; }
-            set { _brushScale = value; }
-        }
-
-        public Brush brushShipments
-        {
-            get { return _brushShipments; }
-            set { _brushShipments = value; }
-        }
-
-        public Brush brushTracking
-        {
-            get { return _brushTracking; }
-            set { _brushTracking = value; }
         }
 
         public Visibility dashboardVisibility
@@ -132,7 +68,7 @@ namespace BLM.ViewModels
         {
             get
             {
-                DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y');");
+                DataTable dt = Connection.dbTable("select date_format(Timestamp, '%c/%d/%Y') from system_log group by date_format(Timestamp, '%c %d %Y') ORDER BY date_format(Timestamp, '%c/%d/%Y') DESC;");
                 List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("date_format(Timestamp, '%c/%d/%Y')")).ToList();
                 list.Insert(0, "Unread Notifications");
                 return list;
@@ -155,6 +91,17 @@ namespace BLM.ViewModels
                 if (_notificationsDateComboBoxSelectedItem == "Unread Notifications")
                 {
                     _notificationGridSource = Connection.dbTable("select ID,Subject from system_log where ID not in (select System_Log_ID from system_log_read where User_ID = " + CurrentUser.User_ID + ");");
+                    foreach (DataRow row in _notificationGridSource.Rows)
+                    {
+                        DataTable dt = Connection.dbTable("select Body from system_log where ID = '" + row[0].ToString() + "'");
+                        _notificationsText = dt.Rows[0][0].ToString();
+                        NotifyOfPropertyChange(() => notificationsText);
+                        dt = Connection.dbTable("SELECT * FROM flc.system_log_read where System_Log_ID = " + row[0].ToString() + " AND User_ID = " + CurrentUser.User_ID + ";");
+                        if (dt.Rows.Count == 0)
+                        {
+                            Connection.dbCommand("INSERT INTO `flc`.`system_log_read` (`System_Log_ID`, `User_ID`) VALUES ('" + row[0].ToString() + "', '" + CurrentUser.User_ID + "');");
+                        }
+                    }
                     NotifyOfPropertyChange(() => notificationGridSource);
                 }
                 else
@@ -179,8 +126,8 @@ namespace BLM.ViewModels
 
         public Visibility notifVisibility
         {
-            get { return _notifVisibility; }
-            set { _notifVisibility = value; }
+            get { return _notificationsVisibility; }
+            set { _notificationsVisibility = value; }
         }
 
         public Visibility productionVisibility
@@ -213,12 +160,6 @@ namespace BLM.ViewModels
             set { _sidebarSelectedIndex = value; }
         }
 
-        public double sidebarWidth
-        {
-            get { return _sidebarWidth; }
-            set { _sidebarWidth = value; }
-        }
-
         public Visibility trackingVisibility
         {
             get { return _trackingVisibility; }
@@ -234,16 +175,12 @@ namespace BLM.ViewModels
         public void btnDashboard()
         {
             ActivateItem(new DashboardViewModel());
-            clearColors();
-            _brushDashboard = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
         public void btnInventory()
         {
             ActivateItem(new InventoryViewModel());
-            clearColors();
-            _brushInventory = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
@@ -267,41 +204,21 @@ namespace BLM.ViewModels
 
         public void btnNotifications()
         {
-            if (_sidebarWidth == 0)
-            {
-                _sidebarWidth = 370;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
-            else
-            {
-                _sidebarWidth = 0;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
+            _notificationsDateComboBoxSelectedItem = string.Empty;
             _sidebarSelectedIndex = 0;
             refreshNotifications();
+            NotifyOfPropertyChange(() => notificationsDateComboBoxSelectedItem);
             NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
 
         public void btnProduction()
         {
             ActivateItem(new ProductionViewModel());
-            clearColors();
-            _brushProduction = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
         public void btnProfile()
         {
-            if (_sidebarWidth == 0)
-            {
-                _sidebarWidth = 350;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
-            else
-            {
-                _sidebarWidth = 0;
-                NotifyOfPropertyChange(() => sidebarWidth);
-            }
             _sidebarSelectedIndex = 2;
             NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
@@ -309,45 +226,24 @@ namespace BLM.ViewModels
         public void btnRequests()
         {
             ActivateItem(new RequestsViewModel());
-            clearColors();
-            _brushRequest = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
         public void btnScale()
         {
             ActivateItem(new ScaleViewModel());
-            clearColors();
-            _brushScale = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
         public void btnShipments()
         {
             ActivateItem(new ShipmentsViewModel());
-            clearColors();
-            _brushShipments = Brushes.DarkTurquoise;
             NotifyOfPropertyChange(null);
         }
 
         public void btnTracking()
         {
             ActivateItem(new TrackingMenuViewModel());
-            clearColors();
-            _brushTracking = Brushes.DarkTurquoise;
-            NotifyOfPropertyChange(null);
-        }
-
-        public void clearColors()
-        {
-            _brushDashboard = null;
-            _brushInventory = null;
-            _brushLogs = null;
-            _brushProduction = null;
-            _brushScale = null;
-            _brushShipments = null;
-            _brushTracking = null;
-            _brushRequest = null;
             NotifyOfPropertyChange(null);
         }
 
@@ -434,13 +330,13 @@ namespace BLM.ViewModels
             if (dt.Rows.Count != 0)
             {
                 _txtNotifCount = dt.Rows.Count.ToString();
-                _notifVisibility = Visibility.Visible;
+                _notificationsVisibility = Visibility.Visible;
                 NotifyOfPropertyChange(() => txtNotifCount);
                 NotifyOfPropertyChange(() => notifVisibility);
             }
             else
             {
-                _notifVisibility = Visibility.Hidden;
+                _notificationsVisibility = Visibility.Hidden;
                 NotifyOfPropertyChange(() => notifVisibility);
             }
         }

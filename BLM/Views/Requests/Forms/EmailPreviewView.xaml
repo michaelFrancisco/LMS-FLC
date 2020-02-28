@@ -9,10 +9,11 @@
     Title="Email Preview"
     Width="420"
     Height="420"
-    Background="#FFEEEEEE"
-    FontFamily="Roboto"
-    FontSize="22"
-    Foreground="White"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -24,10 +25,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label
-            Margin="0"
-            Content="Emails will be sent reqesting the following materials"
-            FontSize="12" />
+        <Label Margin="0" Content="Emails will be sent reqesting the following materials" />
         <StackPanel
             Grid.Row="6"
             Grid.Column="1"
@@ -48,7 +46,6 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Content="Cancel"
-                        FontSize="16"
                         Foreground="White" />
                 </StackPanel>
             </Button>
@@ -67,7 +64,6 @@
                         Margin="5,0,0,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        FontSize="16"
                         Foreground="White"
                         Text="Send Emails"
                         TextAlignment="Center"
@@ -79,7 +75,6 @@
             x:Name="txtEmailList"
             Grid.Row="1"
             Margin="5"
-            FontSize="12"
             IsReadOnly="True"
             ScrollViewer.CanContentScroll="True" />
     </Grid>
