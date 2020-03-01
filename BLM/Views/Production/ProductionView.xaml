@@ -5,6 +5,7 @@
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BLM.Views.Production"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="645"
     d:DesignWidth="1030"
@@ -29,12 +30,10 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Button
+                <RadioButton
                     x:Name="btnPending"
-                    Margin="0"
-                    Background="{Binding brushRequest}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Margin="3"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
@@ -42,35 +41,31 @@
                             Content="Pending"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnProcessing"
                     Grid.Column="1"
                     Margin="0"
-                    Background="{Binding brushProcessing}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-copy-production-order-64.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
                             Processing
                         </Label>
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnFinished"
                     Grid.Column="2"
                     Margin="0"
-                    Background="{Binding brushFinished}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-product.png" />
                         <Label VerticalContentAlignment="Center" Foreground="White">
                             Finished
                         </Label>
                     </StackPanel>
-                </Button>
+                </RadioButton>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="White">
@@ -86,46 +81,13 @@
                     <TextBox
                         x:Name="txtSearch"
                         Width="400"
-                        VerticalContentAlignment="Center">
-                        <TextBox.Style>
-                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-                                <Style.Resources>
-                                    <VisualBrush
-                                        x:Key="CueBannerBrush"
-                                        AlignmentX="Left"
-                                        AlignmentY="Center"
-                                        Stretch="None">
-                                        <VisualBrush.Visual>
-                                            <Label
-                                                Content="Search"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Foreground="LightGray" />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Style.Resources>
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="White" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        VerticalContentAlignment="Center"
+                        materialDesign:HintAssist.Hint="Search" />
                     <Button
                         x:Name="btnRefresh"
+                        Width="150"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                             <Label Foreground="White">
@@ -136,12 +98,7 @@
                     <Button
                         x:Name="btnProceed"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White"
-                        Visibility="{Binding btnProceedVisibility}">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                             <Label
