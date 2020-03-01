@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ferver Ledesma Corporation"
     Width="450"
-    Height="390"
+    Height="450"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     TextElement.FontSize="14"
@@ -56,6 +56,7 @@
         <TextBox
             x:Name="txtName"
             Grid.Row="1"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Column="1"
             Margin="5"
             TabIndex="0"
@@ -86,6 +87,7 @@
             Content="Quantity" />
         <TextBox
             x:Name="txtQuantity"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="4"
             Grid.Column="1"
             Margin="5"
@@ -102,6 +104,7 @@
         <TextBox
             x:Name="txtSize"
             Grid.Row="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Column="1"
             Margin="5"
             TabIndex="4"
@@ -117,6 +120,7 @@
         <TextBox
             x:Name="txtUnit"
             Grid.Row="6"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Column="1"
             Margin="5"
             TabIndex="5"
@@ -132,6 +136,7 @@
         <TextBox
             x:Name="txtCriticalLevel"
             Grid.Row="8"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Column="1"
             Margin="5"
             TabIndex="7"
@@ -202,6 +207,7 @@
             Content="Weight" />
         <TextBox
             x:Name="txtWeight"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="7"
             Grid.Column="1"
             Margin="5"

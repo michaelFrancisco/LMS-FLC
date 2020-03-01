@@ -32,7 +32,7 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton
                     x:Name="btnPending"
-                    Margin="3"
+                    Margin="2"
                     Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
@@ -45,7 +45,7 @@
                 <RadioButton
                     x:Name="btnProcessing"
                     Grid.Column="1"
-                    Margin="0"
+                    Margin="2"
                     Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-copy-production-order-64.png" />
@@ -57,7 +57,7 @@
                 <RadioButton
                     x:Name="btnFinished"
                     Grid.Column="2"
-                    Margin="0"
+                    Margin="2"
                     Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-product.png" />
@@ -80,6 +80,7 @@
                     Orientation="Horizontal">
                     <TextBox
                         x:Name="txtSearch"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Width="400"
                         VerticalContentAlignment="Center"
                         materialDesign:HintAssist.Hint="Search" />
@@ -98,7 +99,8 @@
                     <Button
                         x:Name="btnProceed"
                         Margin="5,0"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
+                        BorderBrush="{x:Null}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                             <Label
@@ -117,13 +119,8 @@
                     AlternatingRowBackground="LightGray"
                     AlternationCount="2"
                     AutoGeneratingColumn="productionGrid_AutoGeneratingColumn"
-                    Background="White"
-                    BorderBrush="Black"
-                    BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="Auto"
-                    FontSize="16"
-                    Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding productionGridSource}"
                     RowBackground="White"

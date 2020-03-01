@@ -8,10 +8,11 @@
     Title="Ferver Ledesma Corporation"
     Width="750"
     Height="600"
-    Background="#FFEEEEEE"
-    FontFamily="Roboto"
-    FontSize="22"
-    Foreground="White"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -30,10 +31,10 @@
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource 2}" />
+                <SolidColorBrush Color="{DynamicResource 1}" />
             </Grid.Background>
             <Label
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Content="Confirm Items from Inventory"
                 Foreground="White" />
@@ -51,6 +52,7 @@
             Margin="5"
             IsReadOnly="True"
             IsReadOnlyCaretVisible="True"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="2"
@@ -64,6 +66,7 @@
             Grid.Column="1"
             Margin="5"
             IsReadOnlyCaretVisible="True"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="3"
@@ -75,7 +78,8 @@
             x:Name="dateDue"
             Grid.Row="3"
             Grid.Column="1"
-            Margin="5" />
+            Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
         <StackPanel
             Grid.Row="6"
             Grid.Column="1"
@@ -85,10 +89,8 @@
             <Button
                 x:Name="btnCancel"
                 Width="200"
-                Margin="10,0">
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Button.Background>
+                Margin="10,0"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
                     <Label
@@ -102,13 +104,12 @@
             <Button
                 x:Name="btnSave"
                 Width="200"
-                Margin="10,0,5,0">
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Button.Background>
+                Margin="10,0,5,0"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}">
+
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                    <Label Content="Confirm" Foreground="White" />
+                    <Label Content="Confirm" Foreground="White" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -129,13 +130,8 @@
             AlternatingRowBackground="LightGray"
             AlternationCount="2"
             AutoGeneratingColumn="materialsGrid_AutoGeneratingColumn"
-            Background="White"
-            BorderBrush="Black"
-            BorderThickness="1"
             CanUserAddRows="False"
             ColumnWidth="*"
-            FontSize="16"
-            Foreground="Black"
             IsReadOnly="True"
             ItemsSource="{Binding materialsGridSource}"
             RowBackground="White"

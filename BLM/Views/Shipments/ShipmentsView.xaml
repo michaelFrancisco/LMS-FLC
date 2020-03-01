@@ -29,12 +29,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button
+                <RadioButton
                     x:Name="btnPending"
                     Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
@@ -43,14 +41,12 @@
                             FontFamily="Roboto"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnTransit"
                     Grid.Column="1"
                     Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
                         <Label
@@ -58,14 +54,12 @@
                             Content="In Transit"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnComplete"
                     Grid.Column="2"
                     Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                         <Label
@@ -73,7 +67,7 @@
                             Content="Complete"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
+                </RadioButton>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="White">
@@ -179,15 +173,8 @@
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
-                    AlternatingRowBackground="LightGray"
-                    AlternationCount="2"
-                    Background="White"
-                    BorderBrush="Black"
-                    BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="*"
-                    FontSize="16"
-                    Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding shipmentsGridSource}"
                     RowBackground="White"

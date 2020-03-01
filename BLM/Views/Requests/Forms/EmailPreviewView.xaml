@@ -74,6 +74,8 @@
         <TextBox
             x:Name="txtEmailList"
             Grid.Row="1"
+            BorderThickness="2"
+            BorderBrush="Black"
             Margin="5"
             IsReadOnly="True"
             ScrollViewer.CanContentScroll="True" />
