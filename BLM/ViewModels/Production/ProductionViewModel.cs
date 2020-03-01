@@ -45,7 +45,7 @@ namespace BLM.ViewModels.Production
         {
             _btnProceedVisibility = Visibility.Hidden;
             _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Finished'; ");
-            NotifyOfPropertyChange(null);
+            NotifyOfPropertyChange( null);
         }
 
         public void btnPending()
