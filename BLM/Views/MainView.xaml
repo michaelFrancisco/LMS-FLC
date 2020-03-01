@@ -235,7 +235,6 @@
                                 AutoGeneratingColumn="notificationsGrid_AutoGeneratingColumn"
                                 CanUserAddRows="False"
                                 ColumnWidth="*"
-                                FontSize="16"
                                 IsReadOnly="True"
                                 ItemsSource="{Binding notificationGridSource}"
                                 SelectedItem="{Binding notificationSelectedItem}"

@@ -15,51 +15,5 @@ namespace BLM.Views.Inventory
             InitializeComponent();
 
         }
-
-
-
-        private void inventoryGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            switch (e.Column.Header.ToString())
-            {
-                case "ID":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-                case "Name":
-                    DataGridLength width = new DataGridLength(5, DataGridLengthUnitType.Star);
-                    e.Column.Width = width;
-                    break;
-                case "Critical_Level":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-            }
-        }
-
-        private void btnPrint_Click(object sender, RoutedEventArgs e)
-        {
-
-            //crystalReportsViewer1.Owner = Window.GetWindow(this);
-
-            //ReportDocument report = new ReportDocument();
-            //string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\InventoryReport.rpt";
-
-            //report.Load(path);
-            //crystalReportsViewer1.ViewerCore.ReportSource = report;
-
-
-
-            //crystalReportsViewer1.Owner = Window.GetWindow(this);
-            //ReportDocument report = new ReportDocument();
-            //string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
-            //path += @"\BLM\BLM\Reports\InventoryReport.rpt";
-            //report.Load(path);
-
-            //crystalReportsViewer1.ViewerCore.ReportSource = report;
-
-            //InventoryReport obj = new InventoryReport();
-            //obj.Load(@"InventoryReport");
-            //crystalReportsViewer1.ViewerCore.ReportSource = obj;
-
-        }
     }
 }

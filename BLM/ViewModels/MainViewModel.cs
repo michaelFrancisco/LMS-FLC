@@ -34,7 +34,6 @@ namespace BLM.ViewModels
         private Visibility _scaleVisibility;
         private Visibility _shipmentsVisibility;
         private int _sidebarSelectedIndex;
-        private double _sidebarWidth;
         private Visibility _trackingVisibility;
         private string _txtNotifCount;
         private DispatcherTimer dt = new DispatcherTimer();
