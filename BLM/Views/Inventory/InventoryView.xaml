@@ -4,13 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:BLM.Views.Inventory"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
     d:DesignHeight="645"
     d:DesignWidth="1030"
-    FontFamily="Roboto"
-    FontSize="22"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -20,98 +22,88 @@
         <Grid.Background>
             <SolidColorBrush Color="White" />
         </Grid.Background>
-        <Grid>
-
-            <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource 3}" />
-            </Grid.Background>
+        <materialDesign:ColorZone Mode="PrimaryLight">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-
-
-                <Button
-                    x:Name="btnAll"
-                    Grid.Column="4"
-                    Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BLM;component/Resources/Icons/icons8-show-property-64.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            All Items
-                        </Label>
-                    </StackPanel>
-                </Button>
-                <Button
-                    x:Name="btnRawMaterials"
-                    Grid.Column="1"
-                    Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BLM;component/Resources/Icons/icons8-commodity-64.png" />
-                        <Label
-                            VerticalContentAlignment="Center"
-                            FontSize="20"
-                            Foreground="White">
-                            Raw Materials
-                        </Label>
-                    </StackPanel>
-                </Button>
-                <Button
-                    x:Name="btnPackaging"
-                    Grid.Column="2"
-                    Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BLM;component/Resources/Icons/icons8-packaging-64.png" />
-                        <Label VerticalContentAlignment="Center" Foreground="White">
-                            Packaging
-                        </Label>
-                    </StackPanel>
-                </Button>
-                <Button
-                    x:Name="btnFinished"
-                    Grid.Column="3"
-                    Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                        <Label
-                            VerticalContentAlignment="Center"
-                            Content="Finished"
-                            Foreground="White" />
-                    </StackPanel>
-                </Button>
-                <Button
-                    x:Name="btnRequests"
-                    Margin="0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
-                        <Label
-                            VerticalContentAlignment="Center"
-                            Content="Requests"
-                            Foreground="White" />
-                    </StackPanel>
-                </Button>
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource 3}" />
+                </Grid.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton
+                        x:Name="btnAll"
+                        Grid.Column="4"
+                        Height="Auto"
+                        Margin="3"
+                        Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-show-property-64.png" />
+                            <Label VerticalContentAlignment="Center" Foreground="White">
+                                All Items
+                            </Label>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="btnRawMaterials"
+                        Grid.Column="1"
+                        Height="Auto"
+                        Margin="3"
+                        Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-commodity-64.png" />
+                            <Label VerticalContentAlignment="Center" Foreground="White">
+                                Raw Materials
+                            </Label>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="btnPackaging"
+                        Grid.Column="2"
+                        Height="Auto"
+                        Margin="3"
+                        Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-packaging-64.png" />
+                            <Label VerticalContentAlignment="Center" Foreground="White">
+                                Packaging
+                            </Label>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="btnFinished"
+                        Grid.Column="3"
+                        Height="Auto"
+                        Margin="3"
+                        Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
+                            <Label
+                                VerticalContentAlignment="Center"
+                                Content="Finished"
+                                Foreground="White" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="btnRequests"
+                        Height="Auto"
+                        Margin="3"
+                        Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
+                            <Label
+                                VerticalContentAlignment="Center"
+                                Content="Requests"
+                                Foreground="White" />
+                        </StackPanel>
+                    </RadioButton>
+                </Grid>
             </Grid>
-        </Grid>
+        </materialDesign:ColorZone>
         <Grid
             Grid.Row="1"
             Margin="5,0"
@@ -128,48 +120,15 @@
                     <TextBox
                         x:Name="txtSearch"
                         Width="300"
-                        VerticalContentAlignment="Center">
-                        <TextBox.Style>
-                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-                                <Style.Resources>
-                                    <VisualBrush
-                                        x:Key="CueBannerBrush"
-                                        AlignmentX="Left"
-                                        AlignmentY="Center"
-                                        Stretch="None">
-                                        <VisualBrush.Visual>
-                                            <Label
-                                                Content="Search"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Foreground="LightGray" />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Style.Resources>
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="White" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        VerticalContentAlignment="Center"
+                        materialDesign:HintAssist.Hint="Search"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <Button
                         x:Name="btnRefresh"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="149.9">
                         <StackPanel Orientation="Horizontal">
-                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
+                            <Image Margin="0,0,5,0" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                             <Label Foreground="White">
                                 Refresh
                             </Label>
@@ -179,68 +138,40 @@
                     <Button
                         x:Name="btnPrint"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Click="btnPrint_Click"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
                         <StackPanel Orientation="Horizontal">
-                            <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
+                            <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
                             <Label Foreground="White">
                                 Print
                             </Label>
                         </StackPanel>
                     </Button>
+                    <Button
+                        x:Name="btnCreate"
+                        Margin="0"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
+                            <Label Content="Create New" Foreground="White" />
+                        </StackPanel>
+                    </Button>
 
                 </StackPanel>
-                <Button
-                    x:Name="btnCreate"
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource 1}" />
-                    </Button.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="35"
-                            Height="35"
-                            Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Create New</Label>
-                    </StackPanel>
-                </Button>
             </Grid>
             <Grid Grid.Row="1">
                 <DataGrid
                     x:Name="inventoryGrid"
                     Grid.Row="1"
-                    Margin="5,0,5,5"
+                    Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
-                    AlternatingRowBackground="LightGray"
-                    AlternationCount="2"
-                    AutoGeneratingColumn="inventoryGrid_AutoGeneratingColumn"
-                    Background="White"
-                    BorderBrush="Black"
-                    BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="Auto"
-                    FontSize="16"
-                    Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding inventoryGridSource}"
-                    RowBackground="White"
                     SelectedItem="{Binding inventoryGridSelectedItem}"
-                    SelectionMode="Single">
-                    <DataGrid.Resources>
-                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="White" />
-                        </Style>
-                    </DataGrid.Resources>
-                </DataGrid>
+                    SelectionMode="Single" />
             </Grid>
         </Grid>
     </Grid>

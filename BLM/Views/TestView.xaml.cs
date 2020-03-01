@@ -10,22 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LaunchChatClient
+namespace BLM.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TestView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TestView : Window
     {
-        public MainWindow()
+        public TestView()
         {
             InitializeComponent();
-            ChatClientCS.MainWindow win = new ChatClientCS.MainWindow();
-            win.Show();
-            this.Close();
         }
     }
 }

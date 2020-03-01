@@ -15,10 +15,25 @@ namespace BLM.Views.Requests.Forms
 
         private void materialsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            DataGridLength width = new DataGridLength(1, DataGridLengthUnitType.Star);
+
             switch (e.Column.Header.ToString())
             {
                 case "ID":
                     e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Supplier Name":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Email":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Name":
+                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
                     break;
             }
         }
