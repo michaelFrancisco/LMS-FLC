@@ -1,4 +1,6 @@
 ﻿using BLM.Models;
+using BLM.ViewModels.Inventory.Forms;
+using BLM.Views.Inventory.Forms;
 using Caliburn.Micro;
 using System.Data;
 
@@ -20,7 +22,7 @@ namespace BLM.ViewModels
 
         public void test()
         {
-            windowManager.ShowWindow(new TestViewModel(), null, null);
+            windowManager.ShowWindow(new InventoryReportViewModel(), null, null);
             TryClose();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLM.Reports;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,9 @@ namespace BLM.Views
         {
             InitializeComponent();
 
-            InventoryReport obj = new InventoryReport();
-            obj.Load(@"InventoryReport");
-            CrystalReportViewer.ViewerCore.ReportSource = obj;
+            //InventoryReport obj = new InventoryReport();
+            //obj.Load(@"Reports/InventoryReport");
+            //CrystalReportViewer.ViewerCore.ReportSource = obj;
         }
     }
 }

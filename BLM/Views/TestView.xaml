@@ -10,12 +10,4 @@
     Title="TestView"
     Width="800"
     Height="450"
-    mc:Ignorable="d">
-    <Viewer:CrystalReportsViewer
-        x:Name="CrystalReportViewer"
-        Width="Auto"
-        Height="Auto"
-        Margin="10"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch" />
-</Window>
+    mc:Ignorable="d"/>
