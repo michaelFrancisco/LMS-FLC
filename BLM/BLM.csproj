@@ -278,7 +278,8 @@
     </Reference>
     <Reference Include="Syncfusion.Pdf.Base, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.ReportWriter.Base.17.4.0.51\lib\net46\Syncfusion.Pdf.Base.dll</HintPath>
-    <Reference Include="Syncfusion.ReportControls.WPF, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+	</Reference>
+	<Reference Include="Syncfusion.ReportControls.WPF, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.ReportControls.WPF.17.4.0.51\lib\net46\Syncfusion.ReportControls.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.PropertyGrid.WPF, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
@@ -295,6 +296,7 @@
     </Reference>
     <Reference Include="Syncfusion.ReportWriter.Base, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.ReportWriter.Base.17.4.0.51\lib\net46\Syncfusion.ReportWriter.Base.dll</HintPath>
+	</Reference>
     <Reference Include="Syncfusion.RichTextBoxAdv.WPF, Version=17.4460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.RichTextBoxAdv.WPF.Classic.17.4.0.51\lib\net46\Syncfusion.RichTextBoxAdv.WPF.dll</HintPath>
     </Reference>
