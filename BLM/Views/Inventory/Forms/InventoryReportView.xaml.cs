@@ -22,10 +22,10 @@ namespace BLM.Views.Inventory.Forms
     {
         public InventoryReportView()
         {
+            InitializeComponent();
             InventoryReport obj = new InventoryReport();
             obj.Load(@"InventoryReport");
             rptInventory.ViewerCore.ReportSource = obj;
-            InitializeComponent();
         }
     }
 }

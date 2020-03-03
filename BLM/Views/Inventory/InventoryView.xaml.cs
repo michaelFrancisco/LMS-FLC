@@ -1,4 +1,5 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+﻿using BLM.Reports;
+using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace BLM.Views.Inventory
         public InventoryView()
         {
             InitializeComponent();
-
+           
         }
     }
 }

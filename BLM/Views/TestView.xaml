@@ -10,4 +10,13 @@
     Title="TestView"
     Width="800"
     Height="450"
-    mc:Ignorable="d"/>
+    mc:Ignorable="d">
+    <Viewer:CrystalReportsViewer
+        x:Name="rptInventoryReport"
+        Width="131"
+        Height="118"
+        Margin="227,108,0,0"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top" />
+</Window>
+

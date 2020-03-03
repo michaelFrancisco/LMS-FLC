@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace BLM.ViewModels.Inventory.Forms
 {
-    internal class InventoryReportViewModel : Screen
+     class InventoryReportViewModel : Screen
     {
-        protected override void OnActivate()
-        {
-            base.OnActivate();
-        }
     }
 
     
