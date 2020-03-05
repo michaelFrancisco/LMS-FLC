@@ -126,8 +126,7 @@
                     <Button
                         x:Name="btnRefresh"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White" Height="Auto">
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="149.9">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0,0,5,0" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                             <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -139,11 +138,7 @@
                     <Button
                         x:Name="btnPrint"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White" Height="Auto">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
                             <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -155,8 +150,7 @@
                         x:Name="btnCreate"
                         Margin="0"
                         HorizontalAlignment="Right"
-                        BorderBrush="{x:Null}"
-                        Foreground="White" Height="Auto">
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
                             <Label Content="Create New" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />

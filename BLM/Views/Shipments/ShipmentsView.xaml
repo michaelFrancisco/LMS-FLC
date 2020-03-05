@@ -156,8 +156,6 @@
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
-                    AlternationCount="2"
-                    BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="*"
                     IsReadOnly="True"

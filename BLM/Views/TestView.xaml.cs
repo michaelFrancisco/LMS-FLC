@@ -22,6 +22,10 @@ namespace BLM.Views
         public TestView()
         {
             InitializeComponent();
+
+            InventoryReport obj = new InventoryReport();
+            obj.Load(@"InventoryReport");
+            CrystalReportViewer.ViewerCore.ReportSource = obj;
         }
     }
 }

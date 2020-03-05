@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BLM.Views.Production"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="645"
@@ -85,6 +86,7 @@
                     Orientation="Horizontal">
                     <TextBox
                         x:Name="txtSearch"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Width="400"
                         VerticalContentAlignment="Center"
                         materialDesign:HintAssist.Hint="Search" />
@@ -92,11 +94,7 @@
                         x:Name="btnRefresh"
                         Height="Auto"
                         Margin="5,0"
-                        BorderBrush="{x:Null}"
-                        Foreground="White">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
                             <Label
@@ -112,11 +110,7 @@
                         Height="Auto"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
-                        Foreground="White"
-                        Visibility="{Binding btnProceedVisibility}">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource 1}" />
-                        </Button.Background>
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                             <Label

@@ -172,7 +172,6 @@
                         <Label VerticalAlignment="Center" Foreground="White">Logs</Label>
                     </StackPanel>
                 </RadioButton>
-                <Grid Height="246" />
                 <RadioButton
                     x:Name="btnLogout"
                     MinHeight="60"
@@ -275,9 +274,9 @@
                     <SolidColorBrush Color="{DynamicResource 1}" />
                 </Grid.Background>
                 <Button
-                    Width="100"
-                    Height="100"
-                    Margin="20,0,0,0"
+                    Width="60"
+                    Height="60"
+                    Margin="20,20,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="{x:Null}"
