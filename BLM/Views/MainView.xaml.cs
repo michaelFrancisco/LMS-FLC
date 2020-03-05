@@ -35,7 +35,5 @@ namespace BLM.Views
                     break;
             }
         }
-
-
     }
 }

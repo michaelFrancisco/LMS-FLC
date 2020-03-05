@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BLM.Views
+namespace BLM.ChatClientCS.Views
 {
     /// <summary>
-    /// Interaction logic for TestView.xaml
+    /// Interaction logic for ChatView.xaml
     /// </summary>
-    public partial class TestView : Window
+    public partial class ChatView : UserControl
     {
-        public TestView()
+        public ChatView()
         {
             InitializeComponent();
         }

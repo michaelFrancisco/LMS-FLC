@@ -195,10 +195,8 @@ namespace BLM.ViewModels
 
         public void btnMessages()
         {
-            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName.ToString();
-            path += @"\BLM\ChatClientCS\bin\Debug\SignalChat.exe";
-            AppDomain ChatDomain = AppDomain.CreateDomain("ChatDomain");
-            ChatDomain.ExecuteAssembly(path);
+            _sidebarSelectedIndex = 1;
+            NotifyOfPropertyChange(() => sidebarSelectedIndex);
         }
 
         public void btnNotifications()
