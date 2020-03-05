@@ -38,15 +38,10 @@ namespace BLM.Views.Shipments.Forms
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
 
-                case "Name":
-                    width = new DataGridLength(2, DataGridLengthUnitType.Star);
-                    e.Column.Width = width;
+                case "ID1":
+                    e.Column.Visibility = Visibility.Collapsed;
                     break;
 
-                case "Status":
-                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
-                    e.Column.Width = width;
-                    break;
 
                 case "Weight":
                     e.Column.Visibility = Visibility.Collapsed;

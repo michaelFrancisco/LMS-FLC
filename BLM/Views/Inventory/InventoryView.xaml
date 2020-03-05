@@ -127,10 +127,10 @@
                         x:Name="btnRefresh"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
-                        Foreground="White">
+                        Foreground="White" Height="Auto">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0,0,5,0" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
-                            <Label Foreground="White">
+                            <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                                 Refresh
                             </Label>
                         </StackPanel>
@@ -140,13 +140,13 @@
                         x:Name="btnPrint"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
-                        Foreground="White">
+                        Foreground="White" Height="Auto">
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
-                            <Label Foreground="White">
+                            <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                                 Print
                             </Label>
                         </StackPanel>
@@ -156,10 +156,10 @@
                         Margin="0"
                         HorizontalAlignment="Right"
                         BorderBrush="{x:Null}"
-                        Foreground="White">
+                        Foreground="White" Height="Auto">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                            <Label Content="Create New" Foreground="White" />
+                            <Label Content="Create New" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                         </StackPanel>
                     </Button>
 
@@ -177,7 +177,7 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding inventoryGridSource}"
                     SelectedItem="{Binding inventoryGridSelectedItem}"
-                    SelectionMode="Single" />
+                    SelectionMode="Single" AutoGeneratingColumn="InventoryGrid_AutoGeneratingColumn" />
             </Grid>
         </Grid>
     </Grid>

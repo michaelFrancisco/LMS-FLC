@@ -45,15 +45,6 @@ namespace BLM.Views.Requests
                 case "Critical_Level":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
-
-                case "id":
-                    e.Column.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Name":
-                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
-                    e.Column.Width = width;
-                    break;
             }
         }
     }

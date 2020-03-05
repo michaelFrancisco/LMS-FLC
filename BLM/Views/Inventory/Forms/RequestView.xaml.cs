@@ -24,20 +24,14 @@ namespace BLM.Views.Inventory.Forms
             InitializeComponent();
         }
 
-        private void itemsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void materialsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             switch (e.Column.Header.ToString())
             {
-                case "Item Name":
-                    DataGridLength width1 = new DataGridLength(1, DataGridLengthUnitType.Star);
-                    e.Column.Width = width1;
+                case "ID":
+                    e.Column.Visibility = Visibility.Collapsed;
                     break;
             }
-        }
-
-        private void materialsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-
         }
     }
 }

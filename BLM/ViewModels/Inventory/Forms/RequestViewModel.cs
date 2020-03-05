@@ -88,6 +88,7 @@ namespace BLM.ViewModels.Inventory.Forms
                     Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory', 'Inventory Update', '" + CurrentUser.User_ID.ToString() + "', '" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory from Request no." + _selectedRequestID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                 }
                 TryClose();
+                MessageBox.Show("Production staff has been notified, proceed to deliver materials to the production area");
             }
         }
 

@@ -33,57 +33,57 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button
+                <RadioButton
                     x:Name="btnRequest"
                     Height="Auto"
-                    Margin="0"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image
-                            Width="45"
-                            Height="45"
-                            Margin="2"
+                            Width="38"
+                            Height="38"
+                            Margin="0,0,0,0"
                             Source="/BLM;component/Resources/Icons/icons8-add-100(2).png" />
                         <Label
                             VerticalContentAlignment="Center"
                             Content="Request Production"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnPending"
                     Grid.Column="1"
                     Height="Auto"
-                    Margin="0"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
+                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
                             VerticalContentAlignment="Center"
                             Content="Pending"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnProcessing"
                     Grid.Column="2"
                     Height="Auto"
-                    Margin="0"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                        <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
                         <Label
                             VerticalContentAlignment="Center"
                             Content="Processing"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnComplete"
                     Grid.Column="3"
                     Height="Auto"
-                    Margin="0"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                         <Label
@@ -91,7 +91,7 @@
                             Content="Complete"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
+                </RadioButton>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="White">
@@ -137,8 +137,7 @@
             <Grid Grid.Row="1" Margin="5">
                 <DataGrid
                     x:Name="requestsGrid"
-                    Grid.Row="1"
-                    Margin="5"
+                    Margin="5,10,5,0"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AutoGeneratingColumn="requestsGrid_AutoGeneratingColumn"

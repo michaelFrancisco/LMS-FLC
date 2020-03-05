@@ -4,459 +4,428 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ferver Ledesma Corporation"
-    Width="1280"
-    Height="720"
-    Background="#FFEEEEEE"
-    FontFamily="Roboto"
-    FontSize="22"
-    Foreground="White"
+    Width="500"
+    Height="700"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="600" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="45" />
-        </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="3" Margin="0">
-            <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource 2}" />
-            </Grid.Background>
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Foreground="White">
-                Edit Shipment
-            </Label>
-        </Grid>
-        <Grid
-            Grid.Row="1"
-            Grid.RowSpan="9"
-            Grid.ColumnSpan="3"
-            Margin="0"
-            Background="#FF003459" />
-        <Label
-            Grid.Row="5"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Quantity"
-            Foreground="White" />
-        <Label
-            Grid.Row="10"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Category" />
-        <Label
-            Grid.Row="11"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Origin" />
-        <Label
-            Grid.Row="12"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Destination" />
-        <Label
-            Grid.Row="13"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Truck" />
-        <Label
-            Grid.Row="14"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Delivery Agent" />
-        <Label
-            Grid.Row="15"
-            Margin="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Date Due" />
-        <Button
-            x:Name="btnReconnectScale"
-            Grid.Row="16"
-            Width="200"
-            Margin="5">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource 1}" />
-            </Button.Background>
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/BLM;component/Resources/Icons/icons8-scale-64.png" />
+    <materialDesign:DrawerHost
+        Margin="0"
+        BorderBrush="{DynamicResource MaterialDesignDivider}"
+        BorderThickness="2">
+        <materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Category" />
+                <Label
+                    x:Name="lblCategory"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblCategory}" />
+                <Label
+                    x:Name="lblOrigin"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblOrigin}" />
+                <Label
+                    x:Name="lblDestination"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblDestination}" />
+                <Label
+                    x:Name="lblTruck"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblTruck}" />
+                <Label
+                    x:Name="lblDeliveryAgent"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblDeliveryAgent}" />
+                <Label
+                    x:Name="lblDateDue"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="0"
+                    Content="{Binding lblDateDue}" />
+                <Label
+                    Grid.Row="1"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Origin" />
+                <Label
+                    Grid.Row="2"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Destination" />
+                <Label
+                    Grid.Row="3"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Truck" />
+                <Label
+                    Grid.Row="4"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Delivery Agent" />
+                <Label
+                    Grid.Row="5"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Content="Date Due" />
+            </Grid>
+        </materialDesign:DrawerHost.LeftDrawerContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="49*" />
+                <RowDefinition Height="48*" />
+                <RowDefinition Height="49*" />
+                <RowDefinition Height="48*" />
+                <RowDefinition Height="49*" />
+                <RowDefinition Height="48*" />
+                <RowDefinition Height="47*" />
+                <RowDefinition Height="49*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="3" Margin="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource 1}" />
+                </Grid.Background>
                 <Label
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="16"
-                    Foreground="White">
-                    Reconnect Scale
-                </Label>
-            </StackPanel>
-        </Button>
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="0,5,0,0"
-            Orientation="Horizontal">
+                    Content="Shipment Inspection"
+                    Foreground="#DDFFFFFF" />
+            </Grid>
+
             <Label
-                Grid.Row="1"
-                Grid.Column="2"
-                Margin="5,0,0,0"
+                Grid.Row="4"
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                Content="Items"
-                Foreground="White" />
-            <Grid
-                Grid.Row="1"
-                Grid.Column="2"
-                Width="518.5"
-                Margin="0"
-                Background="White">
-                <TextBox
-                    x:Name="txtSearch"
-                    Width="518.5"
-                    VerticalContentAlignment="Center">
-                    <TextBox.Style>
-                        <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="{x:Type TextBox}">
-                            <Style.Resources>
-                                <VisualBrush
-                                    x:Key="CueBannerBrush"
-                                    AlignmentX="Left"
-                                    AlignmentY="Center"
-                                    Stretch="None">
-                                    <VisualBrush.Visual>
-                                        <Label
-                                            Content="Search"
-                                            FontFamily="Roboto"
-                                            FontSize="20"
-                                            Foreground="LightGray" />
-                                    </VisualBrush.Visual>
-                                </VisualBrush>
-                            </Style.Resources>
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                </Trigger>
-                                <Trigger Property="Text" Value="{x:Null}">
-                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                </Trigger>
-                                <Trigger Property="IsKeyboardFocused" Value="True">
-                                    <Setter Property="Background" Value="White" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-            </Grid>
-        </StackPanel>
-        <DataGrid
-            x:Name="itemGrid"
-            Grid.Row="2"
-            Grid.RowSpan="14"
-            Grid.Column="2"
-            Margin="10"
-            HorizontalAlignment="Stretch"
-            cal:Message.Attach="[Event SelectionChanged] = [Action itemGridSelectionChanged]"
-            AlternatingRowBackground="LightGray"
-            AlternationCount="2"
-            AutoGeneratingColumn="itemGrid_AutoGeneratingColumn"
-            Background="White"
-            BorderBrush="Black"
-            BorderThickness="1"
-            CanUserAddRows="False"
-            ColumnWidth="Auto"
-            FontSize="16"
-            Foreground="Black"
-            IsReadOnly="True"
-            ItemsSource="{Binding itemGridSource}"
-            RowBackground="White"
-            SelectedIndex="{Binding itemGridSelectedIndex}"
-            SelectedItem="{Binding itemGridSelectedItem}"
-            SelectionMode="Single">
-            <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="White" />
-                </Style>
-            </DataGrid.Resources>
-        </DataGrid>
-        <StackPanel
-            Grid.Row="16"
-            Grid.Column="2"
-            Margin="5"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnCancel"
-                Width="200"
-                Margin="10,0">
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="White">
-                        Cancel
-                    </Label>
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnSave"
-                Width="200"
-                Margin="10,0,5,0">
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource 1}" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
-                    <Label
-                        Width="58"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="White">
-                        Save
-                    </Label>
-                </StackPanel>
-            </Button>
-        </StackPanel>
-        <Label
-            x:Name="lblCategory"
-            Grid.Row="10"
-            Grid.Column="1"
-            Margin="0" />
-        <Label
-            x:Name="lblOrigin"
-            Grid.Row="11"
-            Grid.Column="1"
-            Margin="0" />
-        <Label
-            x:Name="lblDestination"
-            Grid.Row="12"
-            Grid.Column="1"
-            Margin="0" />
-        <Label
-            x:Name="lblTruck"
-            Grid.Row="13"
-            Grid.Column="1"
-            Margin="0" />
-        <Label
-            x:Name="lblDeliveryAgent"
-            Grid.Row="14"
-            Grid.Column="1"
-            Margin="0"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            x:Name="lblDateDue"
-            Grid.Row="15"
-            Grid.Column="1"
-            Margin="0" />
-        <TextBox
-            x:Name="txtScaleOutput"
-            Grid.Row="6"
-            Grid.Column="1"
-            Margin="5"
-            cal:Message.Attach="[Event TextChanged]=[Action WeightChanged]"
-            Background="Black"
-            FlowDirection="RightToLeft"
-            FontFamily="Digital-7"
-            FontSize="22"
-            Foreground="Red"
-            IsReadOnly="True"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtItemWeight"
-            Grid.Row="7"
-            Grid.Column="1"
-            MinWidth="150"
-            Margin="5"
-            cal:Message.Attach="[Event TextChanged]=[Action WeightChanged]"
-            Background="Black"
-            FlowDirection="RightToLeft"
-            FontFamily="Digital-7"
-            FontSize="22"
-            Foreground="Red"
-            IsReadOnly="True"
-            TextAlignment="Right" />
-        <TextBox
-            x:Name="txtItemCount"
-            Grid.Row="8"
-            Grid.Column="1"
-            MinWidth="150"
-            Margin="5"
-            Background="Black"
-            FlowDirection="RightToLeft"
-            FontFamily="Digital-7"
-            FontSize="22"
-            Foreground="Red"
-            IsReadOnly="True"
-            TextAlignment="Right" />
-        <Label
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Margin="0"
-            Content="Item Name"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            Grid.Row="3"
-            Margin="0"
-            Content="Category"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            Grid.Row="6"
-            Margin="0"
-            Content="Weight"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            Grid.Row="4"
-            Margin="0"
-            Content="Size"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            Grid.Row="7"
-            Margin="0"
-            Content="Item Weight"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
+                Content="Quantity" />
+            <TextBox
+                x:Name="txtSearch"
+                Grid.Row="10"
+                Grid.ColumnSpan="2"
+                Margin="5,0"
+                VerticalContentAlignment="Center"
+                materialDesign:HintAssist.Hint="Search"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <StackPanel
+                Grid.Row="17"
+                Grid.ColumnSpan="2"
+                Margin="5,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btnShowDetails"
+                    Grid.Row="15"
+                    Width="115"
+                    Margin="5,0"
+                    Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                    CommandParameter="{x:Static Dock.Left}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Details"
+                            Foreground="#DDFFFFFF" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnReconnectScale"
+                    Grid.Row="15"
+                    Width="115"
+                    Margin="5,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-scale-64.png" />
+                        <TextBlock
+                            Width="65"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            Foreground="#DDFFFFFF"
+                            Text="Reconnect Scale"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWithOverflow" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnCancel"
+                    Width="115"
+                    Margin="5,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="#DDFFFFFF">
+                            Cancel
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnSave"
+                    Width="115"
+                    Margin="5,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
 
-        <Label
-            Grid.Row="8"
-            Margin="0"
-            Content="Item Count"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <StackPanel
-            Grid.Row="9"
-            Grid.ColumnSpan="2"
-            Margin="6,5"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnReturn"
-                Width="200"
-                Margin="5,0"
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
+                        <Label
+                            Width="58"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="#DDFFFFFF">
+                            Save
+                        </Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <TextBox
+                x:Name="txtScaleOutput"
+                Grid.Row="5"
+                Grid.Column="1"
+                Margin="3"
+                Padding="5,0,0,0"
+                cal:Message.Attach="[Event TextChanged]=[Action WeightChanged]"
+                Background="Black"
+                FlowDirection="RightToLeft"
+                Foreground="Red"
+                IsReadOnly="True"
+                TextAlignment="Right" />
+            <TextBox
+                x:Name="txtItemWeight"
+                Grid.Row="6"
+                Grid.Column="1"
+                MinWidth="150"
+                Margin="3"
+                Padding="5,0,0,0"
+                cal:Message.Attach="[Event TextChanged]=[Action WeightChanged]"
+                Background="Black"
+                FlowDirection="RightToLeft"
+                Foreground="Red"
+                IsReadOnly="True"
+                TextAlignment="Right" />
+            <TextBox
+                x:Name="txtItemCount"
+                Grid.Row="7"
+                Grid.Column="1"
+                MinWidth="150"
+                Margin="3"
+                Padding="5,0,0,0"
+                Background="Black"
+                FlowDirection="RightToLeft"
+                Foreground="Red"
+                IsReadOnly="True"
+                TextAlignment="Right" />
+            <Label
+                Grid.Row="1"
+                Margin="0"
                 HorizontalAlignment="Right"
-                BorderBrush="White"
-                FontSize="22">
-                <Button.Background>
-                    <SolidColorBrush Color="#FFA70000" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-return-100.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Content="Return"
-                        FontSize="18"
-                        Foreground="White" />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnIncomplete"
-                Width="200"
-                Margin="5,0"
+                VerticalAlignment="Center"
+                Content="Item Name" />
+            <Label
+                Grid.Row="2"
+                Margin="0"
                 HorizontalAlignment="Right"
-                BorderBrush="White">
-                <Button.Background>
-                    <SolidColorBrush Color="#FFBAC302" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-error-100.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Content="Incomplete"
-                        FontSize="18"
-                        Foreground="White" />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnComplete"
-                Width="200"
-                Margin="5,0"
+                VerticalAlignment="Center"
+                Content="Category" />
+            <Label
+                Grid.Row="5"
+                Margin="0"
                 HorizontalAlignment="Right"
-                BorderBrush="White"
-                FontSize="22">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0FA700" />
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Content="Complete"
-                        FontSize="18"
-                        Foreground="White" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
-        <Label
-            x:Name="lblItemCategory"
-            Grid.Row="3"
-            Grid.Column="1"
-            Margin="0"
-            Content=""
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            x:Name="lblItemSize"
-            Grid.Row="4"
-            Grid.Column="1"
-            Margin="0"
-            Content=""
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <Label
-            x:Name="lblItemQuantity"
-            Grid.Row="5"
-            Grid.Column="1"
-            Margin="0"
-            Content=""
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444" />
-        <TextBlock
-            x:Name="lblItemName"
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="1"
-            Margin="0"
-            Foreground="White"
-            RenderTransformOrigin="0.391,1.444"
-            TextWrapping="Wrap" />
-    </Grid>
+                VerticalAlignment="Center"
+                Content="Weight" />
+            <Label
+                Grid.Row="3"
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Size" />
+            <Label
+                Grid.Row="6"
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Item Weight" />
+
+            <Label
+                Grid.Row="7"
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Item Count" />
+            <StackPanel
+                Grid.Row="9"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btnReturn"
+                    Width="150"
+                    Margin="5,0"
+                    HorizontalAlignment="Right"
+                    BorderBrush="White">
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF811616" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-return-100.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Return"
+                            Foreground="#DDFFFFFF" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnIncomplete"
+                    Width="150"
+                    Margin="5,0"
+                    HorizontalAlignment="Right"
+                    BorderBrush="White">
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF999E21" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-error-100.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Incomplete"
+                            Foreground="#DDFFFFFF" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnComplete"
+                    Width="150"
+                    Margin="5,0"
+                    HorizontalAlignment="Right"
+                    BorderBrush="White">
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF1E8F13" />
+                    </Button.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Complete"
+                            Foreground="#DDFFFFFF" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Label
+                x:Name="lblItemCategory"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="2"
+                Content="" />
+            <Label
+                x:Name="lblItemSize"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="2"
+                Content="" />
+            <Label
+                x:Name="lblItemQuantity"
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="2"
+                Content="" />
+            <Label
+                x:Name="lblItemName"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="2"
+                Content="" />
+            <DataGrid
+                x:Name="itemGrid"
+                Grid.Row="11"
+                Grid.RowSpan="6"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                cal:Message.Attach="[Event SelectionChanged] = [Action itemGridSelectionChanged]"
+                AutoGeneratingColumn="itemGrid_AutoGeneratingColumn"
+                CanUserAddRows="False"
+                ColumnWidth="Auto"
+                IsReadOnly="True"
+                ItemsSource="{Binding itemGridSource}"
+                SelectedIndex="{Binding itemGridSelectedIndex}"
+                SelectedItem="{Binding itemGridSelectedItem}"
+                SelectionMode="Single" />
+        </Grid>
+    </materialDesign:DrawerHost>
 </Window>

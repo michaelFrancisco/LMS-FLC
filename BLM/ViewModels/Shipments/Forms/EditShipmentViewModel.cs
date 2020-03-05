@@ -63,7 +63,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                return _shipmentData.Rows[0][1].ToString();
+                return _shipmentData.Rows[0]["Category"].ToString();
             }
             set { _lblCategory = value; }
         }
@@ -81,7 +81,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get
             {
-                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0][8].ToString() + "'");
+                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0]["Delivery_Agent_ID"].ToString() + "'");
                 return dt.Rows[0][0].ToString();
             }
             set { _lblDeliveryAgent = value; }

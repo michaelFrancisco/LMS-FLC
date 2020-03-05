@@ -71,7 +71,7 @@
             Grid.Column="1"
             Margin="5"
             IsReadOnlyCaretVisible="True"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap" IsReadOnly="True" />
         <Label
             Grid.Row="3"
             Margin="5"

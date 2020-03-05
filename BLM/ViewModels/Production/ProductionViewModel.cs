@@ -46,6 +46,7 @@ namespace BLM.ViewModels.Production
             _btnProceedVisibility = Visibility.Hidden;
             _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Finished'; ");
             NotifyOfPropertyChange(null);
+            selectedCategory = "Finished";
         }
 
         public void btnPending()
@@ -54,6 +55,30 @@ namespace BLM.ViewModels.Production
             _lblButton = "Accept Raw Materials From Inventory";
             _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID`where `production_requests`.`Status` = 'Raw Materials delivered to Production team. Awaiting confirmation'; ");
             NotifyOfPropertyChange(null);
+            selectedCategory = "Pending";
+        }
+
+        private string selectedCategory;
+
+        public void btnRefresh()
+        {
+            switch (selectedCategory)
+            {
+                case "Pending":
+                    _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID`where `production_requests`.`Status` = 'Raw Materials delivered to Production team. Awaiting confirmation'; ");
+                    NotifyOfPropertyChange(null);
+                    break;
+
+                case "Processing":
+                    _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Currently being processed by the Production Team'; ");
+                    NotifyOfPropertyChange(null);
+                    break;
+
+                case "Finished":
+                    _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Finished'; ");
+                    NotifyOfPropertyChange(null);
+                    break;
+            }
         }
 
         public void btnProceed()
@@ -82,17 +107,16 @@ namespace BLM.ViewModels.Production
             _lblButton = "Mark Request as Finished";
             _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID` where `production_requests`.`Status` = 'Currently being processed by the Production Team'; ");
             NotifyOfPropertyChange(null);
+            selectedCategory = "Processing";
         }
 
-        public void btnRefresh()
-        {
-        }
         protected override void OnActivate()
         {
             base.OnActivate();
             _lblButton = "Accept Raw Materials From Inventory";
             _btnProceedVisibility = Visibility.Visible;
             _productionGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield` AS 'Requested Amount', `production_requests`.`Due_Date` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `inventory`.`ID` = `production_requests`.`Recipe_ID`where `production_requests`.`Status` = 'Pending'; ");
+            selectedCategory = "Pending";
             NotifyOfPropertyChange(null);
         }
     }

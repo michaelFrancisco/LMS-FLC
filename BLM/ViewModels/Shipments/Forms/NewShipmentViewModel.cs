@@ -13,7 +13,9 @@ namespace BLM.ViewModels.Shipments.Forms
     internal class NewShipmentViewModel : Screen
     {
         private DataTable _baseitemGridSource;
+        private DataTable _baseshipmentGridSource;
         private bool _btnOKisEnabled;
+        private bool _enabledSave;
         private bool _isAdding;
         private object _itemGridSelectedItem;
         private DataTable _itemGridSource;
@@ -31,6 +33,7 @@ namespace BLM.ViewModels.Shipments.Forms
         private DataTable _shipmentGridSource;
         private string _tempo;
         private List<String> _txtCategory;
+        private double _txtCurrentWeight;
         private List<string> _txtDeliveryAgent;
         private List<string> _txtDestination;
         private int _txtEnteredWeight;
@@ -43,6 +46,7 @@ namespace BLM.ViewModels.Shipments.Forms
         private int _txtTareWeight;
         private List<string> _txtTruck;
         private string _txtWeight;
+        private Visibility _visibilityWeightWarning;
         private Visibility _WeightBoxVisibility;
         private DispatcherTimer dt1 = new DispatcherTimer();
         private SerialPort port1 = new SerialPort();
@@ -51,6 +55,12 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return _btnOKisEnabled; }
             set { _btnOKisEnabled = value; }
+        }
+
+        public bool enabledSave
+        {
+            get { return _enabledSave; }
+            set { _enabledSave = value; }
         }
 
         public object itemGridSelectedItem
@@ -85,20 +95,21 @@ namespace BLM.ViewModels.Shipments.Forms
                 _selectedCategory = value;
                 if (selectedCategory == "Inbound")
                 {
-                    _itemGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where `inventory`.`Category` = 'Raw Material' OR `inventory`.`Category` = 'Packaging';");
-                    _shipmentGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where null;");
+                    _itemGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name`,`inventory`.`Weight` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where `inventory`.`Category` = 'Raw Material' OR `inventory`.`Category` = 'Packaging';");
+                    _shipmentGridSource = Connection.dbTable("select `inventory`.`ID`, `inventory`.`Name`, `inventory`.`Category`, `inventory`.`Quantity`, `inventory`.`Size`,`inventory`.`Unit`, `supplier`.`Name`,`inventory`.`Weight` from inventory inner join supplier on `inventory`.`Supplier_ID` = `supplier`.`ID` where null;");
                     _baseitemGridSource = itemGridSource;
-                    NotifyOfPropertyChange(() => itemGridSource);
-                    NotifyOfPropertyChange(() => shipmentGridSource);
+                    _baseshipmentGridSource = _shipmentGridSource;
+                    NotifyOfPropertyChange(null);
                 }
                 else if (selectedCategory == "Outbound")
                 {
-                    _itemGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where Quantity > 0 and `Category` = 'Finished Product';");
-                    _shipmentGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit FROM `flc`.`inventory` where null;");
+                    _itemGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit, Weight FROM `flc`.`inventory` where Quantity > 0 and `Category` = 'Finished Product';");
+                    _shipmentGridSource = Connection.dbTable("SELECT ID, Name, Category, Quantity, Size, Unit, Weight FROM `flc`.`inventory` where null;");
                     _baseitemGridSource = itemGridSource;
-                    NotifyOfPropertyChange(() => itemGridSource);
-                    NotifyOfPropertyChange(() => shipmentGridSource);
+                    _baseshipmentGridSource = shipmentGridSource;
+                    NotifyOfPropertyChange(null);
                 }
+                updateWeight();
             }
         }
 
@@ -148,6 +159,12 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return new List<string> { "Inbound", "Outbound" }; }
             set { _txtCategory = value; }
+        }
+
+        public double txtCurrentWeight
+        {
+            get { return _txtCurrentWeight; }
+            set { _txtCurrentWeight = value; }
         }
 
         public List<string> txtDeliveryAgent
@@ -242,10 +259,14 @@ namespace BLM.ViewModels.Shipments.Forms
                     DataView dv = new DataView(_itemGridSource);
                     dv.RowFilter = "Name LIKE '%" + _txtSearch + "%'";
                     _itemGridSource = dv.ToTable();
+                    dv = new DataView(_shipmentGridSource);
+                    dv.RowFilter = "Name LIKE '%" + _txtSearch + "%'";
+                    _shipmentGridSource = dv.ToTable();
                     NotifyOfPropertyChange(null);
                 }
                 else
                 {
+                    _shipmentGridSource = _baseshipmentGridSource;
                     _itemGridSource = _baseitemGridSource;
                     NotifyOfPropertyChange(null);
                 }
@@ -273,6 +294,12 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return _txtWeight; }
             set { _txtWeight = value; }
+        }
+
+        public Visibility visibilityWeightWarning
+        {
+            get { return _visibilityWeightWarning; }
+            set { _visibilityWeightWarning = value; }
         }
 
         public Visibility WeightBoxVisibility
@@ -378,6 +405,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 NotifyOfPropertyChange(() => QuantityBoxVisibility);
                 _txtQuantity = 1;
                 NotifyOfPropertyChange(() => txtQuantity);
+                updateWeight();
             }
             catch (Exception)
             {
@@ -489,7 +517,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 }
                 else
                 {
-                    toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity, dataRowView.Row[3], dataRowView.Row[4], dataRowView.Row[5]);
+                    toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity, dataRowView.Row[3], dataRowView.Row[4], dataRowView.Row[5], dataRowView.Row["Weight"]);
                 }
             }
             else if (!_isAdding)
@@ -502,6 +530,7 @@ namespace BLM.ViewModels.Shipments.Forms
                 {
                     dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
                 }
+                _baseshipmentGridSource = shipmentGridSource;
             }
             NotifyOfPropertyChange(null);
         }
@@ -516,7 +545,7 @@ namespace BLM.ViewModels.Shipments.Forms
             }
             else
             {
-                toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity.ToString(), dataRowView.Row[4], dataRowView.Row[5]);
+                toSource.Rows.Add(dataRowView.Row[0], dataRowView.Row[1], dataRowView.Row[2], _quantity.ToString(), dataRowView.Row[4], dataRowView.Row[5], dataRowView.Row["Weight"]);
             }
             if (_quantity == (int)dataRowView.Row[3])
             {
@@ -526,6 +555,7 @@ namespace BLM.ViewModels.Shipments.Forms
             {
                 dataRowView.Row[3] = (int)dataRowView.Row[3] - _quantity;
             }
+            _baseshipmentGridSource = shipmentGridSource;
             NotifyOfPropertyChange(null);
         }
 
@@ -564,8 +594,9 @@ namespace BLM.ViewModels.Shipments.Forms
             _txtQuantity = 1;
             _selectedDate = DateTime.Now;
             _WeightBoxVisibility = System.Windows.Visibility.Collapsed;
-
+            _visibilityWeightWarning = System.Windows.Visibility.Collapsed;
             NotifyOfPropertyChange(null);
+            _enabledSave = true;
             base.OnActivate();
         }
 
@@ -590,6 +621,34 @@ namespace BLM.ViewModels.Shipments.Forms
             else
             {
                 return false;
+            }
+        }
+
+        private void updateWeight()
+        {
+            if (_shipmentGridSource.Rows.Count > 0)
+            {
+                _txtCurrentWeight = 0;
+                foreach (DataRow row in _shipmentGridSource.Rows)
+                {
+                    _txtCurrentWeight += ((double.Parse(row["Weight"].ToString()) * (double.Parse(row["Quantity"].ToString()))) / 1000);
+                }
+                if (_txtCurrentWeight > 3100)
+                {
+                    _visibilityWeightWarning = System.Windows.Visibility.Visible;
+                    _enabledSave = false;
+                }
+                else
+                {
+                    _visibilityWeightWarning = System.Windows.Visibility.Collapsed;
+                    _enabledSave = true;
+                }
+                NotifyOfPropertyChange(null);
+            }
+            else
+            {
+                _txtCurrentWeight = 0;
+                NotifyOfPropertyChange(() => txtCurrentWeight);
             }
         }
     }

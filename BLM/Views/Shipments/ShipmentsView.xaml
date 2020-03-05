@@ -4,12 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:BLM.Views.Inventory"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="645"
     d:DesignWidth="1030"
-    FontFamily="Roboto"
-    FontSize="22"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -29,28 +32,25 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button
+                <RadioButton
                     x:Name="btnPending"
-                    Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Height="Auto"
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-wait.png" />
                         <Label
                             VerticalContentAlignment="Center"
                             Content="Pending"
-                            FontFamily="Roboto"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnTransit"
                     Grid.Column="1"
-                    Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Height="Auto"
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
                         <Label
@@ -58,14 +58,13 @@
                             Content="In Transit"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
-                <Button
+                </RadioButton>
+                <RadioButton
                     x:Name="btnComplete"
                     Grid.Column="2"
-                    Margin="10,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
+                    Height="Auto"
+                    Margin="2"
+                    Style="{StaticResource MaterialDesignTabRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                         <Label
@@ -73,7 +72,7 @@
                             Content="Complete"
                             Foreground="White" />
                     </StackPanel>
-                </Button>
+                </RadioButton>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="White">
@@ -89,40 +88,12 @@
                     <TextBox
                         x:Name="txtSearch"
                         Width="300"
-                        VerticalContentAlignment="Center">
-                        <TextBox.Style>
-                            <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-                                <Style.Resources>
-                                    <VisualBrush
-                                        x:Key="CueBannerBrush"
-                                        AlignmentX="Left"
-                                        AlignmentY="Center"
-                                        Stretch="None">
-                                        <VisualBrush.Visual>
-                                            <Label
-                                                Content="Search"
-                                                FontFamily="Roboto"
-                                                FontSize="20"
-                                                Foreground="LightGray" />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Style.Resources>
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="White" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        VerticalContentAlignment="Center"
+                        materialDesign:HintAssist.Hint="Search"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <Button
                         x:Name="btnRefresh"
+                        Height="Auto"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
                         Foreground="White">
@@ -131,13 +102,14 @@
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
-                            <Label Foreground="White">
+                            <Label VerticalContentAlignment="Center" Foreground="White">
                                 Refresh
                             </Label>
                         </StackPanel>
                     </Button>
                     <Button
                         x:Name="btnExport"
+                        Height="Auto"
                         Margin="5,0"
                         BorderBrush="{x:Null}"
                         Foreground="White">
@@ -146,7 +118,10 @@
                         </Button.Background>
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-export-100.png" />
-                            <Label Margin="5,0" Foreground="White">
+                            <Label
+                                Margin="5,0"
+                                VerticalContentAlignment="Center"
+                                Foreground="White">
                                 Export
                             </Label>
                         </StackPanel>
@@ -154,8 +129,8 @@
                 </StackPanel>
                 <Button
                     x:Name="btnCreate"
-                    Height="40"
-                    Margin="5,0"
+                    Height="Auto"
+                    Margin="5"
                     HorizontalAlignment="Right"
                     BorderBrush="{x:Null}"
                     Foreground="White">
@@ -163,12 +138,14 @@
                         <SolidColorBrush Color="{DynamicResource 1}" />
                     </Button.Background>
                     <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="35"
-                            Height="35"
+                        <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
+                        <Label
                             Margin="5,0"
-                            Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label Margin="5,0" Foreground="White">Create New</Label>
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Foreground="White">
+                            Create New
+                        </Label>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -179,26 +156,14 @@
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
-                    AlternatingRowBackground="LightGray"
                     AlternationCount="2"
-                    Background="White"
-                    BorderBrush="Black"
                     BorderThickness="1"
                     CanUserAddRows="False"
                     ColumnWidth="*"
-                    FontSize="16"
-                    Foreground="Black"
                     IsReadOnly="True"
                     ItemsSource="{Binding shipmentsGridSource}"
-                    RowBackground="White"
                     SelectedItem="{Binding shipmentsGridSelectedItem}"
-                    SelectionMode="Single">
-                    <DataGrid.Resources>
-                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="White" />
-                        </Style>
-                    </DataGrid.Resources>
-                </DataGrid>
+                    SelectionMode="Single" />
             </Grid>
         </Grid>
     </Grid>
