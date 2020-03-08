@@ -1,0 +1,40 @@
+----------------------------
+[Customer Explanation]
+
+
+
+----------------------------
+[General Info]
+
+Application: Stimulsoft Reports
+Framework:   v4.0.30319
+Version:     Version: 2020.2.1 from 5 February 2020
+MachineName: MSI
+OSVersion:   Microsoft Windows NT 6.2.9200.0
+UserName:    TOYBITS
+
+----------------------------
+[Exception Info]
+Message:     Index was outside the bounds of the array.
+
+Source:      System.Windows.Forms
+
+StackTrace:
+   at System.Windows.Forms.Application.ThreadContext.ProcessFilters(MSG& msg, Boolean& modified)
+   at System.Windows.Forms.Application.ThreadContext.PreTranslateMessage(MSG& msg)
+   at System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   at System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   at System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   at Designer.StiStart.Main(String[] args)
+
+----------------------------
+[Assemblies]
+mscorlib, Version = 4.0.0.0
+Stimulsoft.Base, Version = 2020.2.1.0
+Stimulsoft.Report, Version = 2020.2.1.0
+Stimulsoft.Report.Design, Version = 2020.2.1.0
+Stimulsoft.Report.Import, Version = 2020.2.1.0
+Stimulsoft.Report.Win, Version = 2020.2.1.0
+System.Data, Version = 4.0.0.0
+System.Windows.Forms, Version = 4.0.0.0
+WindowsBase, Version = 4.0.0.0

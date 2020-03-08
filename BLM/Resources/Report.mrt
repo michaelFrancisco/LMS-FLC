@@ -45,45 +45,125 @@
     <Page1 Ref="4" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="1">
-        <DataBand1 Ref="5" type="DataBand" isKey="true">
+      <Components isList="true" count="2">
+        <HeaderBand1 Ref="5" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
-          <Components isList="true" count="2">
-            <Text2 Ref="6" type="Text" isKey="true">
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Name>HeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </HeaderBand1>
+        <Datainventory Ref="6" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2,19,0.6</ClientRectangle>
+          <Components isList="true" count="6">
+            <Datainventory_Name Ref="7" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,4.2,0.6</ClientRectangle>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1.8,0,8,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
               <Margins>0,0,0,0</Margins>
-              <Name>Text2</Name>
+              <Name>Datainventory_Name</Name>
               <Page isRef="4" />
-              <Parent isRef="5" />
+              <Parent isRef="6" />
               <Text>{inventory.Name}</Text>
               <TextBrush>Black</TextBrush>
-            </Text2>
-            <Text1 Ref="7" type="Text" isKey="true">
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datainventory_Name>
+            <Datainventory_Category Ref="8" type="Text" isKey="true">
               <Brush>Transparent</Brush>
-              <ClientRectangle>4.2,0,1.6,0.6</ClientRectangle>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.8,0,3.8,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datainventory_Category</Name>
+              <Page isRef="4" />
+              <Parent isRef="6" />
+              <Text>{inventory.Category}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datainventory_Category>
+            <Datainventory_Quantity Ref="9" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>13.6,0,1.8,0.5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datainventory_Quantity</Name>
+              <Page isRef="4" />
+              <Parent isRef="6" />
+              <Text>{inventory.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datainventory_Quantity>
+            <Datainventory_Size Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.4,0,1.8,0.5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datainventory_Size</Name>
+              <Page isRef="4" />
+              <Parent isRef="6" />
+              <Text>{inventory.Size}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datainventory_Size>
+            <Datainventory_Unit Ref="11" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17.2,0,1.8,0.5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datainventory_Unit</Name>
+              <Page isRef="4" />
+              <Parent isRef="6" />
+              <Text>{inventory.Unit}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datainventory_Unit>
+            <Text1 Ref="12" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,1.8,0.5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text1</Name>
               <Page isRef="4" />
-              <Parent isRef="5" />
-              <Text>{inventory.Quantity}</Text>
+              <Parent isRef="6" />
+              <Text>{inventory.ID}</Text>
               <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
             </Text1>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
           <DataSourceName>inventory</DataSourceName>
           <Filters isList="true" count="0" />
-          <Name>DataBand1</Name>
+          <Name>Datainventory</Name>
           <Page isRef="4" />
           <Parent isRef="4" />
           <Sort isList="true" count="0" />
-        </DataBand1>
+        </Datainventory>
       </Components>
       <Conditions isList="true" count="0" />
       <Guid>4955ba208a184ee093f27e500bdcbb8d</Guid>
@@ -105,10 +185,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>3/8/2020 10:36:36 AM</ReportChanged>
+  <ReportChanged>3/8/2020 2:39:58 PM</ReportChanged>
   <ReportCreated>3/8/2020 10:26:50 AM</ReportCreated>
   <ReportFile>C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Resources\Report.mrt</ReportFile>
-  <ReportGuid>07a1da849e044d55b2e94842803617b5</ReportGuid>
+  <ReportGuid>068ebb1215ab4fb98483cef7f98c19e3</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2020.2.1.0</ReportVersion>

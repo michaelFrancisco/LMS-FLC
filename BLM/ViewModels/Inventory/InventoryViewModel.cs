@@ -1,6 +1,7 @@
 ﻿using BLM.Models;
 using BLM.ViewModels.Inventory.Forms;
 using Caliburn.Micro;
+using Stimulsoft.Report;
 using System;
 using System.Data;
 using System.Windows;
@@ -166,6 +167,14 @@ namespace BLM.ViewModels.Inventory
 
         public void btnPrint()
         {
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + @"\Reports\InventoryReport.mrt";
+
+
+            StiReport report = new StiReport();
+           // report.Load(@"\BLM\Reports\InventoryReport.mrt");
+            report.Load(path);
+          //  report.Load(@"C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Reports\InventoryReport.mrt");
+            report.Show(); 
         }
     }
 }
