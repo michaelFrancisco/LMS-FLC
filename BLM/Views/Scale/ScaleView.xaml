@@ -1,11 +1,13 @@
 ﻿<UserControl
-    x:Class="BLM.Views.Scale.ScaleView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BLM.Views.Inventory"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfViewer="schemas-stimulsoft-com:wpf-viewer"
+    xmlns:WpfDesign="clr-namespace:Stimulsoft.Report.WpfDesign;assembly=Stimulsoft.Report.WpfDesign"
+    x:Class="BLM.Views.Scale.ScaleView"
     d:DesignHeight="645"
     d:DesignWidth="1030"
     FontFamily="Roboto"
@@ -32,13 +34,13 @@
             Foreground="Red"
             Text="123" />
 
-        <TextBox
+        <!--<TextBox
           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
           materialDesign:HintAssist.Hint="Content"
           Text="{Binding Content}"
           Margin="8 0 0 0"
-          VerticalAlignment="Bottom" />
-        
+          VerticalAlignment="Bottom" />-->
+
         <StackPanel Orientation="Horizontal">
             <StackPanel Margin="0,285,0,0" Orientation="Vertical">
                 <Label
@@ -265,5 +267,5 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Content="Get Weight" />
-    </Grid>
+         </Grid>
 </UserControl>

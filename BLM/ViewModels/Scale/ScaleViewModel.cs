@@ -1,5 +1,6 @@
 ﻿using BLM.Models;
 using Caliburn.Micro;
+using Stimulsoft.Report;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -55,6 +56,8 @@ namespace BLM.ViewModels.Scale
             }
         }
 
+        
+
         public decimal txtActualYield
         {
             get { return _txtActualYield; }
@@ -92,16 +95,20 @@ namespace BLM.ViewModels.Scale
         }
         public void btnGetWeight()
         {
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-            int average = 0;
-            for (int i = 0; i < 100; i++)
-            {
-                average += read;
-            }
-            average /= 100;
-            _txtEnteredWeight1 = average;
-            NotifyOfPropertyChange(() => txtEnteredWeight1);
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+            StiReport report = new StiReport();
+            report.Load(@"C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Resources\Report.mrt");
+            report.Show();
+            //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            //int average = 0;
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    average += read;
+            //}
+            //average /= 100;
+            //_txtEnteredWeight1 = average;
+            //NotifyOfPropertyChange(() => txtEnteredWeight1);
+            //Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
         }
         public void timer_Tick(object sender, EventArgs e)
         {
