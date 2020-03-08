@@ -31,6 +31,14 @@
             FontSize="150"
             Foreground="Red"
             Text="123" />
+
+        <TextBox
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          materialDesign:HintAssist.Hint="Content"
+          Text="{Binding Content}"
+          Margin="8 0 0 0"
+          VerticalAlignment="Bottom" />
+        
         <StackPanel Orientation="Horizontal">
             <StackPanel Margin="0,285,0,0" Orientation="Vertical">
                 <Label
