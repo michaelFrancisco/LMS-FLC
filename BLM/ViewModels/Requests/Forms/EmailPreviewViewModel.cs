@@ -47,7 +47,7 @@ namespace BLM.ViewModels.Requests.Forms
             NotifyOfPropertyChange(() => txtEmailList);
         }
 
-        private void btnSave()
+        public void btnSave()
         {
             MessageBoxResult dialogResult = MessageBox.Show("Are you sure you want to send out these emails?", "!", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)

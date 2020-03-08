@@ -1,29 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ChatClientCS.Enums;
+﻿using ChatClientCS.Enums;
 using ChatClientCS.Models;
-using System.Net;
 using Microsoft.AspNet.SignalR.Client;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace ChatClientCS.Services
 {
     public class ChatService : IChatService
     {
         public event Action<string, string, MessageType> NewTextMessage;
+
         public event Action<string, byte[], MessageType> NewImageMessage;
+
         public event Action<string> ParticipantDisconnected;
+
         public event Action<User> ParticipantLoggedIn;
+
         public event Action<string> ParticipantLoggedOut;
+
         public event Action<string> ParticipantReconnected;
+
         public event Action ConnectionReconnecting;
+
         public event Action ConnectionReconnected;
+
         public event Action ConnectionClosed;
+
         public event Action<string> ParticipantTyping;
 
         private IHubProxy hubProxy;
         private HubConnection connection;
-        private string url = "http://localhost:8080/signalchat";
+        private string url = "http://" + GetLocalIPAddress() + ":8080/signalchat";
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
+        }
 
         public async Task ConnectAsync()
         {
