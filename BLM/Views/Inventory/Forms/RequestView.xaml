@@ -51,12 +51,12 @@
             Content="Item" />
         <TextBox
             x:Name="txtName"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
             IsReadOnly="True"
             IsReadOnlyCaretVisible="True"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="2"
@@ -68,12 +68,13 @@
             Content="Quantity" />
         <TextBox
             x:Name="txtQuantity"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="2"
             Grid.Column="1"
             Margin="5"
+            IsReadOnly="True"
             IsReadOnlyCaretVisible="True"
-            TextWrapping="Wrap" IsReadOnly="True" />
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            TextWrapping="Wrap" />
         <Label
             Grid.Row="3"
             Margin="5"

@@ -51,7 +51,7 @@ namespace BLM.ViewModels.Requests
 
         public void btnComplete()
         {
-            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Finished';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Complete";
         }
@@ -69,7 +69,7 @@ namespace BLM.ViewModels.Requests
 
         public void btnProcessing()
         {
-            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
+            _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing' or Status = 'Waiting for Raw Materials' or Status = 'Raw Materials delivered to Production team. Awaiting confirmation' or Status = 'Currently being processed by the Production Team' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.';");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Processing";
         }
@@ -84,12 +84,12 @@ namespace BLM.ViewModels.Requests
                     break;
 
                 case "Processing":
-                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing' or Status = 'Waiting for Raw Materials' or Status = 'Raw Materials delivered to Production team. Awaiting confirmation' or Status = 'Currently being processed by the Production Team' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 
                 case "Complete":
-                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Complete';");
+                    _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Finished';");
                     _baseshipmentGridSource = _requestsGridSource;
                     break;
 

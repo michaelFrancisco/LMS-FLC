@@ -58,10 +58,9 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
-            TabIndex="0"
-            TextWrapping="Wrap"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            />
+            TabIndex="0"
+            TextWrapping="Wrap" />
         <Label
             Grid.Row="2"
             Margin="5"
@@ -88,10 +87,10 @@
             Content="Quantity" />
         <TextBox
             x:Name="txtQuantity"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="4"
             Grid.Column="1"
             Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="3"
             TextWrapping="Wrap" />
         <Label
@@ -104,10 +103,10 @@
             Content="Size" />
         <TextBox
             x:Name="txtSize"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="5"
             Grid.Column="1"
             Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="4"
             TextWrapping="Wrap" />
         <Label
@@ -120,10 +119,10 @@
             Content="Unit" />
         <TextBox
             x:Name="txtUnit"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="6"
             Grid.Column="1"
             Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="5"
             TextWrapping="Wrap" />
         <Label
@@ -136,10 +135,10 @@
             Content="Critical Level" />
         <TextBox
             x:Name="txtCriticalLevel"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="8"
             Grid.Column="1"
             Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="7"
             TextWrapping="Wrap" />
         <ComboBox
@@ -208,10 +207,10 @@
             Content="Weight" />
         <TextBox
             x:Name="txtWeight"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Grid.Row="7"
             Grid.Column="1"
             Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="6"
             TextWrapping="Wrap" />
     </Grid>
