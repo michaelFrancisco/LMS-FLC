@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
     Width="670"
-    Height="800"
+    Height="450"
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,
                                      Type={x:Type data:SampleMainWindowViewModel}}"
     Background="{DynamicResource MaterialDesignPaper}"

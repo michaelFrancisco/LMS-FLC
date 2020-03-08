@@ -23,7 +23,7 @@ namespace BLM.ChatClientCS.Services
 
         private IHubProxy hubProxy;
         private HubConnection connection;
-        private string url = "http://*:8080/signalchat";
+        private string url = "http://localhost:420/signalchat";
 
         public async Task ConnectAsync()
         {
