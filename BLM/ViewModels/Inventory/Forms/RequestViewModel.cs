@@ -87,6 +87,7 @@ namespace BLM.ViewModels.Inventory.Forms
                     Connection.dbCommand("UPDATE `flc`.`inventory` SET `Quantity` = '" + (((int)currentQuantity.Rows[0][0]) - (int)row[1]).ToString() + "' WHERE (`ID` = '" + row[2].ToString() + "');");
                     Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory', 'Inventory', '" + CurrentUser.User_ID.ToString() + "', '" + row[0].ToString() + "(x" + row[1].ToString() + ") was reduced from inventory from Request no." + _selectedRequestID.ToString() + " and approved by " + CurrentUser.name + " on " + System.DateTime.Now.ToString() + "');");
                 }
+                Connection.dbCommand("INSERT INTO `flc`.`system_log` (`Subject`, `Category`, `User_ID`, `Body`) VALUES ('Raw materials for " + _txtName + " is being delivered', 'Production', '" + CurrentUser.User_ID + "', 'Raw materials for " + _txtName + " is being delivered as of " + DateTime.Now + ", please prepare to receive and inspect the materials.');");
                 TryClose();
                 MessageBox.Show("Production staff has been notified, proceed to deliver materials to the production area");
             }
