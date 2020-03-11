@@ -110,7 +110,7 @@ namespace BLM.ViewModels.Requests.Forms
             if (areRequiredFieldsComplete() && hasEnoughItems())
             {
                 Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Recipe_ID`, `Status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + _itemID + "', 'Waiting for Raw Materials', '" + _txtQuantity + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
-                Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', '" + _txtName + "(x" + _txtQuantity + ") was requested','" + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + "', 'Production Request');");
+                Connection.dbCommand(@"INSERT INTO `flc`.`system_log` (`User_ID`, `Subject`, `Body`, `Category`) VALUES ('" + CurrentUser.User_ID + "', 'Raw Materials for " + _txtName + "(x" + _txtQuantity + ") was requested','Raw materials for " + _txtName + "(x" + _txtQuantity + ") was requested by " + CurrentUser.name + " on " + DateTime.Now.ToString() + ", please prepare all necessary raw materials to be sent to Production staff', 'Inventory');");
                 TryClose();
                 MessageBox.Show("Inventory staff has been notified to prepare raw materials for production.");
             }

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ferver Ledesma Corporation"
     Width="450"
-    Height="450"
+    Height="380"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     TextElement.FontSize="14"
@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4">
             <Grid.Background>
@@ -47,9 +47,9 @@
         </Grid>
         <Label
             Grid.Row="1"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Name" />
@@ -58,14 +58,13 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="0"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="2"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Category" />
@@ -79,9 +78,9 @@
             SelectedItem="{Binding selectedCategory}" />
         <Label
             Grid.Row="4"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Quantity" />
@@ -90,14 +89,13 @@
             Grid.Row="4"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="3"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="5"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Size" />
@@ -106,14 +104,13 @@
             Grid.Row="5"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="4"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="6"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Unit" />
@@ -122,14 +119,13 @@
             Grid.Row="6"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="5"
             TextWrapping="Wrap" />
         <Label
             Grid.Row="8"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Critical Level" />
@@ -138,7 +134,6 @@
             Grid.Row="8"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="7"
             TextWrapping="Wrap" />
         <ComboBox
@@ -150,58 +145,58 @@
             IsEditable="True"
             SelectedIndex="2"
             Text="{Binding selectedSupplier}" />
-        <StackPanel
+
+        <Button
+            x:Name="btnCancel"
             Grid.Row="9"
             Grid.ColumnSpan="2"
-            Margin="0,5"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnCancel"
-                Width="200"
-                Margin="10,5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}">
+            Width="200"
+            Margin="10,5"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignRaisedAccentButton}">
 
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="#DDFFFFFF">
-                        Cancel
-                    </Label>
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnSave"
-                Width="200"
-                Margin="10,5,5,5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                TabIndex="8">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="#DDFFFFFF">
-                        Save
-                    </Label>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
+                <Label
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#DDFFFFFF">
+                    Cancel
+                </Label>
+            </StackPanel>
+        </Button>
+        <Button
+            x:Name="btnSave"
+            Grid.Row="9"
+            Grid.ColumnSpan="2"
+            Width="200"
+            Margin="10,5,5,5"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignRaisedAccentButton}"
+            TabIndex="8">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
+                <Label
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#DDFFFFFF">
+                    Save
+                </Label>
+            </StackPanel>
+        </Button>
         <Label
             Grid.Row="3"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Supplier" />
         <Label
             Grid.Row="7"
-            Margin="5"
+            Margin="0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Content="Weight" />
@@ -210,7 +205,6 @@
             Grid.Row="7"
             Grid.Column="1"
             Margin="5"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             TabIndex="6"
             TextWrapping="Wrap" />
     </Grid>

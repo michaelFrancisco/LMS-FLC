@@ -6,15 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ferver Ledesma Corporation"
-    Width="750"
-    Height="600"
+    Width="500"
+    Height="500"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid.Background>
@@ -81,34 +81,12 @@
             Grid.Row="3"
             Grid.Column="1"
             Margin="5" />
-        <StackPanel
-            Grid.Row="6"
-            Grid.Column="1"
-            Margin="0,5"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnCancel"
-                Width="200"
-                Height="Auto"
-                Margin="5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
-                    <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White">
-                        Cancel
-                    </Label>
-                </StackPanel>
-            </Button>
+        
             <Button
                 x:Name="btnSave"
-                Width="200"
                 Height="Auto"
                 Margin="5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="6" HorizontalAlignment="Right" Grid.ColumnSpan="3">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
                     <TextBlock
@@ -123,7 +101,6 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
-        </StackPanel>
         <Label
             Grid.Row="4"
             Margin="5"
@@ -131,7 +108,7 @@
             VerticalAlignment="Center"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Content="Required Materials" />
+            Content="Required Materials" Grid.ColumnSpan="2" />
         <DataGrid
             x:Name="materialsGrid"
             Grid.Row="5"
@@ -146,13 +123,28 @@
             ItemsSource="{Binding materialsGridSource}"
             SelectedItem="{Binding materialsGridSelectedItem}"
             SelectionMode="Single" />
+        <Button
+                x:Name="btnCancel"
+                Height="Auto"
+                Margin="5"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="6" Width="179" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
+                <Label
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="White">
+                    Cancel
+                </Label>
+            </StackPanel>
+        </Button>
         <StackPanel
-            Grid.Row="6"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Margin="5"
             Orientation="Horizontal"
-            Visibility="{Binding warningVisibility}">
-            <Image Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" />
+            Visibility="{Binding warningVisibility}" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Image Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" Width="25" Height="25" />
             <Label
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
