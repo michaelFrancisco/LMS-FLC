@@ -105,7 +105,7 @@ namespace BLM.ViewModels.Inventory
                     break;
 
                 case "Requests":
-                    _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.'");
+                    _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory'");
                     NotifyOfPropertyChange(null);
                     break;
             }
@@ -115,7 +115,7 @@ namespace BLM.ViewModels.Inventory
 
         public void btnRequests()
         {
-            _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.'");
+            _inventoryGridSource = Connection.dbTable("SELECT `production_requests`.`ID`, `inventory`.`Name`, `production_requests`.`Theoretical_Yield`, `production_requests`.`Status`, `production_requests`.`Due_Date`,`inventory`.`ID` FROM `flc`.`production_requests` INNER JOIN `flc`.`inventory` ON `production_requests`.`Recipe_ID` = `inventory`.`ID` WHERE Status = 'Waiting for Raw Materials' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory'");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Requests";
         }
@@ -128,7 +128,7 @@ namespace BLM.ViewModels.Inventory
                 switch (_selectedCategory)
                 {
                     case "Requests":
-                        if (dataRowView.Row[3].ToString() == "Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.")
+                        if (dataRowView.Row[3].ToString() == "Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory")
                         {
                             MessageBoxResult dialogResult = MessageBox.Show("Move finished products to inventory?", "!", MessageBoxButton.YesNo);
                             if (dialogResult == MessageBoxResult.Yes)

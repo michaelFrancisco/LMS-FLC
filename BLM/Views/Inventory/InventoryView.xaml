@@ -125,11 +125,15 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <Button
                         x:Name="btnRefresh"
+                        Width="149.9"
                         Margin="5,0"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="149.9">
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0,0,5,0" Source="/BLM;component/Resources/Icons/icons8-refresh-104.png" />
-                            <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <Label
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White">
                                 Refresh
                             </Label>
                         </StackPanel>
@@ -137,23 +141,32 @@
 
                     <Button
                         x:Name="btnPrint"
+                        Width="150"
                         Margin="5,0"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0" Source="/BLM;component/Resources/Icons/icons8-print-64.png" />
-                            <Label Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <Label
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White">
                                 Print
                             </Label>
                         </StackPanel>
                     </Button>
                     <Button
                         x:Name="btnCreate"
+                        Width="150"
                         Margin="0"
                         HorizontalAlignment="Right"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="150">
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                            <Label Content="Create New" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            <Label
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="Create New"
+                                Foreground="White" />
                         </StackPanel>
                     </Button>
 
@@ -166,12 +179,13 @@
                     Margin="5"
                     HorizontalAlignment="Stretch"
                     cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
+                    AutoGeneratingColumn="InventoryGrid_AutoGeneratingColumn"
                     CanUserAddRows="False"
                     ColumnWidth="Auto"
                     IsReadOnly="True"
                     ItemsSource="{Binding inventoryGridSource}"
                     SelectedItem="{Binding inventoryGridSelectedItem}"
-                    SelectionMode="Single" AutoGeneratingColumn="InventoryGrid_AutoGeneratingColumn" />
+                    SelectionMode="Single" />
             </Grid>
         </Grid>
     </Grid>

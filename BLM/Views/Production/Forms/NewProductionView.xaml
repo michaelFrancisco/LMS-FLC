@@ -1,6 +1,6 @@
 ﻿<Window
     x:Class="BLM.Views.Production.Forms.NewProductionView"
-   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -88,25 +88,31 @@
             Margin="5" />
 
         <Button
-                x:Name="btnCancel"
-                Width="200"
-                Margin="10,5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="6" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            x:Name="btnCancel"
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            Width="200"
+            Margin="10,5"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignRaisedAccentButton}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
                 <Label
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="White">
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White">
                     Cancel
                 </Label>
             </StackPanel>
         </Button>
         <Button
-                x:Name="btnSave"
-                Width="200"
-                Margin="10,5,5,5"
-                Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right">
+            x:Name="btnSave"
+            Grid.Row="6"
+            Grid.Column="1"
+            Width="200"
+            Margin="10,5,5,5"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignRaisedAccentButton}">
 
             <StackPanel Orientation="Horizontal">
                 <Image Source="/BLM;component/Resources/Icons/icons8-checked-128.png" />
