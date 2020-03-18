@@ -27,6 +27,7 @@
             </Grid.ColumnDefinitions>
             <Button
                 x:Name="btnLiveMap"
+                Height="Auto"
                 Margin="10,0"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}"
@@ -42,6 +43,7 @@
             <Button
                 x:Name="btnTruckInfo"
                 Grid.Column="2"
+                Height="Auto"
                 Margin="10,0"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}"

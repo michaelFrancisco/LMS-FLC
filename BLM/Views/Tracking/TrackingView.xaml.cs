@@ -59,12 +59,10 @@ namespace BLM.Views.Tracking
             dt.Start();
 
             map.MapProvider = GMapProviders.GoogleMap;
-            GMapProviders.GoogleMap.ApiKey = @"AIzaSyClpd29eOFZU_cb0joEX0yji2Ei9OzUq7o";
+            GMapProviders.GoogleMap.ApiKey = @"AIzaSyDtEr1U4olwEqd57ekWkJ0mNSLQHg95SqQ";
             map.MouseWheelZoomType = MouseWheelZoomType.ViewCenter;
             map.DragButton = System.Windows.Input.MouseButton.Left;
             map.ShowCenter = false;
-            map.MinZoom = 10;
-            map.MaxZoom = 18;
         }
 
         public PointLatLng getLocation(int truck)
@@ -73,7 +71,7 @@ namespace BLM.Views.Tracking
             FirebaseResponse response = null;
             if (truck == 1)
             {
-                response = client.Get("locations/420");
+                response = client.Get("locations/420/currentLocation");
             }
             else if (truck == 2)
             {
@@ -113,10 +111,11 @@ namespace BLM.Views.Tracking
                     if (!string.IsNullOrEmpty(pl.PostalCodeNumber))
                     {
                         txtLocation1.Text = "Location: " + pl.Address;
+                        break;
                     }
                     else
                     {
-                        txtLocation2.Text = "Location: Unknown";
+                        txtLocation1.Text = "Location: Unknown";
                     }
                 }
             }
@@ -128,6 +127,7 @@ namespace BLM.Views.Tracking
                     if (!string.IsNullOrEmpty(pl.PostalCodeNumber))
                     {
                         txtLocation2.Text = "Location: " + pl.Address;
+                        break;
                     }
                     else
                     {
@@ -143,10 +143,11 @@ namespace BLM.Views.Tracking
                     if (!string.IsNullOrEmpty(pl.PostalCodeNumber))
                     {
                         txtLocation3.Text = "Location: " + pl.Address;
+                        break;
                     }
                     else
                     {
-                        txtLocation2.Text = "Location: Unknown";
+                        txtLocation3.Text = "Location: Unknown";
                     }
                 }
             }
@@ -156,7 +157,7 @@ namespace BLM.Views.Tracking
         {
             map.Position = getLocation(_currentTruck);
             updateMarkers();
-            //changeLocationText();
+            changeLocationText();
         }
 
         private void updateMarkers()

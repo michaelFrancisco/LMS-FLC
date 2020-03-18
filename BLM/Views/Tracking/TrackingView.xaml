@@ -15,8 +15,8 @@
     mc:Ignorable="d">
     <Grid Width="Auto" Height="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
         <gmaps:GMapControl
             x:Name="map"
@@ -33,6 +33,7 @@
             <StackPanel Margin="5" Orientation="Vertical">
                 <Button
                     x:Name="btnTruck1"
+                    Height="Auto"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
@@ -63,6 +64,7 @@
                 </Button>
                 <Button
                     x:Name="btnTruck2"
+                    Height="Auto"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"
@@ -93,6 +95,7 @@
                 </Button>
                 <Button
                     x:Name="btnTruck3"
+                    Height="Auto"
                     Margin="0,5"
                     Padding="1"
                     HorizontalContentAlignment="Left"

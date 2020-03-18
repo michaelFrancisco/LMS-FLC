@@ -1,5 +1,4 @@
-﻿using ShowMeTheXAML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,7 +20,6 @@ namespace BLM
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            XamlDisplay.Init();
             base.OnStartup(e);
         }
     }

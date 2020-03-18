@@ -174,23 +174,6 @@
                         <Label VerticalAlignment="Center" Foreground="White">Logs</Label>
                     </StackPanel>
                 </RadioButton>
-                <RadioButton
-                    x:Name="btnLogout"
-                    MinHeight="60"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Center"
-                    cal:Message.Attach="[Event Click] = [Action btnLogout]"
-                    Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                    Style="{StaticResource MaterialDesignTabRadioButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image
-                            Width="40"
-                            Height="40"
-                            Margin="5"
-                            Source="/BLM;component/Resources/Icons/icons8-logout-rounded-left-100(1).png" />
-                        <Label VerticalAlignment="Center" Foreground="White">Logout</Label>
-                    </StackPanel>
-                </RadioButton>
             </StackPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>
         <materialDesign:DrawerHost.RightDrawerContent>
@@ -380,17 +363,13 @@
                             </StackPanel>
                         </Button>
                         <Button
-                            x:Name="btnProfile"
+                            x:Name="btnLogout"
                             Width="60"
                             Height="60"
                             Margin="5"
                             Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                             <StackPanel>
-                                <Image
-                                    Width="55"
-                                    Height="55"
-                                    Margin="1,5,0,0"
-                                    Source="/BLM;component/Resources/Icons/icons8-user-96.png" />
+                                <Image Margin="1,5,0,0" Source="/BLM;component/Resources/Icons/icons8-logout-rounded-left-100(1).png" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
