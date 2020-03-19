@@ -37,7 +37,7 @@ namespace BLM.ViewModels.Shipments
                 if (!string.IsNullOrEmpty(_txtSearch))
                 {
                     DataView dv = new DataView(_shipmentsGridSource);
-                    dv.RowFilter = "Origin LIKE '%" + _txtSearch + "%' OR Destination LIKE '%" + _txtSearch + "%' OR Truck LIKE '%" + _txtSearch + "%' OR 'Delivery Agent' LIKE '%" + _txtSearch + "%'";
+                    dv.RowFilter = "Destination LIKE '%" + _txtSearch + "%'";
                     _shipmentsGridSource = dv.ToTable();
                     NotifyOfPropertyChange(null);
                 }
@@ -51,7 +51,7 @@ namespace BLM.ViewModels.Shipments
 
         public void btnComplete()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'Complete' order by ID Desc;");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Complete' order by ID Desc;");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Complete";
         }
@@ -67,14 +67,14 @@ namespace BLM.ViewModels.Shipments
 
         public void btnPending()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'Pending' order by ID Desc;");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Pending' order by ID Desc;");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Pending";
         }
 
         public void btnTransit()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'In Transit' order by ID Desc;");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Transit' order by ID Desc;");
             NotifyOfPropertyChange(null);
             _selectedCategory = "Transit";
         }
@@ -84,17 +84,17 @@ namespace BLM.ViewModels.Shipments
             switch (_selectedCategory)
             {
                 case "Pending":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'Pending' order by ID Desc;");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Pending' order by ID Desc;");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
                 case "Transit":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'In Transit' order by ID Desc;");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Transit' order by ID Desc;");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
 
                 case "Complete":
-                    _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`Name` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'Complete' order by ID Desc;");
+                    _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Complete' order by ID Desc;");
                     _baseshipmentGridSource = _shipmentsGridSource;
                     break;
             }
@@ -120,9 +120,9 @@ namespace BLM.ViewModels.Shipments
 
         protected override void OnActivate()
         {
-            _shipmentsGridSource = Connection.dbTable(@"SELECT `shipments`.`ID`,`shipments`.`Category`,`shipments`.`Status`,`shipments`.`Origin`,`shipments`.`Destination`,`shipments`.`Date_Due`,`trucks`.`Name` AS `Truck`,`users`.`ID` AS `Delivery Agent`FROM shipments INNER JOIN users ON `shipments`.`Delivery_Agent_ID` = `users`.`ID` INNER JOIN trucks ON `shipments`.`Truck_ID` = `trucks`.`ID` where Status = 'Pending' order by ID Desc;");
+            _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Pending' order by ID Desc;");
             _baseshipmentGridSource = _shipmentsGridSource;
-            _selectedCategory = "All";
+            _selectedCategory = "Pending";
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

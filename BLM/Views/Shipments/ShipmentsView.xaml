@@ -127,27 +127,45 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <Button
-                    x:Name="btnCreate"
-                    Height="Auto"
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    BorderBrush="{x:Null}"
-                    Foreground="White">
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource 1}" />
-                    </Button.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
-                        <Label
-                            Margin="5,0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Foreground="White">
-                            Create New
-                        </Label>
-                    </StackPanel>
-                </Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button
+                        x:Name="btnCreate"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        BorderBrush="{x:Null}"
+                        Foreground="White">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-create-64.png" />
+                            <Label
+                                Margin="5,0"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White" Content="New Shipment"/>
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        x:Name="btnPrepareTruck"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        BorderBrush="{x:Null}"
+                        Foreground="White" Margin="5,0">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Margin="5,0" Source="/BLM;component/Resources/Icons/icons8-truck-64.png" />
+                            <Label
+                                Margin="5,0"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White" Content="Prepare Truck"/>
+                        </StackPanel>
+                    </Button>
+                    
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
                 <DataGrid

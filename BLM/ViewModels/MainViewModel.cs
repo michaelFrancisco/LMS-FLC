@@ -185,8 +185,12 @@ namespace BLM.ViewModels
 
         public void btnLogout()
         {
-            windowManager.ShowWindow(new LoginViewModel(), null, null);
-            TryClose();
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Logout?.", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                windowManager.ShowWindow(new LoginViewModel(), null, null);
+                TryClose();
+            }
         }
 
         public void btnLogs()

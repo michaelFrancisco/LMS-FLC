@@ -7,7 +7,6 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ferver Ledesma Corporation"
-    Height="650"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     TextElement.FontSize="14"
@@ -21,9 +20,6 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -69,29 +65,10 @@
             VerticalAlignment="Bottom"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Content="Origin" />
-        <ComboBox
-            x:Name="txtOrigin"
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="350"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Left"
-            materialDesign:HintAssist.Hint="Choose an origin"
-            materialDesign:TextFieldAssist.HasClearButton="True"
-            IsEditable="True"
-            Text="{Binding selectedOrigin}" />
-        <Label
-            Grid.Row="3"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
             Content="Destination" />
         <ComboBox
             x:Name="txtDestination"
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="1"
             Width="350"
             Margin="3,3,5,3"
@@ -101,45 +78,7 @@
             IsEditable="True"
             Text="{Binding selectedDestination}" />
         <Label
-            Grid.Row="4"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Truck" />
-        <ComboBox
-            x:Name="txtTruck"
-            Grid.Row="4"
-            Grid.Column="1"
-            Width="350"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Left"
-            materialDesign:HintAssist.Hint="Choose a truck"
-            materialDesign:TextFieldAssist.HasClearButton="True"
-            IsEditable="False"
-            Text="{Binding selectedTruck}" />
-        <Label
-            Grid.Row="5"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Content="Delivery Agent" />
-        <ComboBox
-            x:Name="txtDeliveryAgent"
-            Grid.Row="5"
-            Grid.Column="1"
-            Width="350"
-            Margin="3,3,5,3"
-            HorizontalAlignment="Left"
-            materialDesign:HintAssist.Hint="Choose a delivery agent"
-            materialDesign:TextFieldAssist.HasClearButton="True"
-            IsEditable="False"
-            Text="{Binding selectedDeliveryAgent}" />
-        <Label
-            Grid.Row="6"
+            Grid.Row="3"
             Margin="3,3,5,3"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
@@ -148,7 +87,7 @@
             Content="Date Due" />
         <DatePicker
             x:Name="dateDue"
-            Grid.Row="6"
+            Grid.Row="3"
             Grid.Column="1"
             Width="350"
             Margin="3,3,5,3"
@@ -157,7 +96,7 @@
             SelectedDate="{Binding selectedDate}"
             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
         <Label
-            Grid.Row="8"
+            Grid.Row="5"
             Margin="10,5,0,5"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
@@ -167,7 +106,7 @@
             RenderTransformOrigin="0.123,0.53" />
 
         <Label
-            Grid.Row="8"
+            Grid.Row="5"
             Grid.Column="1"
             Width="70"
             Height="26"
@@ -177,7 +116,7 @@
             Shipment
         </Label>
         <Grid
-            Grid.Row="9"
+            Grid.Row="6"
             Grid.ColumnSpan="2"
             Margin="5">
             <Grid.ColumnDefinitions>
@@ -213,7 +152,7 @@
                 SelectionMode="Single" />
         </Grid>
         <StackPanel
-            Grid.Row="11"
+            Grid.Row="8"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Margin="5,0,0,0"
@@ -221,15 +160,25 @@
             VerticalAlignment="Center"
             Orientation="Horizontal">
             <Label x:Name="txtCurrentWeight" Content="CURRENTWEIGHT" />
-            <Label Content="kg" Margin="-8,0,0,0" />
-            <Label x:Name="txtMaxWeight" Content="/3100kg" Margin="-8,0,0,0" />
+            <Label Margin="-8,0,0,0" Content="kg" />
+            <Label
+                x:Name="txtMaxWeight"
+                Margin="-8,0,0,0"
+                Content="/3100kg" />
             <StackPanel Orientation="Horizontal" Visibility="{Binding visibilityWeightWarning}">
-                <Image Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" Width="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Label x:Name="txtOverweightWarning" Content="Over weight capacity!" Foreground="#DDFF0000" />
+                <Image
+                    Width="24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" />
+                <Label
+                    x:Name="txtOverweightWarning"
+                    Content="Over weight capacity!"
+                    Foreground="#DDFF0000" />
             </StackPanel>
         </StackPanel>
         <StackPanel
-            Grid.Row="10"
+            Grid.Row="7"
             Grid.ColumnSpan="2"
             Margin="0,5"
             HorizontalAlignment="Right"
@@ -251,7 +200,8 @@
             <Button
                 x:Name="btnSave"
                 Margin="5,0"
-                Style="{StaticResource MaterialDesignRaisedButton}" IsEnabled="{Binding enabledSave}">
+                IsEnabled="{Binding enabledSave}"
+                Style="{StaticResource MaterialDesignRaisedButton}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
                     <Label
@@ -265,7 +215,7 @@
         </StackPanel>
         <TextBox
             x:Name="txtSearch"
-            Grid.Row="7"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Width="300"
             Margin="5"

@@ -25,26 +25,20 @@ namespace BLM.ViewModels.Shipments.Forms
         private string _quantityToolTipText;
         private string _selectedCategory;
         private DateTime _selectedDate;
-        private string _selectedDeliveryAgent;
         private string _selectedDestination;
-        private string _selectedOrigin;
-        private string _selectedTruck;
         private object _shipmentGridSelectedItem;
         private DataTable _shipmentGridSource;
         private string _tempo;
         private List<String> _txtCategory;
         private double _txtCurrentWeight;
-        private List<string> _txtDeliveryAgent;
         private List<string> _txtDestination;
         private int _txtEnteredWeight;
         private int _txtGrossWeight;
         private int _txtNetWeight;
-        private List<String> _txtOrigin;
         private int _txtQuantity;
         private string _txtQuantityLabel;
         private string _txtSearch;
         private int _txtTareWeight;
-        private List<string> _txtTruck;
         private string _txtWeight;
         private Visibility _visibilityWeightWarning;
         private Visibility _WeightBoxVisibility;
@@ -119,28 +113,10 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _selectedDate = value; }
         }
 
-        public string selectedDeliveryAgent
-        {
-            get { return _selectedDeliveryAgent; }
-            set { _selectedDeliveryAgent = value; }
-        }
-
         public string selectedDestination
         {
             get { return _selectedDestination; }
             set { _selectedDestination = value; }
-        }
-
-        public string selectedOrigin
-        {
-            get { return _selectedOrigin; }
-            set { _selectedOrigin = value; }
-        }
-
-        public string selectedTruck
-        {
-            get { return _selectedTruck; }
-            set { _selectedTruck = value; }
         }
 
         public object shipmentGridSelectedItem
@@ -167,23 +143,12 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _txtCurrentWeight = value; }
         }
 
-        public List<string> txtDeliveryAgent
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("select Distinct Name from users where User_Level = 'Delivery Agent'");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
-                return list;
-            }
-            set { _txtDeliveryAgent = value; }
-        }
-
         public List<string> txtDestination
         {
             get
             {
-                DataTable dt = Connection.dbTable("select Distinct Destination from shipments");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Destination")).ToList();
+                DataTable dt = Connection.dbTable("select Distinct Name from client");
+                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
                 return list;
             }
             set { _txtDestination = value; }
@@ -205,17 +170,6 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return _txtNetWeight; }
             set { _txtNetWeight = value; }
-        }
-
-        public List<String> txtOrigin
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("select DISTINCT Origin from shipments");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Origin")).ToList();
-                return list;
-            }
-            set { _txtOrigin = value; }
         }
 
         public int txtQuantity
@@ -277,17 +231,6 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return _txtTareWeight; }
             set { _txtTareWeight = value; }
-        }
-
-        public List<string> txtTruck
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("select DISTINCT Name from trucks");
-                List<string> list = dt.AsEnumerable().Select(r => r.Field<string>("Name")).ToList();
-                return list;
-            }
-            set { _txtTruck = value; }
         }
 
         public string txtWeight
@@ -420,21 +363,12 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             if (fieldsareComplete() && gridhasItems())
             {
-                DataTable _deliveryagentID = Connection.dbTable("select ID from users where Name = '" + _selectedDeliveryAgent + "'");
-                DataTable _truckID = Connection.dbTable("select ID from trucks where Name = '" + _selectedTruck + "'");
-                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Origin`, `Destination`, `Truck_ID`, `Delivery_Agent_ID`, `Date_Due`, `Created_By`) VALUES ('" + _selectedCategory + "', 'Pending', '" + _selectedOrigin + "', '" + _selectedDestination + "', '" + _truckID.Rows[0][0].ToString() + "', '" + _deliveryagentID.Rows[0][0].ToString() + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
+                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Destination`, `Date_Due`, `Created_By`, `Weight`) VALUES ('" + _selectedCategory + "', 'Pending','" + _selectedDestination + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "',`" + _txtCurrentWeight + "`);");
                 int shipmentID = getShipmentID();
                 foreach (DataRow row in _shipmentGridSource.Rows)
                 {
                     Connection.dbCommand(@"INSERT INTO `flc`.`shipment_items` (`Item_ID`, `Shipment_ID`, `Quantity`) VALUES ('" + row[0].ToString() + "', '" + shipmentID + "', '" + row[3].ToString() + "');");
                 }
-                //if (_selectedCategory == "Outbound")
-                //{
-                //    foreach (DataRow row in _shipmentGridSource.Rows)
-                //    {
-                //        Connection.dbCommand("INSERT INTO `flc`.`request_production` (`inventory_Item_ID`, `status`, `theoretical_yield`, `due_date`) VALUES ('" + row[0].ToString() + "', 'pending', '" + _txtQuantity + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "');");
-                //    }
-                //}
                 TryClose();
             }
             else
@@ -495,7 +429,7 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public bool fieldsareComplete()
         {
-            if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedOrigin) || string.IsNullOrEmpty(_selectedTruck) || string.IsNullOrEmpty(_selectedDeliveryAgent) || string.IsNullOrEmpty(_selectedDestination))
+            if (string.IsNullOrEmpty(_selectedCategory) || string.IsNullOrEmpty(_selectedDestination))
             {
                 return false;
             }

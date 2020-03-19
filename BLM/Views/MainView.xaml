@@ -323,7 +323,7 @@
                                     <Image
                                         Width="55"
                                         Height="55"
-                                        Margin="0"
+                                        Margin="1"
                                         Source="/BLM;component/Resources/Icons/icons8-notification-100.png" />
                                 </Grid>
                             </Button>
@@ -358,7 +358,7 @@
                                 <Image
                                     Width="55"
                                     Height="55"
-                                    Margin="0,4,-3,0"
+                                    Margin="1"
                                     Source="/BLM;component/Resources/Icons/icons8-chat-messages-96.png" />
                             </StackPanel>
                         </Button>
@@ -369,7 +369,7 @@
                             Margin="5"
                             Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                             <StackPanel>
-                                <Image Margin="1,5,0,0" Source="/BLM;component/Resources/Icons/icons8-logout-rounded-left-100(1).png" />
+                                <Image Margin="1" Source="/BLM;component/Resources/Icons/icons8-shutdown-64.png" Width="50" Height="50" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
