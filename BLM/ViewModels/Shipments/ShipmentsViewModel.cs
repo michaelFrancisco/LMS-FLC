@@ -49,6 +49,11 @@ namespace BLM.ViewModels.Shipments
             }
         }
 
+        public void btnPrepareTruck()
+        {
+            windowManager.ShowWindow(new PrepareTruckViewModel(), null, null);
+        }
+
         public void btnComplete()
         {
             _shipmentsGridSource = Connection.dbTable(@"SELECT * FROM flc.shipments where Status = 'Complete' order by ID Desc;");

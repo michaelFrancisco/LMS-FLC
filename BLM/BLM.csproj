@@ -308,6 +308,7 @@
     <Compile Include="ViewModels\Scale\ScaleViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\EditShipmentViewModel.cs" />
     <Compile Include="ViewModels\Shipments\Forms\NewShipmentViewModel.cs" />
+    <Compile Include="ViewModels\Shipments\Forms\PrepareTruckViewModel.cs" />
     <Compile Include="ViewModels\Shipments\ShipmentsViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\Tracking\TrackingMenuViewModel.cs" />
@@ -360,6 +361,9 @@
     </Compile>
     <Compile Include="Views\Shipments\Forms\NewShipmentView.xaml.cs">
       <DependentUpon>NewShipmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shipments\Forms\PrepareTruckView.xaml.cs">
+      <DependentUpon>PrepareTruckView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shipments\ShipmentsView.xaml.cs">
       <DependentUpon>ShipmentsView.xaml</DependentUpon>
@@ -479,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shipments\Forms\NewShipmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shipments\Forms\PrepareTruckView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
