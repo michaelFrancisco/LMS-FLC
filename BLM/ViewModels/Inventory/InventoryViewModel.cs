@@ -167,14 +167,13 @@ namespace BLM.ViewModels.Inventory
 
         public void btnPrint()
         {
-            string path = System.AppDomain.CurrentDomain.BaseDirectory + @"\Reports\InventoryReport.mrt";
-
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + @"\Reporting\InventoryReport.mrt";
 
             StiReport report = new StiReport();
-           // report.Load(@"\BLM\Reports\InventoryReport.mrt");
+            // report.Load(@"\BLM\Reports\InventoryReport.mrt");
+            //report.Load(@"C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Reports\InventoryReport.mrt");
             report.Load(path);
-          //  report.Load(@"C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Reports\InventoryReport.mrt");
-            report.Show(); 
+            report.Show();
         }
     }
 }

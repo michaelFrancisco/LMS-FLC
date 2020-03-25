@@ -12,13 +12,11 @@ namespace BLM.ViewModels.Tracking
         public void btnLiveMap()
         {
             ActivateItem(new TrackingViewModel());
-
         }
         public void btnTruckInfo()
         {
             ActivateItem(new TruckInfoViewModel());
         }
-
         protected override void OnActivate()
         {
             ActivateItem(new TrackingViewModel());

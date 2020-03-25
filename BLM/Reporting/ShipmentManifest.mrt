@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <FLC Ref="2" type="Stimulsoft.Report.Dictionary.StiOdbcDatabase" isKey="true">
+        <Alias>FLC</Alias>
+        <ConnectionStringEncrypted>1CrPzdxLMQ==</ConnectionStringEncrypted>
+        <Name>FLC</Name>
+      </FLC>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <shipment_manifest Ref="3" type="Stimulsoft.Report.Dictionary.StiOdbcSource" isKey="true">
+        <Alias>shipment_manifest</Alias>
+        <Columns isList="true" count="8">
+          <value>Quantity,System.String</value>
+          <value>Item_x0020_Name,System.String</value>
+          <value>Truck_x0020_Name,System.String</value>
+          <value>Plate_x0020_Number,System.String</value>
+          <value>Client_x0020_Name,System.String</value>
+          <value>Address,System.String</value>
+          <value>Contact_Person,System.String</value>
+          <value>Contact_Number,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>1aa00537ecca41f2946a2f6ecdf87dfd</Key>
+        <Name>shipment_manifest</Name>
+        <NameInSource>FLC</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from shipment_manifest</SqlCommand>
+      </shipment_manifest>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>c118cf69632c415098a31221584a496d</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="1">
+        <Datashipment_manifest Ref="5" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,0.4,19,0.8</ClientRectangle>
+          <Components isList="true" count="8">
+            <Datashipment_manifest_Quantity Ref="6" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Quantity</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Quantity>
+            <Datashipment_manifest_Item_Name Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.4,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Item_Name</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Item_Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Item_Name>
+            <Datashipment_manifest_Truck_Name Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4.8,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Truck_Name</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Truck_Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Truck_Name>
+            <Datashipment_manifest_Plate_Number Ref="9" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>7.2,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Plate_Number</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Plate_Number}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Plate_Number>
+            <Datashipment_manifest_Client_Name Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.6,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Client_Name</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Client_Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Client_Name>
+            <Datashipment_manifest_Address Ref="11" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Address</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Address}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Address>
+            <Datashipment_manifest_Contact_Person Ref="12" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>14.4,0,2.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Contact_Person</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Contact_Person}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Contact_Person>
+            <Datashipment_manifest_Contact_Number Ref="13" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>16.8,0,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Datashipment_manifest_Contact_Number</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{shipment_manifest.Contact_Number}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Datashipment_manifest_Contact_Number>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataSourceName>shipment_manifest</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>Datashipment_manifest</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </Datashipment_manifest>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>981894b31f6143bfb2b6e4dd22f699a3</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>3/10/2020 12:19:09 PM</ReportChanged>
+  <ReportCreated>3/10/2020 12:05:33 PM</ReportCreated>
+  <ReportFile>C:\Users\TOYBITS\source\repos\michaelFrancisco\BLM\BLM\Reporting\ShipmentManifest.mrt</ReportFile>
+  <ReportGuid>363a7624abdd4af2887a47e356fed0be</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2020.2.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>
