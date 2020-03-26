@@ -363,7 +363,7 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             if (fieldsareComplete() && gridhasItems())
             {
-                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Destination`, `Date_Due`, `Created_By`, `Weight`) VALUES ('" + _selectedCategory + "', 'Pending','" + _selectedDestination + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "',`" + _txtCurrentWeight + "`);");
+                Connection.dbCommand(@"INSERT INTO `flc`.`shipments` (`Category`, `Status`, `Destination`, `Date_Due`, `Created_By`, `Weight`) VALUES ('" + _selectedCategory + "', 'Pending','" + _selectedDestination + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "','" + _txtCurrentWeight + "');");
                 int shipmentID = getShipmentID();
                 foreach (DataRow row in _shipmentGridSource.Rows)
                 {

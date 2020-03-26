@@ -96,6 +96,7 @@
                 Height="290"
                 Margin="0,5"
                 cal:Message.Attach="[Event SelectionChanged] = [Action shipmentGridSelectionChanged]"
+                IsReadOnly="True"
                 ItemsSource="{Binding shipmentGridSource}"
                 SelectedItem="{Binding shipmentGridSelectedItem}" />
             <Button
@@ -140,17 +141,20 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label
-                Grid.Row="3"
+                Grid.Row="5"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 Content="Destinations" />
             <DataGrid
                 x:Name="destinationGrid"
-                Grid.Row="4"
+                Grid.Row="6"
                 Grid.ColumnSpan="2"
+                IsReadOnly="True"
                 ItemsSource="{Binding destinationGridSource}"
                 SelectedItem="{Binding destinationGridSelectedItem}" />
             <Label
@@ -195,7 +199,7 @@
                 Content="txtEstimatedTime" />
             <Button
                 x:Name="btnDispatchTruck"
-                Grid.Row="6"
+                Grid.Row="8"
                 Grid.ColumnSpan="2"
                 Height="Auto"
                 Margin="5"
@@ -203,10 +207,28 @@
                 Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
                 x:Name="btnGetRoute"
+                Grid.Row="7"
+                Grid.ColumnSpan="2"
                 Height="Auto"
                 Margin="5"
+                VerticalAlignment="Center"
+                Click="getRoute"
                 Content="Get Route"
-                Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="getRoute" />
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+            <DataGrid
+                x:Name="destinationGrid_Copy"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                Margin="0"
+                IsReadOnly="True"
+                ItemsSource="{Binding destinationGridSource}"
+                SelectedItem="{Binding destinationGridSelectedItem}" />
+            <Label
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Margin="0"
+                HorizontalAlignment="Center"
+                Content="Items" />
         </Grid>
     </Grid>
 </Window>

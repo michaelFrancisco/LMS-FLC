@@ -6,15 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows;
 
 namespace BLM.ViewModels.Shipments.Forms
 {
     internal class PrepareTruckViewModel : Screen
     {
-        private DataTable _destinationGridSource;
         private object _destinationGridSelectedItem;
-        private DataTable _shipmentGridSource;
+        private DataTable _destinationGridSource;
         private object _shipmentGridSelectedItem;
+        private DataTable _shipmentGridSource;
         private List<string> _txtCategory;
         private string _txtCategorySelectedItem;
         private string _txtDistance;
@@ -27,11 +28,7 @@ namespace BLM.ViewModels.Shipments.Forms
 
         private string _txtWeight;
 
-        public DataTable destinationGridSource
-        {
-            get { return _destinationGridSource; }
-            set { _destinationGridSource = value; }
-        }
+        private double _weight = 0;
 
         public object destinationGridSelectedItem
         {
@@ -39,16 +36,22 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _destinationGridSelectedItem = value; }
         }
 
-        public DataTable shipmentGridSource
+        public DataTable destinationGridSource
         {
-            get { return _shipmentGridSource; }
-            set { _shipmentGridSource = value; }
+            get { return _destinationGridSource; }
+            set { _destinationGridSource = value; }
         }
 
         public object shipmentGridSelectedItem
         {
             get { return _shipmentGridSelectedItem; }
             set { _shipmentGridSelectedItem = value; }
+        }
+
+        public DataTable shipmentGridSource
+        {
+            get { return _shipmentGridSource; }
+            set { _shipmentGridSource = value; }
         }
 
         public List<string> txtCategory
@@ -62,19 +65,26 @@ namespace BLM.ViewModels.Shipments.Forms
             get { return _txtCategorySelectedItem; }
             set
             {
-                _txtCategorySelectedItem = value;
-                if (_txtCategorySelectedItem == "Inbound")
+                try
                 {
-                    _shipmentGridSource = Connection.dbTable("Select * from shipments where Category = 'Inbound' AND Status = 'Ready'");
-                    NotifyOfPropertyChange(() => shipmentGridSource);
+                    _txtCategorySelectedItem = value;
+                    if (_txtCategorySelectedItem == "Inbound")
+                    {
+                        _shipmentGridSource = Connection.dbTable("Select * from shipments where Category = 'Inbound' AND Status = 'Ready'");
+                        NotifyOfPropertyChange(() => shipmentGridSource);
+                    }
+                    else if (_txtCategorySelectedItem == "Outbound")
+                    {
+                        _shipmentGridSource = Connection.dbTable("Select * from shipments where Category = 'Outbound' AND Status = 'Ready'");
+                        NotifyOfPropertyChange(() => shipmentGridSource);
+                    }
+                    _destinationGridSource = Connection.dbTable("Select * from shipments where null");
+                    NotifyOfPropertyChange(() => destinationGridSource);
                 }
-                else if (_txtCategorySelectedItem == "Outbound")
+                catch (Exception e)
                 {
-                    _shipmentGridSource = Connection.dbTable("Select * from shipments where Category = 'Outbound' AND Status = 'Ready'");
-                    NotifyOfPropertyChange(() => shipmentGridSource);
+                    MessageBox.Show(e.Message);
                 }
-                _destinationGridSource = Connection.dbTable("Select * from shipments where null");
-                NotifyOfPropertyChange(() => destinationGridSource);
             }
         }
 
@@ -138,12 +148,21 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public void btnAddShipment()
         {
-            DataRowView row = (DataRowView)_shipmentGridSelectedItem;
-            _destinationGridSource.ImportRow(row.Row);
-            double lat = double.Parse(Connection.dbTable("select Latitude from client where Name = '" + row["Destination"].ToString() + "'").Rows[0]["Latitude"].ToString());
-            double lng = double.Parse(Connection.dbTable("select Longitude from client where Name = '" + row["Destination"].ToString() + "'").Rows[0]["Longitude"].ToString());
-            PrepareTruckView.destinations.Add(new PointLatLng(lat, lng));
-            NotifyOfPropertyChange(() => destinationGridSource);
+            try
+            {
+                DataRowView row = (DataRowView)_shipmentGridSelectedItem;
+                _destinationGridSource.ImportRow(row.Row);
+                double lat = double.Parse(Connection.dbTable("select Latitude from client where Name = '" + row["Destination"].ToString() + "'").Rows[0]["Latitude"].ToString());
+                double lng = double.Parse(Connection.dbTable("select Longitude from client where Name = '" + row["Destination"].ToString() + "'").Rows[0]["Longitude"].ToString());
+                PrepareTruckView.destinations.Add(new PointLatLng(lat, lng));
+                _weight += double.Parse(row["Weight"].ToString());
+                _txtWeight = _weight.ToString() + "/3100kg";
+                NotifyOfPropertyChange(null);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void btnDispatchTruck()
@@ -152,19 +171,26 @@ namespace BLM.ViewModels.Shipments.Forms
 
         public void shipmentGridSelectionChanged()
         {
-            DataRowView row = (DataRowView)_shipmentGridSelectedItem;
-            string address = Connection.dbTable("Select Address from client where Name = '" + row["Destination"] + "'").Rows[0]["Address"].ToString();
-            _txtShipmentDetails = "Destination: " + row["Destination"].ToString() + Environment.NewLine;
-            _txtShipmentDetails += "Address: " + address + Environment.NewLine;
-            _txtShipmentDetails += "Due Date: " + row["Date_Due"].ToString() + Environment.NewLine;
-            _txtShipmentDetails += "Total Weight: " + row["Weight"].ToString() + Environment.NewLine;
-            _txtShipmentDetails += "Items: " + Environment.NewLine;
-            DataTable shipmentItems = Connection.dbTable("SELECT inventory.Name, shipment_items.Quantity FROM flc.shipment_items inner join inventory on shipment_items.Item_ID = inventory.ID where Shipment_ID = '" + row["ID"].ToString() + "'");
-            foreach (DataRow item in shipmentItems.Rows)
+            try
             {
-                _txtShipmentDetails += item["Name"].ToString() + "(x" + item["Quantity"].ToString() + ")" + Environment.NewLine;
+                DataRowView row = (DataRowView)_shipmentGridSelectedItem;
+                string address = Connection.dbTable("Select Address from client where Name = '" + row["Destination"] + "'").Rows[0]["Address"].ToString();
+                _txtShipmentDetails = "Destination: " + row["Destination"].ToString() + Environment.NewLine;
+                _txtShipmentDetails += "Address: " + address + Environment.NewLine;
+                _txtShipmentDetails += "Due Date: " + row["Date_Due"].ToString() + Environment.NewLine;
+                _txtShipmentDetails += "Total Weight: " + row["Weight"].ToString() + Environment.NewLine;
+                _txtShipmentDetails += "Items: " + Environment.NewLine;
+                DataTable shipmentItems = Connection.dbTable("SELECT inventory.Name, shipment_items.Quantity FROM flc.shipment_items inner join inventory on shipment_items.Item_ID = inventory.ID where Shipment_ID = '" + row["ID"].ToString() + "'");
+                foreach (DataRow item in shipmentItems.Rows)
+                {
+                    _txtShipmentDetails += item["Name"].ToString() + "(x" + item["Quantity"].ToString() + ")" + Environment.NewLine;
+                }
+                NotifyOfPropertyChange(null);
             }
-            NotifyOfPropertyChange(null);
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }

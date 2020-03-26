@@ -369,7 +369,11 @@
                             Margin="5"
                             Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                             <StackPanel>
-                                <Image Margin="1" Source="/BLM;component/Resources/Icons/icons8-shutdown-64.png" Width="50" Height="50" />
+                                <Image
+                                    Width="50"
+                                    Height="50"
+                                    Margin="1"
+                                    Source="/BLM;component/Resources/Icons/icons8-shutdown-64.png" />
                             </StackPanel>
                         </Button>
                     </StackPanel>

@@ -127,7 +127,10 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <Button
                         x:Name="btnCreate"
                         Height="40"
@@ -143,15 +146,17 @@
                                 Margin="5,0"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Foreground="White" Content="New Shipment"/>
+                                Content="New Shipment"
+                                Foreground="White" />
                         </StackPanel>
                     </Button>
                     <Button
                         x:Name="btnPrepareTruck"
                         Height="40"
+                        Margin="5,0"
                         HorizontalAlignment="Right"
                         BorderBrush="{x:Null}"
-                        Foreground="White" Margin="5,0">
+                        Foreground="White">
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource 1}" />
                         </Button.Background>
@@ -161,10 +166,11 @@
                                 Margin="5,0"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Foreground="White" Content="Prepare Truck"/>
+                                Content="Prepare Truck"
+                                Foreground="White" />
                         </StackPanel>
                     </Button>
-                    
+
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">

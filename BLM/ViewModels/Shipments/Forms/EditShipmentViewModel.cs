@@ -13,15 +13,10 @@ namespace BLM.ViewModels.Shipments.Forms
         private object _itemGridSelectedItem;
         private DataTable _itemGridSource;
         private string _lblCategory;
-        private string _lblDateDue;
-        private string _lblDeliveryAgent;
-        private string _lblDestination;
         private string _lblItemCategory;
         private string _lblItemName;
         private string _lblItemQuantity;
         private string _lblItemSize;
-        private string _lblOrigin;
-        private string _lblTruck;
         private int _selectedShipmentID;
         private DataTable _shipmentData;
 
@@ -68,34 +63,6 @@ namespace BLM.ViewModels.Shipments.Forms
             set { _lblCategory = value; }
         }
 
-        public string lblDateDue
-        {
-            get
-            {
-                return _shipmentData.Rows[0][10].ToString();
-            }
-            set { _lblDateDue = value; }
-        }
-
-        public string lblDeliveryAgent
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("Select Name from users where ID = '" + _shipmentData.Rows[0]["Delivery_Agent_ID"].ToString() + "'");
-                return dt.Rows[0][0].ToString();
-            }
-            set { _lblDeliveryAgent = value; }
-        }
-
-        public string lblDestination
-        {
-            get
-            {
-                return _shipmentData.Rows[0][6].ToString();
-            }
-            set { _lblDestination = value; }
-        }
-
         public string lblItemCategory
         {
             get { return _lblItemCategory; }
@@ -118,25 +85,6 @@ namespace BLM.ViewModels.Shipments.Forms
         {
             get { return _lblItemSize; }
             set { _lblItemSize = value; }
-        }
-
-        public string lblOrigin
-        {
-            get
-            {
-                return _shipmentData.Rows[0][5].ToString();
-            }
-            set { _lblOrigin = value; }
-        }
-
-        public string lblTruck
-        {
-            get
-            {
-                DataTable dt = Connection.dbTable("Select Name from trucks where ID = '" + _shipmentData.Rows[0][2].ToString() + "'");
-                return dt.Rows[0][0].ToString();
-            }
-            set { _lblTruck = value; }
         }
 
         public double txtItemCount
