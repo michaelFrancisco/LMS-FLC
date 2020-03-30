@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using static BLM.ViewModels.Requests.Forms.MissingMaterial;
 
 namespace BLM.ViewModels.Requests.Forms
 {
@@ -12,12 +11,12 @@ namespace BLM.ViewModels.Requests.Forms
     {
         private List<MissingMaterial> _missingMaterials;
 
+        private string _txtEmailList;
+
         public EmailPreviewViewModel(List<MissingMaterial> missingMaterials)
         {
             _missingMaterials = missingMaterials;
         }
-
-        private string _txtEmailList;
 
         public string txtEmailList
         {
@@ -25,26 +24,13 @@ namespace BLM.ViewModels.Requests.Forms
             set { _txtEmailList = value; }
         }
 
-        protected override void OnActivate()
+        public void btnCancel()
         {
-            fillEmailList();
-            base.OnActivate();
-        }
-
-        private void fillEmailList()
-        {
-            var emailGroups = from MissingMaterial in _missingMaterials group MissingMaterial by MissingMaterial.Email;
-            foreach (var group in emailGroups)
+            MessageBoxResult dialogResult = MessageBox.Show("Are you sure? Unsaved changes will be lost.", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
             {
-                _txtEmailList += group.Key;
-                _txtEmailList += Environment.NewLine + "-------------------------";
-                foreach (var material in group)
-                {
-                    _txtEmailList += Environment.NewLine + "   -" + material.MaterialName + " (x" + material.RequiredQuantity + ")";
-                }
-                _txtEmailList += Environment.NewLine + Environment.NewLine;
+                TryClose();
             }
-            NotifyOfPropertyChange(() => txtEmailList);
         }
 
         public void btnSave()
@@ -55,6 +41,12 @@ namespace BLM.ViewModels.Requests.Forms
                 emailSuppliers();
                 TryClose();
             }
+        }
+
+        protected override void OnActivate()
+        {
+            fillEmailList();
+            base.OnActivate();
         }
 
         private void emailSuppliers()
@@ -76,6 +68,22 @@ namespace BLM.ViewModels.Requests.Forms
                 body += System.Environment.NewLine + "[THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]";
                 Connection.sendEmail(subject, body, name, email);
             }
+        }
+
+        private void fillEmailList()
+        {
+            var emailGroups = from MissingMaterial in _missingMaterials group MissingMaterial by MissingMaterial.Email;
+            foreach (var group in emailGroups)
+            {
+                _txtEmailList += group.Key;
+                _txtEmailList += Environment.NewLine + "-------------------------";
+                foreach (var material in group)
+                {
+                    _txtEmailList += Environment.NewLine + "   -" + material.MaterialName + " (x" + material.RequiredQuantity + ")";
+                }
+                _txtEmailList += Environment.NewLine + Environment.NewLine;
+            }
+            NotifyOfPropertyChange(() => txtEmailList);
         }
     }
 }

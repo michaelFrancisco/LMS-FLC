@@ -9,6 +9,7 @@ namespace BLM.ViewModels.Requests.Forms
 {
     internal class NewRequestViewModel : Screen
     {
+        private readonly IWindowManager windowManager = new WindowManager();
         private DateTime _dateDue;
         private int _itemID;
         private object _materialsGridSelectedItem;
@@ -18,24 +19,10 @@ namespace BLM.ViewModels.Requests.Forms
         private int _txtQuantity;
         private string _txtRequest;
         private Visibility _warningVisibility;
-        private readonly IWindowManager windowManager = new WindowManager();
 
         public NewRequestViewModel(int itemID)
         {
             _itemID = itemID;
-        }
-
-        protected override void OnActivate()
-        {
-            DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
-            _txtName = dt.Rows[0][0].ToString();
-            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` as 'Supplier Name' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';");
-            _dateDue = DateTime.Now;
-            _warningVisibility = Visibility.Hidden;
-            _txtRequest = "Request Production";
-            raiseWarningIfNotEnoughMaterials();
-            NotifyOfPropertyChange(null);
-            base.OnActivate();
         }
 
         public DateTime dateDue
@@ -141,6 +128,19 @@ namespace BLM.ViewModels.Requests.Forms
                 }
             }
             return missingMaterialsList;
+        }
+
+        protected override void OnActivate()
+        {
+            DataTable dt = Connection.dbTable("Select Name from Inventory where ID = '" + _itemID + "'");
+            _txtName = dt.Rows[0][0].ToString();
+            _materialsGridSource = Connection.dbTable("SELECT `inventory`.`Name`, `recipe`.`Quantity` AS 'Required Quantity', `inventory`.`Quantity` AS 'Stock on Hand',`inventory`.`ID`,`supplier`.`Email`,`supplier`.`Name` as 'Supplier Name' FROM `flc`.`inventory` INNER JOIN `flc`.`recipe` ON `inventory`.`ID` = `recipe`.`Ingredient_ID` inner join `flc`.`supplier` on `supplier`.`ID`=`inventory`.`Supplier_ID` WHERE `recipe`.`Item_ID` = '" + _itemID + "';");
+            _dateDue = DateTime.Now;
+            _warningVisibility = Visibility.Hidden;
+            _txtRequest = "Request Production";
+            raiseWarningIfNotEnoughMaterials();
+            NotifyOfPropertyChange(null);
+            base.OnActivate();
         }
 
         private bool areRequiredFieldsComplete()

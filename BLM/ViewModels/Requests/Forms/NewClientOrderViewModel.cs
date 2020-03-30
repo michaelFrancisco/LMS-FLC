@@ -341,6 +341,11 @@ namespace BLM.ViewModels.Requests.Forms
 
         public void btnCancel()
         {
+            MessageBoxResult dialogResult = MessageBox.Show("Are you sure? Unsaved changes will be lost.", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                TryClose();
+            }
         }
 
         public void btnDeleteItem()
@@ -387,8 +392,9 @@ namespace BLM.ViewModels.Requests.Forms
             DataTable orderID = Connection.dbTable("select Max(ID) from client_order");
             foreach (DataRow iRow in _itemGridSource.Rows)
             {
-                Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Order_ID`,`Recipe_ID`, `Status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + orderID.Rows[0][0].ToString() + "','" + iRow["ID"] + "', 'Waiting for Raw Materials', '" + iRow["ID"] + "', '" + _dateDue.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
+                Connection.dbCommand("INSERT INTO `flc`.`production_requests` (`Order_ID`,`Recipe_ID`, `Status`, `theoretical_yield`, `due_date`, `Requested_By`) VALUES ('" + orderID.Rows[0][0].ToString() + "','" + iRow["ID"] + "', 'Waiting for Raw Materials', '" + iRow["Quantity"] + "', '" + _selectedDate.ToString("yyyy-MM-dd") + "', '" + CurrentUser.User_ID + "');");
             }
+            TryClose();
         }
 
         public List<MissingMaterial> GetListOfMissingMaterials()
@@ -418,6 +424,7 @@ namespace BLM.ViewModels.Requests.Forms
             col.SetOrdinal(5);
             _txtTotal = 0;
             _txtCurrentWeight = 0;
+            _selectedDate = DateTime.Now;
             _visibilityNotEnoughWarning = Visibility.Collapsed;
             _visibilityEmail = Visibility.Collapsed;
             _visibilityWeightWarning = Visibility.Collapsed;
