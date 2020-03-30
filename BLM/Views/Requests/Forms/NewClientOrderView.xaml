@@ -1,0 +1,385 @@
+﻿<Window
+    x:Class="BLM.Views.Requests.Forms.NewClientOrderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Ferver Ledesma Corporation"
+    Width="900"
+    Height="600"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <materialDesign:DialogHost x:Name="dialogHost" DialogOpened="DialogHost_DialogOpened">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="16">
+                <TextBlock>
+                    Edit Quantity or Remove
+                </TextBlock>
+                <TextBox
+                    x:Name="txtEditedQuantity"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding txtEditedQuantity}" />
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button
+                        x:Name="btnDeleteItem"
+                        Margin="0,8,8,0"
+                        cal:Message.Attach="[Event Click] = [Action btnDeleteItem]"
+                        Command="materialDesign:DialogHost.CloseDialogCommand"
+                        IsCancel="True"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        Delete
+                    </Button>
+                    <Button
+                        x:Name="btnEditItem"
+                        Margin="0,8,8,0"
+                        cal:Message.Attach="[Event Click] = [Action btnEditItem]"
+                        Command="materialDesign:DialogHost.CloseDialogCommand"
+                        IsDefault="True"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                True
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        Edit
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="328" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="3" Margin="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource 1}" />
+                </Grid.Background>
+                <Label
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White">
+                    Add New Shipment
+                </Label>
+            </Grid>
+            <Label
+                Grid.Row="1"
+                Margin="0,5,5,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Content="Client" />
+            <ComboBox
+                x:Name="txtClient"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="2,5"
+                materialDesign:HintAssist.Hint="Choose a client"
+                IsEditable="False"
+                Text="{Binding selectedClient}" />
+            <Label
+                Grid.Row="7"
+                Margin="0,5,5,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Content="Date Due" />
+            <DatePicker
+                x:Name="dateDue"
+                Grid.Row="7"
+                Grid.Column="1"
+                Margin="2"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                materialDesign:HintAssist.Hint="Pick Date"
+                FontSize="14"
+                SelectedDate="{Binding selectedDate}"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <Grid
+                Grid.Row="9"
+                Grid.ColumnSpan="3"
+                Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <DataGrid
+                    x:Name="itemGrid"
+                    Margin="0"
+                    HorizontalAlignment="Stretch"
+                    CanUserAddRows="False"
+                    ColumnWidth="Auto"
+                    FontSize="12"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding itemGridSource}"
+                    SelectedIndex="{Binding itemGridSelectedIndex}"
+                    SelectedItem="{Binding itemGridSelectedItem}"
+                    SelectionMode="Single" />
+            </Grid>
+            <StackPanel
+                Grid.Row="11"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="5,8,0,8"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Label x:Name="txtCurrentWeight" Content="CURRENTWEIGHT" />
+                <Label Margin="-8,0,0,0" Content="kg" />
+                <Label
+                    x:Name="txtMaxWeight"
+                    Margin="-8,0,0,0"
+                    Content="/3100kg" />
+                <StackPanel Orientation="Horizontal" Visibility="{Binding visibilityWeightWarning}">
+                    <Image
+                        Width="24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" />
+                    <Label
+                        x:Name="txtOverweightWarning"
+                        Content="Over weight capacity!"
+                        Foreground="#DDFF0000" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="11"
+                Grid.Column="2"
+                Margin="0,5"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btnCancel"
+                    Margin="5,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White">
+                            Cancel
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnSave"
+                    Margin="5,0"
+                    IsEnabled="{Binding enabledSave}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-save-400.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White">
+                            Save
+                        </Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="8"
+                Grid.ColumnSpan="3"
+                Margin="5"
+                Orientation="Horizontal">
+                <ComboBox
+                    x:Name="txtSearch"
+                    Width="420"
+                    Height="32"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Bottom"
+                    VerticalContentAlignment="Center"
+                    materialDesign:HintAssist.Hint="Search for an item"
+                    Text="{Binding selectedItem}" />
+                <TextBox
+                    x:Name="txtQuantity"
+                    Width="35"
+                    Margin="5,0"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    materialDesign:HintAssist.Hint="Qty" />
+                <Button
+                    x:Name="btnAdd"
+                    Width="120"
+                    Margin="5,0"
+                    IsEnabled="{Binding enabledSave}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-add-100(2).png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White">
+                            Add Item
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnEdit"
+                    Margin="5,0"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-minus-64.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White">
+                            Edit Item
+                        </Label>
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnEmail"
+                    Margin="5,0"
+                    Visibility="{Binding visibilityEmail}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/BLM;component/Resources/Icons/icons8-chat-messages-96.png" />
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            Foreground="White">
+                            Contact Suppliers
+                        </Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Label
+                Grid.Row="3"
+                Margin="0,5"
+                HorizontalAlignment="Right"
+                Content="Contact Person" />
+            <Label
+                x:Name="txtContactPerson"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Content="txtContactPerson" />
+            <Label
+                Grid.Row="4"
+                Margin="0,5"
+                HorizontalAlignment="Right"
+                Content="Phone Number" />
+            <Label
+                x:Name="txtPhoneNumber"
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Content="txtPhoneNumber" />
+            <Label
+                Grid.Row="5"
+                Height="25"
+                Margin="0,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Email" />
+            <Label
+                x:Name="txtEmail"
+                Grid.Row="5"
+                Grid.Column="1"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Content="txtEmail" />
+            <Label
+                Grid.Row="6"
+                Height="25"
+                Margin="0,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Address" />
+            <Label
+                x:Name="txtAddress"
+                Grid.Row="6"
+                Grid.Column="1"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Content="txtAddress" />
+            <StackPanel
+                Grid.Row="10"
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Label Content="Total: " />
+                <Label x:Name="txtTotal" Content="txtTotal" />
+            </StackPanel>
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.RowSpan="7"
+                Grid.Column="2"
+                Margin="5">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Label Content="Raw materials needed" />
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Visibility="{Binding visibilityNotEnoughWarning}">
+                            <Image
+                                Width="24"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Source="/BLM;component/Resources/Icons/icons8-brake-warning-48.png" />
+                            <Label
+                                x:Name="txtNotEnoughMaterials"
+                                VerticalAlignment="Center"
+                                Content="Not Enough Materials!"
+                                FontSize="12"
+                                Foreground="#DDFF0000" />
+                        </StackPanel>
+
+                    </StackPanel>
+                    <DataGrid
+                        x:Name="materialsGrid"
+                        Height="186"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        CanUserAddRows="False"
+                        ColumnWidth="Auto"
+                        FontSize="12"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding materialsGridSource}"
+                        SelectionMode="Single" />
+                </DockPanel>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>

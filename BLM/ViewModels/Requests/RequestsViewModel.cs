@@ -16,6 +16,12 @@ namespace BLM.ViewModels.Requests
         private string _selectedCategory;
         private string _txtSearch;
 
+        private Visibility _visibilityCancel;
+
+        private Visibility _visibilityRequest;
+
+
+
         public object requestsGridSelectedItem
         {
             get { return _requestsGridSelectedItem; }
@@ -49,29 +55,75 @@ namespace BLM.ViewModels.Requests
             }
         }
 
+        public Visibility visibilityCancel
+        {
+            get { return _visibilityCancel; }
+            set { _visibilityCancel = value; }
+        }
+
+        public Visibility visibilityRequest
+        {
+            get { return _visibilityRequest; }
+            set { _visibilityRequest = value; }
+        }
+
+        public void btnCancelRequest()
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                DataRowView dataRowView = (DataRowView)_requestsGridSelectedItem;
+                Connection.dbCommand("DELETE FROM `flc`.`production_requests` WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
+            }
+        }
+
         public void btnComplete()
         {
             _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Finished';");
-            NotifyOfPropertyChange(null);
+            _visibilityCancel = Visibility.Collapsed;
+            _visibilityRequest = Visibility.Collapsed;
             _selectedCategory = "Complete";
+            NotifyOfPropertyChange(null);
         }
 
         public void btnExport()
         {
         }
 
+        public void btnManualRequest()
+        {
+            try
+            {
+                DataRowView dataRowView = (DataRowView)_requestsGridSelectedItem;
+                windowManager.ShowWindow(new NewRequestViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
+            }
+            catch
+            {
+            }
+        }
+
+        public void btnNewClientOrder()
+        {
+            windowManager.ShowWindow(new NewClientOrderViewModel(), null, null);
+
+        }
+
         public void btnPending()
         {
             _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Pending';");
-            NotifyOfPropertyChange(null);
+            _visibilityCancel = Visibility.Visible;
+            _visibilityRequest = Visibility.Collapsed;
             _selectedCategory = "Pending";
+            NotifyOfPropertyChange(null);
         }
 
         public void btnProcessing()
         {
             _requestsGridSource = Connection.dbTable("Select `production_requests`.`ID`,`inventory`.`Name`,`production_requests`.`Status`, `production_requests`.`Theoretical_Yield` from `flc`.`production_requests` inner join `flc`.`inventory` on `flc`.`production_requests`.`Recipe_ID` = `flc`.`inventory`.`ID` where Status = 'Processing' or Status = 'Waiting for Raw Materials' or Status = 'Raw Materials delivered to Production team. Awaiting confirmation' or Status = 'Currently being processed by the Production Team' or Status = 'Finished by the Production Team. Waiting for Dispensing officer to transfer to inventory.';");
-            NotifyOfPropertyChange(null);
+            _visibilityCancel = Visibility.Collapsed;
+            _visibilityRequest = Visibility.Collapsed;
             _selectedCategory = "Processing";
+            NotifyOfPropertyChange(null);
         }
 
         public void btnRefresh()
@@ -105,33 +157,10 @@ namespace BLM.ViewModels.Requests
         public void btnRequest()
         {
             _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
-            NotifyOfPropertyChange(null);
+            _visibilityCancel = Visibility.Collapsed;
+            _visibilityRequest = Visibility.Visible;
             _selectedCategory = "Request";
-        }
-
-        public void showItem()
-        {
-            try
-            {
-                DataRowView dataRowView = (DataRowView)_requestsGridSelectedItem;
-                switch (_selectedCategory)
-                {
-                    case "Request":
-                        windowManager.ShowWindow(new NewRequestViewModel(Convert.ToInt32(dataRowView.Row[0])), null, null);
-                        break;
-
-                    case "Pending":
-                        MessageBoxResult dialogResult = MessageBox.Show("Do you want to cancel this request?", "!", MessageBoxButton.YesNo);
-                        if (dialogResult == MessageBoxResult.Yes)
-                        {
-                            Connection.dbCommand("DELETE FROM `flc`.`production_requests` WHERE (`ID` = '" + dataRowView.Row[0].ToString() + "');");
-                        }
-                        break;
-                }
-            }
-            catch
-            {
-            }
+            NotifyOfPropertyChange(null);
         }
 
         protected override void OnActivate()
@@ -139,6 +168,8 @@ namespace BLM.ViewModels.Requests
             _requestsGridSource = Connection.dbTable("SELECT `inventory`.`ID`,`inventory`.`Name`, `inventory`.`Quantity` as 'Stock on Hand' FROM flc.inventory where Category = 'Finished Product';");
             _baseshipmentGridSource = _requestsGridSource;
             _selectedCategory = "Request";
+            _visibilityCancel = Visibility.Collapsed;
+            _visibilityRequest = Visibility.Visible;
             NotifyOfPropertyChange(null);
             base.OnActivate();
         }

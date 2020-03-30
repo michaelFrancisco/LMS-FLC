@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using static BLM.ViewModels.Requests.Forms.NewRequestViewModel;
+using static BLM.ViewModels.Requests.Forms.MissingMaterial;
 
 namespace BLM.ViewModels.Requests.Forms
 {

@@ -22,6 +22,11 @@ namespace BLM.Views.Requests
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
 
+                case "Name":
+                    width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    e.Column.Width = width;
+                    break;
+
                 case "Supplier_ID":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;

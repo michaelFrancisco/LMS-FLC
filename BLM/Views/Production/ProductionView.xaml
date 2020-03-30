@@ -181,7 +181,6 @@
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
-
                     <DataGrid
                         x:Name="productionGrid"
                         Margin="5"

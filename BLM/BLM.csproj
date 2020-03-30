@@ -306,6 +306,8 @@
     <Compile Include="ViewModels\Production\Forms\NewProductionViewModel.cs" />
     <Compile Include="ViewModels\Production\ProductionViewModel.cs" />
     <Compile Include="ViewModels\Requests\Forms\EmailPreviewViewModel.cs" />
+    <Compile Include="ViewModels\Requests\Forms\MissingMaterial.cs" />
+    <Compile Include="ViewModels\Requests\Forms\NewClientOrderViewModel.cs" />
     <Compile Include="ViewModels\Requests\Forms\NewRequestViewModel.cs" />
     <Compile Include="ViewModels\Requests\RequestsViewModel.cs" />
     <Compile Include="ViewModels\Scale\ScaleViewModel.cs" />
@@ -349,6 +351,9 @@
     </Compile>
     <Compile Include="Views\Requests\Forms\EmailPreviewView.xaml.cs">
       <DependentUpon>EmailPreviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Requests\Forms\NewClientOrderView.xaml.cs">
+      <DependentUpon>NewClientOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Requests\Forms\NewRequestView.xaml.cs">
       <DependentUpon>NewRequestView.xaml</DependentUpon>
@@ -466,6 +471,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Requests\Forms\EmailPreviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Requests\Forms\NewClientOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -799,6 +808,9 @@
     <Resource Include="Resources\Icons\icons8-pin-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-minus-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -17,7 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.Background>
             <SolidColorBrush Color="White" />
@@ -134,6 +134,69 @@
                             </Label>
                         </StackPanel>
                     </Button>
+                    <Button
+                        x:Name="btnManualRequest"
+                        Height="Auto"
+                        Margin="5,0"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        Visibility="{Binding visibilityRequest}">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-add-100(2).png" />
+                            <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White">
+                                Manual Request
+                            </Label>
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        x:Name="btnCancelRequest"
+                        Height="Auto"
+                        Margin="5,0"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        Visibility="{Binding visibilityCancel}">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-cancel-256.png" />
+                            <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White">
+                                Cancel Request
+                            </Label>
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        x:Name="btnNewClientOrder"
+                        Height="Auto"
+                        Margin="5,0"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        Visibility="{Binding visibilityRequest}">
+                        <Button.Background>
+                            <SolidColorBrush Color="{DynamicResource 1}" />
+                        </Button.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/BLM;component/Resources/Icons/icons8-checklist-64.png" />
+                            <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White">
+                                New Client Order
+                            </Label>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1" Margin="5">
@@ -141,7 +204,6 @@
                     x:Name="requestsGrid"
                     Margin="5"
                     HorizontalAlignment="Stretch"
-                    cal:Message.Attach="[Event MouseDoubleClick] = [Action showItem]"
                     AutoGeneratingColumn="requestsGrid_AutoGeneratingColumn"
                     CanUserAddRows="False"
                     ColumnWidth="Auto"

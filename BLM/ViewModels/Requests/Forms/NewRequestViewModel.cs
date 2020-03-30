@@ -178,13 +178,5 @@ namespace BLM.ViewModels.Requests.Forms
             NotifyOfPropertyChange(() => txtRequest);
             NotifyOfPropertyChange(() => warningVisibility);
         }
-
-        public class MissingMaterial
-        {
-            public string SupplierName;
-            public string Email;
-            public string MaterialName;
-            public int RequiredQuantity;
-        }
     }
 }
